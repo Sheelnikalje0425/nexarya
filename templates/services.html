@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block title %}Services — Nexarya{% endblock %}
+{% block extra_styles %}
+<style>
+.page-hero{min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 40px 60px;}
+.svc-big-grid{display:grid;gap:60px;}
+.svc-section{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:50px 0;border-bottom:1px solid var(--border);}
+.svc-section:last-child{border-bottom:none;}
+.svc-section.reverse{direction:rtl;}
+.svc-section.reverse>*{direction:ltr;}
+.svc-content .icon-big{font-size:3.5rem;margin-bottom:20px;display:block;filter:drop-shadow(0 0 15px var(--neon));}
+.svc-content h3{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:16px;}
+.svc-content p{color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.svc-benefits{list-style:none;margin:20px 0;}
+.svc-benefits li{padding:8px 0;color:var(--muted);font-size:.9rem;display:flex;gap:10px;}
+.svc-benefits li::before{content:'→';color:var(--neon);flex-shrink:0;}
+.svc-example-box{background:rgba(0,245,255,0.04);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:20px;}
+.svc-example-box h5{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:3px;color:var(--neon4);text-transform:uppercase;margin-bottom:10px;}
+.svc-example-box p{color:var(--text);font-size:.9rem;}
+.svc-visual{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:40px;display:flex;align-items:center;justify-content:center;min-height:300px;position:relative;overflow:hidden;}
+.svc-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,245,255,0.05) 0%,transparent 70%);}
+.svc-visual-icon{font-size:6rem;filter:drop-shadow(0 0 30px var(--neon));animation:pulse 3s ease-in-out infinite;}
+.svc-tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.svc-tag{font-size:.65rem;font-family:'JetBrains Mono',monospace;letter-spacing:1px;padding:5px 12px;border:1px solid rgba(0,245,255,0.2);border-radius:3px;color:var(--neon);background:rgba(0,245,255,0.05);}
+@media(max-width:900px){.svc-section{grid-template-columns:1fr;}.svc-section.reverse{direction:ltr;}}
+</style>
+{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <div>
+    <p class="section-tag" style="text-align:center;">What We Offer</p>
+    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">Our <em>Services</em></h1>
+    <p style="color:var(--muted);margin-top:16px;max-width:550px;">End-to-end tech solutions — from a landing page to a full enterprise system. We cover it all.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="svc-big-grid">
+
+    <!-- Web Development -->
+    <div class="svc-section reveal">
+      <div class="svc-content">
+        <span class="icon-big">🌐</span>
+        <p class="section-tag">01 — Service</p>
+        <h3>Web Development</h3>
+        <p>From landing pages to complex dashboards and admin panels — we build pixel-perfect, high-performance websites that convert visitors into customers.</p>
+        <p>Every site we build is mobile-first, SEO-optimized, and built with clean, maintainable code.</p>
+        <ul class="svc-benefits">
+          <li>Custom website design matching your brand</li>
+          <li>Admin panels &amp; management dashboards</li>
+          <li>E-commerce with payment integration</li>
+          <li>Progressive Web Apps (PWA)</li>
+        </ul>
+        <div class="svc-example-box">
+          <h5>Example Use Case</h5>
+          <p>A real estate firm needed a property listing portal with search filters, enquiry forms, and an agent dashboard. Delivered in 3 weeks.</p>
+        </div>
+        <div class="svc-tags-row"><span class="svc-tag">React</span><span class="svc-tag">HTML/CSS/JS</span><span class="svc-tag">Flask</span><span class="svc-tag">Spring Boot</span></div>
+      </div>
+      <div class="svc-visual"><div class="svc-visual-icon">🌐</div></div>
+    </div>
+
+    <!-- Cloud -->
+    <div class="svc-section reverse reveal">
+      <div class="svc-content">
+        <span class="icon-big">☁️</span>
+        <p class="section-tag">02 — Service</p>
+        <h3>Cloud Deployment</h3>
+        <p>We set up, configure, and manage cloud infrastructure on AWS so your application is always fast, always available, and ready to scale on demand.</p>
+        <p>No DevOps headaches. We handle everything from VPCs to load balancers to auto-scaling groups.</p>
+        <ul class="svc-benefits">
+          <li>AWS EC2, S3, RDS, Lambda setup</li>
+          <li>Docker containerization &amp; Kubernetes</li>
+          <li>CI/CD pipeline configuration</li>
+          <li>SSL, DNS, and domain management</li>
+        </ul>
+        <div class="svc-example-box">
+          <h5>Example Use Case</h5>
+          <p>Migrated a growing SaaS product from shared hosting to AWS with zero downtime, cutting server costs by 40%.</p>
+        </div>
+        <div class="svc-tags-row"><span class="svc-tag">AWS</span><span class="svc-tag">Docker</span><span class="svc-tag">Kubernetes</span><span class="svc-tag">Nginx</span></div>
+      </div>
+      <div class="svc-visual"><div class="svc-visual-icon">☁️</div></div>
+    </div>
+
+    <!-- Custom Software -->
+    <div class="svc-section reveal">
+      <div class="svc-content">
+        <span class="icon-big">⚙️</span>
+        <p class="section-tag">03 — Service</p>
+        <h3>Custom Software</h3>
+        <p>Off-the-shelf software doesn't fit every business. We build bespoke ERP systems, business tools, and internal platforms tailored exactly to your workflow.</p>
+        <ul class="svc-benefits">
+          <li>ERP systems (inventory, HR, finance)</li>
+          <li>CRM &amp; lead management tools</li>
+          <li>Billing &amp; invoice automation</li>
+          <li>Multi-role permission systems</li>
+        </ul>
+        <div class="svc-example-box">
+          <h5>Example Use Case</h5>
+          <p>Built a full ERP for a manufacturing company with 200+ users — managing purchase orders, production, and payroll in one unified system.</p>
+        </div>
+        <div class="svc-tags-row"><span class="svc-tag">Spring Boot</span><span class="svc-tag">React</span><span class="svc-tag">MySQL</span><span class="svc-tag">Redis</span></div>
+      </div>
+      <div class="svc-visual"><div class="svc-visual-icon">⚙️</div></div>
+    </div>
+
+    <!-- API & Backend -->
+    <div class="svc-section reverse reveal">
+      <div class="svc-content">
+        <span class="icon-big">🔌</span>
+        <p class="section-tag">04 — Service</p>
+        <h3>API &amp; Backend</h3>
+        <p>Robust, documented REST APIs that power your mobile apps, web frontends, and third-party integrations. Built for speed, security, and scale.</p>
+        <ul class="svc-benefits">
+          <li>RESTful API design &amp; development</li>
+          <li>Authentication (JWT, OAuth2)</li>
+          <li>Third-party integrations (Razorpay, SMS, email)</li>
+          <li>Database design &amp; optimization</li>
+        </ul>
+        <div class="svc-example-box">
+          <h5>Example Use Case</h5>
+          <p>Built a payment and notification API backend for a fintech startup, handling 10,000+ transactions per day with 99.9% uptime.</p>
+        </div>
+        <div class="svc-tags-row"><span class="svc-tag">Flask</span><span class="svc-tag">FastAPI</span><span class="svc-tag">Spring Boot</span><span class="svc-tag">PostgreSQL</span></div>
+      </div>
+      <div class="svc-visual"><div class="svc-visual-icon">🔌</div></div>
+    </div>
+
+    <!-- Maintenance -->
+    <div class="svc-section reveal">
+      <div class="svc-content">
+        <span class="icon-big">🔧</span>
+        <p class="section-tag">05 — Service</p>
+        <h3>Maintenance &amp; Support</h3>
+        <p>Your system is live — now it needs to stay healthy. We offer ongoing maintenance plans including bug fixes, security patches, performance monitoring, and feature updates.</p>
+        <ul class="svc-benefits">
+          <li>Bug fixes &amp; security patches</li>
+          <li>Performance monitoring &amp; alerts</li>
+          <li>Feature additions &amp; upgrades</li>
+          <li>24/7 emergency support for Premium clients</li>
+        </ul>
+        <div class="svc-example-box">
+          <h5>Example Use Case</h5>
+          <p>Monthly retainer for an e-commerce platform — handling seasonal traffic spikes, new feature rollouts, and keeping dependencies up to date.</p>
+        </div>
+        <div class="svc-tags-row"><span class="svc-tag">Monitoring</span><span class="svc-tag">CI/CD</span><span class="svc-tag">Alerts</span><span class="svc-tag">Support</span></div>
+      </div>
+      <div class="svc-visual"><div class="svc-visual-icon">🔧</div></div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:80px;">
+    <p style="color:var(--muted);margin-bottom:24px;font-size:1.05rem;">Ready to start your project?</p>
+    <a href="/pricing" class="btn-primary">View Pricing →</a>
+    <a href="/contact" class="btn-outline" style="margin-left:16px;">Contact Us</a>
+  </div>
+</section>
+{% endblock %}

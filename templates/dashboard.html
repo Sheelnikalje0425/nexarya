@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Nexarya{% endblock %}
+{% block extra_styles %}
+<style>
+.dash-hero{padding:120px 60px 40px;background:rgba(0,245,255,0.02);border-bottom:1px solid var(--border);}
+.dash-greeting{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:3px;color:var(--neon4);margin-bottom:10px;}
+.dash-greeting::before{content:'// ';opacity:.5;}
+.dash-title{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:800;}
+.dash-sub{color:var(--muted);margin-top:8px;}
+.dash-content{padding:40px 60px;}
+.dash-actions{display:flex;gap:16px;margin-bottom:40px;flex-wrap:wrap;}
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:40px;}
+.dash-stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;text-align:center;}
+.dash-stat .num{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:var(--neon);}
+.dash-stat .lbl{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:6px;}
+.orders-section h3{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;margin-bottom:20px;letter-spacing:1px;}
+.orders-table{width:100%;border-collapse:collapse;}
+.orders-table th{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);}
+.orders-table td{padding:16px;border-bottom:1px solid rgba(0,245,255,0.05);font-size:.9rem;color:var(--text);}
+.orders-table tr:hover td{background:rgba(0,245,255,0.02);}
+.status-badge{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:1px;padding:4px 10px;border-radius:20px;display:inline-block;}
+.s-pending{background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3);color:#ffa500;}
+.s-in-review{background:rgba(123,47,255,0.1);border:1px solid rgba(123,47,255,0.3);color:var(--neon2);}
+.s-in-progress{background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.3);color:var(--neon);}
+.s-testing{background:rgba(255,45,122,0.1);border:1px solid rgba(255,45,122,0.3);color:var(--neon3);}
+.s-completed{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--neon4);}
+.s-cancelled{background:rgba(100,100,100,0.1);border:1px solid rgba(100,100,100,0.3);color:var(--muted);}
+.no-orders{text-align:center;padding:60px 20px;color:var(--muted);}
+.no-orders .icon{font-size:3rem;margin-bottom:16px;display:block;}
+.no-orders h4{font-family:'Orbitron',sans-serif;font-size:1rem;margin-bottom:10px;}
+.view-btn{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:1px;color:var(--neon);text-decoration:none;padding:6px 12px;border:1px solid rgba(0,245,255,0.2);border-radius:4px;transition:all .3s;}
+.view-btn:hover{background:rgba(0,245,255,0.1);}
+@media(max-width:900px){.dash-hero,.dash-content{padding-left:24px;padding-right:24px;}.orders-table{display:block;overflow-x:auto;}}
+</style>
+{% endblock %}
+{% block content %}
+<div class="dash-hero">
+  <p class="dash-greeting">User Dashboard</p>
+  <h1 class="dash-title">Welcome back, {{ user }} 👋</h1>
+  <p class="dash-sub">Manage your orders and track project progress here.</p>
+</div>
+
+<div class="dash-content">
+  <div class="dash-actions">
+    <a href="/place-order" class="btn-primary btn-sm">+ Place New Order</a>
+    <a href="/pricing" class="btn-outline btn-sm">View Plans</a>
+    <a href="/contact" class="btn-outline btn-sm">Contact Support</a>
+  </div>
+
+  <div class="stat-cards">
+    <div class="dash-stat"><div class="num">{{ orders|length }}</div><div class="lbl">Total Orders</div></div>
+    <div class="dash-stat"><div class="num">{{ orders|selectattr('tracking_status','eq','Completed')|list|length }}</div><div class="lbl">Completed</div></div>
+    <div class="dash-stat"><div class="num">{{ orders|selectattr('tracking_status','in',['Pending','In Review','In Progress','Testing'])|list|length }}</div><div class="lbl">In Progress</div></div>
+  </div>
+
+  <div class="orders-section">
+    <h3>Your Orders</h3>
+    {% if orders %}
+    <table class="orders-table">
+      <thead><tr><th>#</th><th>Domain</th><th>Plan</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+      <tbody>
+        {% for o in orders %}
+        <tr>
+          <td><span style="font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.75rem;">#{{o.order_id}}</span></td>
+          <td>{{o.order_domain}}</td>
+          <td><span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--neon2);">{{o.plan_selected}}</span></td>
+          <td>
+            {% set s=o.tracking_status.lower().replace(' ','-') %}
+            <span class="status-badge s-{{s}}">{{o.tracking_status}}</span>
+          </td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);">{{o.order_date.strftime('%d %b %Y') if o.order_date else '—'}}</td>
+          <td><a href="/order/{{o.order_id}}" class="view-btn">View →</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="no-orders">
+      <span class="icon">📭</span>
+      <h4>No orders yet</h4>
+      <p>You haven't placed any orders. Let's fix that!</p>
+      <a href="/place-order" class="btn-primary" style="margin-top:20px;display:inline-block;">Place Your First Order →</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

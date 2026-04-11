@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>{% block title %}Admin — Nexarya{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#020408;--bg2:#070d14;--neon:#00f5ff;--neon2:#7b2fff;--neon3:#ff2d7a;--neon4:#00ff88;--text:#e8f4ff;--muted:#7a9bb5;--card:rgba(0,245,255,0.04);--border:rgba(0,245,255,0.12);--glow:0 0 20px rgba(0,245,255,0.3);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
+.sidebar{width:240px;background:rgba(2,4,8,0.98);border-right:1px solid var(--border);padding:30px 20px;flex-shrink:0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;}
+.sidebar-logo{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:900;color:var(--neon);letter-spacing:2px;text-decoration:none;display:block;margin-bottom:6px;}
+.sidebar-logo span{color:var(--neon2);}
+.sidebar-tag{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:3px;color:var(--muted);display:block;margin-bottom:36px;}
+.sidebar-section{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:24px;padding-left:12px;}
+.sidebar a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:600;transition:all .3s;margin-bottom:4px;}
+.sidebar a:hover,.sidebar a.active{background:rgba(0,245,255,0.08);color:var(--neon);border-left:2px solid var(--neon);}
+.sidebar-icon{font-size:1rem;width:20px;text-align:center;}
+.sidebar-foot{position:absolute;bottom:20px;left:20px;right:20px;}
+.admin-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:1px;color:var(--neon4);background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);padding:8px 12px;border-radius:6px;margin-bottom:10px;display:block;}
+.logout-btn{display:block;width:100%;padding:10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:1px;color:var(--neon3);border:1px solid rgba(255,45,122,0.3);border-radius:6px;text-decoration:none;transition:all .3s;}
+.logout-btn:hover{background:rgba(255,45,122,0.1);}
+.main{margin-left:240px;flex:1;padding:0;}
+.topbar{background:rgba(2,4,8,0.9);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.topbar h1{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;}
+.content{padding:40px;}
+</style>
+{% block extra_styles %}{% endblock %}
+</head>
+<body>
+<div class="sidebar">
+  <a href="/admin" class="sidebar-logo">NEX<span>ARYA</span></a>
+  <span class="sidebar-tag">// Admin Panel</span>
+  <span class="sidebar-section">Navigation</span>
+  <a href="/admin" class="{% if request.endpoint=='admin_dashboard' %}active{% endif %}"><span class="sidebar-icon">📊</span>Dashboard</a>
+  <a href="/admin/orders" class="{% if request.endpoint=='admin_orders' %}active{% endif %}"><span class="sidebar-icon">📦</span>Orders</a>
+  <a href="/admin/users" class="{% if request.endpoint=='admin_users' %}active{% endif %}"><span class="sidebar-icon">👥</span>Users</a>
+  <a href="/" target="_blank"><span class="sidebar-icon">🌐</span>View Website</a>
+  <div class="sidebar-foot">
+    <span class="admin-badge">👤 {{ admin }}</span>
+    <a href="/admin/logout" class="logout-btn">Logout →</a>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);">NEXARYA ADMIN</span>
+  </div>
+  <div class="content">{% block content %}{% endblock %}</div>
+</div>
+</body>
+</html>

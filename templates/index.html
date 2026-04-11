@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% block title %}Nexarya — We Build Scalable Tech That Grows Your Business{% endblock %}
+{% block extra_styles %}
+<style>
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;position:relative;}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:4px;color:var(--neon4);text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fadeUp .8s .3s forwards;}
+.hero-tag::before{content:'// ';opacity:.5;}
+.hero-h1{font-family:'Orbitron',sans-serif;font-size:clamp(2.4rem,5.5vw,5.2rem);font-weight:900;line-height:1.08;letter-spacing:-1px;margin-bottom:24px;opacity:0;animation:fadeUp .8s .5s forwards;}
+.hero-h1 .line1{display:block;color:var(--text);}
+.hero-h1 .line2{display:block;background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(0,245,255,0.4));}
+.hero-sub{font-size:1.15rem;color:var(--muted);letter-spacing:1px;margin-bottom:48px;max-width:560px;opacity:0;animation:fadeUp .8s .7s forwards;}
+.hero-btns{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp .8s .9s forwards;}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1s 1.4s forwards;}
+.hero-scroll span{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--neon),transparent);animation:scrollPulse 2s infinite;}
+.stats-bar{display:flex;justify-content:center;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:50px 60px;background:rgba(0,245,255,0.02);}
+.stat-item{flex:1;min-width:160px;text-align:center;padding:20px;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Orbitron',sans-serif;font-size:2.8rem;font-weight:900;color:var(--neon);text-shadow:var(--glow);display:block;}
+.stat-label{font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:6px;display:block;}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.service-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:36px 28px;position:relative;overflow:hidden;cursor:pointer;transition:all .4s;}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.service-card:hover::before{transform:scaleX(1);}
+.service-card:hover{border-color:rgba(0,245,255,0.3);background:rgba(0,245,255,0.07);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.4),var(--glow);}
+.svc-icon{font-size:2.2rem;margin-bottom:20px;display:block;filter:drop-shadow(0 0 8px var(--neon));}
+.svc-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--neon);letter-spacing:3px;margin-bottom:12px;opacity:.7;display:block;}
+.svc-title{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;margin-bottom:12px;letter-spacing:1px;}
+.svc-desc{color:var(--muted);font-size:.9rem;line-height:1.7;}
+.svc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.svc-tag{font-size:.65rem;font-family:'JetBrains Mono',monospace;letter-spacing:1px;padding:4px 10px;border:1px solid rgba(0,245,255,0.2);border-radius:3px;color:var(--neon);background:rgba(0,245,255,0.05);}
+#why{background:rgba(0,0,0,0.3);}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+.why-visual{position:relative;height:440px;display:flex;align-items:center;justify-content:center;}
+.why-hexagon{width:180px;height:180px;background:linear-gradient(135deg,rgba(0,245,255,0.1),rgba(123,47,255,0.1));border:1px solid var(--border);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);position:absolute;animation:hexFloat 4s ease-in-out infinite;display:flex;align-items:center;justify-content:center;}
+.why-hexagon .inner{font-family:'Orbitron',sans-serif;font-size:2rem;color:var(--neon);text-shadow:var(--glow);}
+.hex1{width:200px;height:200px;}
+.hex2{width:130px;height:130px;top:60px;right:60px;animation-delay:1s;border-color:rgba(123,47,255,0.3);}
+.hex3{width:90px;height:90px;bottom:60px;left:80px;animation-delay:2s;border-color:rgba(255,45,122,0.3);}
+.orbit-ring{position:absolute;border-radius:50%;border:1px dashed rgba(0,245,255,0.15);animation:rotate 20s linear infinite;}
+.orbit1{width:280px;height:280px;}
+.orbit2{width:380px;height:380px;animation-direction:reverse;animation-duration:30s;}
+.orbit-dot{position:absolute;width:6px;height:6px;background:var(--neon);border-radius:50%;top:-3px;left:50%;transform:translateX(-50%);box-shadow:0 0 8px var(--neon);}
+.why-points{display:flex;flex-direction:column;gap:20px;}
+.why-point{display:flex;gap:20px;align-items:flex-start;padding:20px;border-radius:8px;border:1px solid transparent;transition:all .3s;}
+.why-point:hover{border-color:var(--border);background:var(--card);}
+.why-point-icon{width:44px;height:44px;flex-shrink:0;border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:rgba(0,245,255,0.05);}
+.why-point-body h4{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:1px;margin-bottom:6px;}
+.why-point-body p{color:var(--muted);font-size:.9rem;line-height:1.6;}
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;}
+.project-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--card);transition:all .4s;cursor:pointer;}
+.project-card:hover{border-color:rgba(0,245,255,0.3);transform:translateY(-8px);box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 30px rgba(0,245,255,0.1);}
+.project-visual{height:200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pv-erp{background:linear-gradient(135deg,#0d1b2a,#1a2d4a);}
+.pv-ecom{background:linear-gradient(135deg,#1a0d2a,#2d1a4a);}
+.pv-demo{background:linear-gradient(135deg,#0d2a1a,#1a4a2d);}
+.project-visual-icon{font-size:3.5rem;filter:drop-shadow(0 0 20px var(--neon));}
+.project-info{padding:24px;}
+.project-tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--neon4);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.project-title{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:12px;}
+.project-desc{color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:16px;}
+.project-stack{display:flex;flex-wrap:wrap;gap:8px;}
+.stack-tag{font-size:.65rem;font-family:'JetBrains Mono',monospace;padding:4px 10px;border:1px solid rgba(123,47,255,0.3);border-radius:3px;color:var(--neon2);background:rgba(123,47,255,0.05);}
+.cta-banner{padding:100px 60px;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(0,245,255,0.06),rgba(123,47,255,0.06));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.cta-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,245,255,0.08) 0%,transparent 70%);}
+.cta-h2{font-family:'Orbitron',sans-serif;font-size:clamp(1.8rem,3.5vw,3.2rem);font-weight:900;margin-bottom:20px;position:relative;}
+.cta-sub{color:var(--muted);font-size:1.1rem;margin-bottom:44px;max-width:560px;margin-left:auto;margin-right:auto;position:relative;}
+.terminal-box{background:rgba(0,0,0,0.6);border:1px solid rgba(0,245,255,0.15);border-radius:8px;padding:20px 24px;margin-bottom:30px;font-family:'JetBrains Mono',monospace;font-size:.8rem;max-width:500px;margin-left:auto;margin-right:auto;}
+.terminal-box .line{color:var(--muted);margin-bottom:6px;}
+.terminal-box .prompt{color:var(--neon4);margin-right:8px;}
+.terminal-box .cmd{color:var(--text);}
+.terminal-box .output{color:var(--neon);}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr;}.why-visual{height:250px;}.stats-bar{padding:30px 24px;}.cta-banner{padding:60px 24px;}}
+</style>
+{% endblock %}
+{% block content %}
+<!-- HERO -->
+<section id="home">
+  <p class="hero-tag">Mumbai-Based Tech Company</p>
+  <h1 class="hero-h1">
+    <span class="line1">We Build Scalable Tech</span>
+    <span class="line2">That Grows Your Business</span>
+  </h1>
+  <p class="hero-sub">Cloud, Web &amp; Custom Software Solutions — built fast, clean and affordable.</p>
+  <div class="hero-btns">
+    <a href="/pricing" class="btn-primary">Get a Quote →</a>
+    <a href="/services" class="btn-outline">View Services</a>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num" data-target="50">0+</span><span class="stat-label">Projects Completed</span></div>
+  <div class="stat-item"><span class="stat-num" data-target="30">0+</span><span class="stat-label">Clients Served</span></div>
+  <div class="stat-item"><span class="stat-num" data-target="15">0+</span><span class="stat-label">Technologies Used</span></div>
+  <div class="stat-item"><span class="stat-num" data-target="99">0%</span><span class="stat-label">Client Satisfaction</span></div>
+</div>
+
+<!-- WHAT WE DO -->
+<section class="section" id="services">
+  <span class="section-num">01</span>
+  <p class="section-tag">What We Do</p>
+  <h2 class="section-h2">Full-Stack <em>Tech Solutions</em></h2>
+  <p class="section-desc">From concept to cloud — we deliver end-to-end digital solutions tailored for your business needs.</p>
+  <div class="neon-line"></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="svc-icon">🌐</span>
+      <span class="svc-num">01 — SERVICE</span>
+      <h3 class="svc-title">Web Development</h3>
+      <p class="svc-desc">Websites, dashboards, admin panels &amp; e-commerce platforms built with modern frameworks.</p>
+      <div class="svc-tags"><span class="svc-tag">React</span><span class="svc-tag">Flask</span><span class="svc-tag">Spring Boot</span></div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">☁️</span>
+      <span class="svc-num">02 — SERVICE</span>
+      <h3 class="svc-title">Cloud Deployment</h3>
+      <p class="svc-desc">AWS deployment, hosting, scaling, and infrastructure management for production-ready apps.</p>
+      <div class="svc-tags"><span class="svc-tag">AWS</span><span class="svc-tag">Docker</span><span class="svc-tag">K8s</span></div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">⚙️</span>
+      <span class="svc-num">03 — SERVICE</span>
+      <h3 class="svc-title">API &amp; Backend</h3>
+      <p class="svc-desc">Robust REST APIs, microservices, and backend systems that power your digital products.</p>
+      <div class="svc-tags"><span class="svc-tag">Python</span><span class="svc-tag">Java</span><span class="svc-tag">MySQL</span></div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🔧</span>
+      <span class="svc-num">04 — SERVICE</span>
+      <h3 class="svc-title">Maintenance</h3>
+      <p class="svc-desc">Bug fixing, updates, monitoring, and ongoing support to keep your systems running perfectly.</p>
+      <div class="svc-tags"><span class="svc-tag">24/7 Support</span><span class="svc-tag">Monitoring</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NEXARYA -->
+<section class="section" id="why">
+  <span class="section-num">02</span>
+  <div class="why-grid">
+    <div class="why-visual">
+      <div class="orbit-ring orbit1"><div class="orbit-dot"></div></div>
+      <div class="orbit-ring orbit2"><div class="orbit-dot"></div></div>
+      <div class="why-hexagon hex1"><div class="inner">NX</div></div>
+      <div class="why-hexagon hex2"><div class="inner">⚡</div></div>
+      <div class="why-hexagon hex3"><div class="inner">🚀</div></div>
+    </div>
+    <div>
+      <p class="section-tag">Why Choose Us</p>
+      <h2 class="section-h2">Built for <em>Growth</em></h2>
+      <div class="why-points">
+        <div class="why-point"><div class="why-point-icon">⚡</div><div class="why-point-body"><h4>Fast Delivery</h4><p>We ship faster than traditional agencies — MVPs in days, full systems in weeks.</p></div></div>
+        <div class="why-point"><div class="why-point-icon">🧹</div><div class="why-point-body"><h4>Clean Scalable Code</h4><p>Every line is written to grow with your business. No shortcuts, no tech debt.</p></div></div>
+        <div class="why-point"><div class="why-point-icon">🤝</div><div class="why-point-body"><h4>Client-First Approach</h4><p>Your success is our success. We stay involved until you're fully satisfied.</p></div></div>
+        <div class="why-point"><div class="why-point-icon">💰</div><div class="why-point-body"><h4>Affordable Pricing</h4><p>Premium quality at startup-friendly prices. Flexible packages for every budget.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED WORK -->
+<section class="section" id="portfolio-home">
+  <span class="section-num">03</span>
+  <p class="section-tag">Featured Work</p>
+  <h2 class="section-h2">Projects That <em>Deliver</em></h2>
+  <p class="section-desc">Real products, real results. Here's a sample of what we've built.</p>
+  <div class="neon-line"></div>
+  <div class="portfolio-grid">
+    <div class="project-card">
+      <div class="project-visual pv-erp"><div class="project-visual-icon">🏭</div></div>
+      <div class="project-info">
+        <p class="project-tag">Enterprise Software</p>
+        <h3 class="project-title">ERP System</h3>
+        <p class="project-desc">Full enterprise resource planning system with inventory, HR, and finance modules.</p>
+        <div class="project-stack"><span class="stack-tag">Spring Boot</span><span class="stack-tag">React</span><span class="stack-tag">MySQL</span></div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-visual pv-ecom"><div class="project-visual-icon">🛒</div></div>
+      <div class="project-info">
+        <p class="project-tag">E-Commerce</p>
+        <h3 class="project-title">Online Store</h3>
+        <p class="project-desc">Multi-vendor e-commerce platform with payments, inventory, and analytics dashboard.</p>
+        <div class="project-stack"><span class="stack-tag">Flask</span><span class="stack-tag">MySQL</span><span class="stack-tag">Stripe API</span></div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-visual pv-demo"><div class="project-visual-icon">📊</div></div>
+      <div class="project-info">
+        <p class="project-tag">Analytics</p>
+        <h3 class="project-title">Business Dashboard</h3>
+        <p class="project-desc">Real-time business intelligence dashboard with KPIs, charts and automated reports.</p>
+        <div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">Chart.js</span><span class="stack-tag">AWS</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px;"><a href="/portfolio" class="btn-outline">View All Projects →</a></div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <div class="terminal-box">
+    <div class="line"><span class="prompt">$</span><span class="cmd">nexarya --init "your-project"</span></div>
+    <div class="line"><span class="output">✓ Analyzing requirements...</span></div>
+    <div class="line"><span class="output">✓ Building scalable architecture...</span></div>
+    <div class="line"><span class="prompt">$</span><span class="cursor-blink"></span></div>
+  </div>
+  <h2 class="cta-h2">Let's Build Your <em style="background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Next Project</em></h2>
+  <p class="cta-sub">We don't just build software — we solve business problems. Ready to start?</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;">
+    <a href="/pricing" class="btn-primary">Get a Quote →</a>
+    <a href="/contact" class="btn-outline">Talk to Us</a>
+  </div>
+</div>
+{% endblock %}

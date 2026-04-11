@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>{% block title %}Nexarya — Scalable Tech Solutions{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/static/css/main.css"/>
+{% block extra_styles %}{% endblock %}
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<canvas id="bg-canvas"></canvas>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}<div class="flash-container">{% for category, msg in messages %}<div class="flash-msg flash-{{category}}">⚡ {{msg}}</div>{% endfor %}</div>{% endif %}
+{% endwith %}
+
+<nav id="navbar">
+  <a href="/" class="nav-logo">NEX<span>ARYA</span></a>
+  <ul class="nav-links">
+    <li><a href="/" {% if request.endpoint=='index' %}class="active"{% endif %}>Home</a></li>
+    <li><a href="/about" {% if request.endpoint=='about' %}class="active"{% endif %}>About</a></li>
+    <li><a href="/services" {% if request.endpoint=='services' %}class="active"{% endif %}>Services</a></li>
+    <li><a href="/portfolio" {% if request.endpoint=='portfolio' %}class="active"{% endif %}>Portfolio</a></li>
+    <li><a href="/pricing" {% if request.endpoint=='pricing' %}class="active"{% endif %}>Pricing</a></li>
+    <li><a href="/blog" {% if request.endpoint=='blog' %}class="active"{% endif %}>Blog</a></li>
+    <li><a href="/contact" {% if request.endpoint=='contact' %}class="active"{% endif %}>Contact</a></li>
+    {% if user %}
+    <li><a href="/dashboard" class="nav-cta">👤 {{ user }}</a></li>
+    <li><a href="/logout">Logout</a></li>
+    {% else %}
+    <li><a href="/login" class="nav-cta">Login</a></li>
+    {% endif %}
+  </ul>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+{% block content %}{% endblock %}
+
+<div class="ticker-wrap"><div class="ticker">
+  <span class="ticker-item">Python Flask</span><span class="ticker-item">React / Vite</span><span class="ticker-item">Spring Boot</span><span class="ticker-item">MySQL</span><span class="ticker-item">AWS Cloud</span><span class="ticker-item">Docker</span><span class="ticker-item">REST APIs</span><span class="ticker-item">Kubernetes</span><span class="ticker-item">PostgreSQL</span><span class="ticker-item">Redis</span>
+  <span class="ticker-item">Python Flask</span><span class="ticker-item">React / Vite</span><span class="ticker-item">Spring Boot</span><span class="ticker-item">MySQL</span><span class="ticker-item">AWS Cloud</span><span class="ticker-item">Docker</span><span class="ticker-item">REST APIs</span><span class="ticker-item">Kubernetes</span><span class="ticker-item">PostgreSQL</span><span class="ticker-item">Redis</span>
+</div></div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand"><a href="/" class="nav-logo">NEX<span>ARYA</span></a><p>We don't just build software — we solve business problems. Mumbai-based tech company building scalable solutions.</p></div>
+    <div class="footer-col"><h5>Pages</h5><ul><li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/services">Services</a></li><li><a href="/portfolio">Portfolio</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a href="/services">Web Development</a></li><li><a href="/services">Cloud Deployment</a></li><li><a href="/services">Custom Software</a></li><li><a href="/services">API & Backend</a></li><li><a href="/services">Maintenance</a></li></ul></div>
+    <div class="footer-col"><h5>Tech Stack</h5><ul><li><a href="#">React / Vite</a></li><li><a href="#">Spring Boot</a></li><li><a href="#">Flask / Python</a></li><li><a href="#">AWS Cloud</a></li><li><a href="#">Docker / K8s</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 NEXARYA. All rights reserved. Built in Mumbai 🇮🇳</span>
+    <div class="social-links"><a href="#" class="social-link">in</a><a href="#" class="social-link">𝕏</a><a href="#" class="social-link">gh</a><a href="#" class="social-link">▶</a></div>
+  </div>
+</footer>
+
+<script src="/static/js/main.js"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Place Order — Nexarya{% endblock %}
+{% block extra_styles %}
+<style>
+.order-page{min-height:100vh;padding:120px 60px 60px;display:flex;align-items:flex-start;justify-content:center;}
+.order-box{width:100%;max-width:700px;}
+.order-box h2{font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:8px;}
+.order-box p.sub{color:var(--muted);margin-bottom:40px;}
+.order-form{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:40px;position:relative;}
+.order-form::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));border-radius:2px 2px 0 0;}
+.form-group{margin-bottom:24px;}
+.form-group label{display:block;font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 16px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:1rem;transition:all .3s;outline:none;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,245,255,0.1);}
+.form-group textarea{min-height:150px;resize:vertical;}
+.form-group select option{background:#070d14;}
+.plan-selector{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
+.plan-opt{border:1px solid var(--border);border-radius:8px;padding:16px;cursor:pointer;transition:all .3s;text-align:center;}
+.plan-opt:hover,.plan-opt.selected{border-color:var(--neon);background:rgba(0,245,255,0.07);}
+.plan-opt.selected{box-shadow:0 0 20px rgba(0,245,255,0.2);}
+.plan-opt h4{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:4px;}
+.plan-opt p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);}
+.plan-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:block;}
+.submit-btn{width:100%;padding:16px;background:linear-gradient(90deg,var(--neon),var(--neon2));border:none;border-radius:6px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--bg);transition:all .3s;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:var(--glow);}
+@media(max-width:700px){.order-page{padding:100px 24px 60px;}.plan-selector{grid-template-columns:1fr;}}
+</style>
+{% endblock %}
+{% block content %}
+<div class="order-page">
+  <div class="order-box">
+    <p class="section-tag">New Project</p>
+    <h2>Place Your Order</h2>
+    <p class="sub">Fill in the details below and we'll reach out within 24 hours to confirm and discuss your project.</p>
+
+    <div id="success-msg" style="display:none;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:8px;padding:20px;margin-bottom:24px;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--neon4);">✓ Order placed successfully! Redirecting to your dashboard...</div>
+    <div id="error-msg" style="display:none;background:rgba(255,45,122,0.1);border:1px solid rgba(255,45,122,0.3);border-radius:8px;padding:16px;margin-bottom:24px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--neon3);"></div>
+
+    <div class="order-form">
+      <div class="form-group">
+        <label>What do you need built?</label>
+        <input type="text" id="domain" placeholder="e.g. E-commerce website, ERP system, Mobile app backend..." required/>
+      </div>
+      <div class="form-group">
+        <label>Project Description</label>
+        <textarea id="details" placeholder="Describe your project in detail — features needed, target users, any reference sites, deadlines..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Your Location / City</label>
+        <input type="text" id="location" placeholder="e.g. Mumbai, Delhi, Bangalore..." required/>
+      </div>
+      <div>
+        <span class="plan-label">Select Your Plan</span>
+        <div class="plan-selector">
+          <div class="plan-opt {% if selected_plan=='Basic' %}selected{% endif %}" onclick="selectPlan('Basic',this)"><h4>Basic</h4><p>₹5K – ₹10K</p></div>
+          <div class="plan-opt {% if selected_plan=='Standard' %}selected{% endif %}" onclick="selectPlan('Standard',this)"><h4>Standard</h4><p>₹15K – ₹30K</p></div>
+          <div class="plan-opt {% if selected_plan=='Premium' %}selected{% endif %}" onclick="selectPlan('Premium',this)"><h4>Premium</h4><p>₹30K+</p></div>
+        </div>
+        <input type="hidden" id="plan" value="{{ selected_plan or '' }}"/>
+      </div>
+      <button class="submit-btn" onclick="placeOrder()">Submit Order →</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+function selectPlan(name,el){
+  document.querySelectorAll('.plan-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('plan').value=name;
+}
+async function placeOrder(){
+  const domain=document.getElementById('domain').value.trim();
+  const details=document.getElementById('details').value.trim();
+  const location=document.getElementById('location').value.trim();
+  const plan=document.getElementById('plan').value;
+  const errEl=document.getElementById('error-msg');
+  if(!domain||!details||!location||!plan){errEl.style.display='block';errEl.textContent='✗ Please fill in all fields and select a plan.';return;}
+  errEl.style.display='none';
+  const btn=document.querySelector('.submit-btn');
+  btn.textContent='Submitting...';btn.disabled=true;
+  const res=await fetch('/place-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({domain,details,location,plan})});
+  const data=await res.json();
+  if(data.success){document.getElementById('success-msg').style.display='block';setTimeout(()=>window.location.href='/dashboard',2000);}
+  else{errEl.style.display='block';errEl.textContent='✗ '+data.error;btn.textContent='Submit Order →';btn.disabled=false;}
+}
+</script>
+{% endblock %}

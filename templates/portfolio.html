@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block title %}Portfolio — Nexarya{% endblock %}
+{% block extra_styles %}
+<style>
+.page-hero{min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 40px 60px;}
+.portfolio-full-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;}
+.project-card{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card);transition:all .4s;}
+.project-card:hover{border-color:rgba(0,245,255,0.3);transform:translateY(-8px);box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 30px rgba(0,245,255,0.1);}
+.project-visual{height:220px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.pv-1{background:linear-gradient(135deg,#0d1b2a,#1a2d4a);}
+.pv-2{background:linear-gradient(135deg,#1a0d2a,#2d1a4a);}
+.pv-3{background:linear-gradient(135deg,#0d2a1a,#1a4a2d);}
+.pv-4{background:linear-gradient(135deg,#2a1a0d,#4a2d1a);}
+.pv-5{background:linear-gradient(135deg,#1a0d1a,#2d1a3a);}
+.pv-6{background:linear-gradient(135deg,#0a1a2a,#152a3a);}
+.proj-icon{font-size:4rem;filter:drop-shadow(0 0 20px var(--neon));position:relative;z-index:1;}
+.project-visual::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,245,255,0.06) 0%,transparent 70%);}
+.proj-meta{position:absolute;top:14px;left:14px;display:flex;gap:8px;}
+.proj-year,.proj-status{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:1px;padding:3px 8px;border-radius:3px;}
+.proj-year{background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.2);color:var(--neon);}
+.proj-status{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2);color:var(--neon4);}
+.project-body{padding:28px;}
+.project-category{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:2px;color:var(--neon4);text-transform:uppercase;margin-bottom:8px;}
+.project-title{font-family:'Orbitron',sans-serif;font-size:1.15rem;font-weight:800;margin-bottom:10px;}
+.project-desc{color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:18px;}
+.project-features{list-style:none;margin-bottom:18px;}
+.project-features li{font-size:.82rem;color:var(--muted);padding:4px 0;display:flex;gap:8px;}
+.project-features li::before{content:'◆';color:var(--neon2);font-size:.5rem;margin-top:5px;flex-shrink:0;}
+.project-stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;}
+.stack-tag{font-size:.62rem;font-family:'JetBrains Mono',monospace;padding:4px 10px;border:1px solid rgba(123,47,255,0.3);border-radius:3px;color:var(--neon2);background:rgba(123,47,255,0.05);}
+.project-link{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:1px;color:var(--neon);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color .3s;}
+.project-link:hover{color:var(--neon2);}
+</style>
+{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <div>
+    <p class="section-tag" style="text-align:center;">Our Work</p>
+    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">Featured <em>Portfolio</em></h1>
+    <p style="color:var(--muted);margin-top:16px;max-width:520px;">Real projects, real results. Every system we ship is built to perform.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:20px;">
+  <div class="portfolio-full-grid">
+
+    <div class="project-card">
+      <div class="project-visual pv-1">
+        <div class="proj-meta"><span class="proj-year">2024</span><span class="proj-status">Live</span></div>
+        <div class="proj-icon">🏭</div>
+      </div>
+      <div class="project-body">
+        <p class="project-category">Enterprise Software</p>
+        <h3 class="project-title">Manufacturing ERP System</h3>
+        <p class="project-desc">Full-scale ERP for a mid-size manufacturing company covering inventory, procurement, production, HR, and finance modules.</p>
+        <ul class="project-features">
+          <li>Multi-role user management (200+ users)</li>
+          <li>Real-time inventory tracking</li>
+          <li>Automated payroll &amp; billing</li>
+        </ul>
+        <div class="project-stack"><span class="stack-tag">Spring Boot</span><span class="stack-tag">React</span><span class="stack-tag">MySQL</span><span class="stack-tag">AWS EC2</span></div>
+        <a href="/contact" class="project-link">Request Case Study →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-visual pv-2">
+        <div class="proj-meta"><span class="proj-year">2024</span><span class="proj-status">Live</span></div>
+        <div class="proj-icon">🛒</div>
+      </div>
+      <div class="project-body">
+        <p class="project-category">E-Commerce Platform</p>
+        <h3 class="project-title">Multi-Vendor Online Store</h3>
+        <p class="project-desc">Full-featured e-commerce platform with vendor management, cart, Razorpay payment gateway, and an analytics dashboard.</p>
+        <ul class="project-features">
+          <li>Vendor onboarding &amp; product management</li>
+          <li>Integrated Razorpay payments</li>
+          <li>Order tracking &amp; customer notifications</li>
+        </ul>
+        <div class="project-stack"><span class="stack-tag">Flask</span><span class="stack-tag">MySQL</span><span class="stack-tag">Razorpay API</span><span class="stack-tag">Docker</span></div>
+        <a href="/contact" class="project-link">Request Case Study →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-visual pv-3">
+        <div class="proj-meta"><span class="proj-year">2024</span><span class="proj-status">Live</span></div>
+        <div class="proj-icon">📊</div>
+      </div>
+      <div class="project-body">
+        <p class="project-category">Analytics Dashboard</p>
+        <h3 class="project-title">Business Intelligence Portal</h3>
+        <p class="project-desc">Real-time BI dashboard for a retail chain with KPIs, sales trends, inventory alerts, and automated monthly PDF reports.</p>
+        <ul class="project-features">
+          <li>Live KPI charts with Chart.js</li>
+          <li>Automated email reports</li>
+          <li>Multi-branch comparison views</li>
+        </ul>
+        <div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">Chart.js</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">AWS Lambda</span></div>
+        <a href="/contact" class="project-link">Request Case Study →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-visual pv-4">
+        <div class="proj-meta"><span class="proj-year">2025</span><span class="proj-status">Live</span></div>
+        <div class="proj-icon">🏥</div>
+      </div>
+      <div class="project-body">
+        <p class="project-category">Healthcare</p>
+        <h3 class="project-title">Clinic Management System</h3>
+        <p class="project-desc">Patient appointment booking, doctor schedule management, billing, and prescription history for a multi-specialty clinic.</p>
+        <ul class="project-features">
+          <li>Online appointment &amp; queue system</li>
+          <li>Digital prescription management</li>
+          <li>Insurance &amp; billing automation</li>
+        </ul>
+        <div class="project-stack"><span class="stack-tag">Spring Boot</span><span class="stack-tag">React</span><span class="stack-tag">MySQL</span><span class="stack-tag">Nginx</span></div>
+        <a href="/contact" class="project-link">Request Case Study →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-visual pv-5">
+        <div class="proj-meta"><span class="proj-year">2025</span><span class="proj-status">Live</span></div>
+        <div class="proj-icon">💼</div>
+      </div>
+      <div class="project-body">
+        <p class="project-category">Fintech</p>
+        <h3 class="project-title">Loan Management Platform</h3>
+        <p class="project-desc">End-to-end loan lifecycle management — from application to disbursement to EMI tracking — for an NBFC company.</p>
+        <ul class="project-features">
+          <li>Digital KYC &amp; document upload</li>
+          <li>Automated EMI calculation &amp; reminders</li>
+          <li>Risk scoring dashboard</li>
+        </ul>
+        <div class="project-stack"><span class="stack-tag">Flask</span><span class="stack-tag">React</span><span class="stack-tag">MySQL</span><span class="stack-tag">AWS S3</span></div>
+        <a href="/contact" class="project-link">Request Case Study →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-visual pv-6">
+        <div class="proj-meta"><span class="proj-year">2025</span><span class="proj-status">Live</span></div>
+        <div class="proj-icon">🏠</div>
+      </div>
+      <div class="project-body">
+        <p class="project-category">Real Estate</p>
+        <h3 class="project-title">Property Listing Portal</h3>
+        <p class="project-desc">Full property listing and lead management portal with advanced search, virtual tour links, and agent CRM dashboard.</p>
+        <ul class="project-features">
+          <li>Advanced property search &amp; filters</li>
+          <li>Lead capture &amp; agent assignment</li>
+          <li>WhatsApp &amp; email notifications</li>
+        </ul>
+        <div class="project-stack"><span class="stack-tag">Flask</span><span class="stack-tag">JS</span><span class="stack-tag">MySQL</span><span class="stack-tag">Cloudinary</span></div>
+        <a href="/contact" class="project-link">Request Case Study →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:60px;padding:50px;background:rgba(0,245,255,0.03);border:1px solid var(--border);border-radius:12px;">
+    <p class="section-tag" style="text-align:center;">Your Project</p>
+    <h2 class="section-h2" style="text-align:center;">Want to be on <em>This List?</em></h2>
+    <p style="color:var(--muted);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;">Let's build something great together. Tell us about your idea.</p>
+    <a href="/place-order" class="btn-primary">Start Your Project →</a>
+  </div>
+</section>
+{% endblock %}

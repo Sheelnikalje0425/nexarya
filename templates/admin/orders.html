@@ -1,0 +1,77 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Orders — Nexarya Admin{% endblock %}
+{% block page_title %}All Orders{% endblock %}
+{% block extra_styles %}
+<style>
+.filter-bar{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
+.filter-btn{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 16px;border-radius:4px;text-decoration:none;border:1px solid var(--border);color:var(--muted);transition:all .3s;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--neon);color:var(--neon);background:rgba(0,245,255,0.05);}
+.tbl-box{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;overflow-x:auto;}
+.table{width:100%;border-collapse:collapse;min-width:800px;}
+.table th{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);}
+.table td{padding:14px 16px;border-bottom:1px solid rgba(0,245,255,0.05);font-size:.88rem;vertical-align:top;}
+.table tr:hover td{background:rgba(0,245,255,0.02);}
+.status-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:1px;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+.s-pending{background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3);color:#ffa500;}
+.s-in-review{background:rgba(123,47,255,0.1);border:1px solid rgba(123,47,255,0.3);color:var(--neon2);}
+.s-in-progress{background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.3);color:var(--neon);}
+.s-testing{background:rgba(255,45,122,0.1);border:1px solid rgba(255,45,122,0.3);color:var(--neon3);}
+.s-completed{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--neon4);}
+.s-cancelled{background:rgba(100,100,100,0.1);border:1px solid rgba(100,100,100,0.3);color:var(--muted);}
+select.status-sel{background:rgba(0,0,0,0.5);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:5px 8px;cursor:pointer;outline:none;width:100%;}
+.desc-cell{max-width:200px;color:var(--muted);font-size:.82rem;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+</style>
+{% endblock %}
+{% block content %}
+<div class="filter-bar">
+  <a href="/admin/orders" class="filter-btn {% if not status_filter %}active{% endif %}">All</a>
+  {% for st in ['Pending','In Review','In Progress','Testing','Completed','Cancelled'] %}
+  <a href="/admin/orders?status={{st}}" class="filter-btn {% if status_filter==st %}active{% endif %}">{{st}}</a>
+  {% endfor %}
+</div>
+
+<div class="tbl-box">
+  <table class="table">
+    <thead><tr><th>#</th><th>Client</th><th>Domain</th><th>Description</th><th>Location</th><th>Plan</th><th>Status</th><th>Date</th><th>Update</th></tr></thead>
+    <tbody>
+      {% for o in orders %}
+      <tr>
+        <td style="font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.72rem;">#{{o.order_id}}</td>
+        <td>
+          <div style="font-weight:600;">{{o.user_name}}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);">{{o.email}}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);">{{o.phone}}</div>
+        </td>
+        <td style="font-weight:600;color:var(--text);">{{o.order_domain}}</td>
+        <td><div class="desc-cell" title="{{o.details}}">{{o.details}}</div></td>
+        <td style="font-size:.82rem;color:var(--muted);">{{o.user_location}}</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--neon2);">{{o.plan_selected}}</td>
+        <td>{% set s=o.tracking_status.lower().replace(' ','-') %}<span class="status-badge s-{{s}}">{{o.tracking_status}}</span></td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);">{{o.order_date.strftime('%d %b %Y') if o.order_date else '—'}}</td>
+        <td>
+          <select class="status-sel" onchange="updateStatus({{o.order_id}},this)">
+            {% for st in ['Pending','In Review','In Progress','Testing','Completed','Cancelled'] %}
+            <option value="{{st}}" {% if st==o.tracking_status %}selected{% endif %}>{{st}}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      {% endfor %}
+      {% if not orders %}
+      <tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted);">No orders found.</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+<p style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-top:12px;">{{orders|length}} order(s) shown</p>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+async function updateStatus(orderId,sel){
+  const status=sel.value;
+  const res=await fetch(`/admin/order/${orderId}/update`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})});
+  const data=await res.json();
+  if(data.success){const row=sel.closest('tr');const badge=row.querySelector('.status-badge');if(badge){badge.textContent=status;badge.className='status-badge s-'+status.toLowerCase().replace(' ','-');}}
+}
+</script>
+{% endblock %}

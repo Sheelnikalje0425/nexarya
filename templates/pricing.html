@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}Pricing — Nexarya{% endblock %}
+{% block extra_styles %}
+<style>
+.page-hero{min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 40px 60px;}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+.pricing-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:40px 36px;position:relative;overflow:hidden;transition:all .4s;}
+.pricing-card.featured{border-color:rgba(0,245,255,0.4);background:linear-gradient(135deg,rgba(0,245,255,0.08),rgba(123,47,255,0.05));}
+.pricing-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));}
+.pricing-card:hover{transform:translateY(-8px);box-shadow:0 30px 80px rgba(0,0,0,0.4),var(--glow);}
+.plan-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;display:block;}
+.plan-name{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:900;margin-bottom:8px;}
+.plan-desc{color:var(--muted);font-size:.9rem;margin-bottom:28px;}
+.plan-price{margin-bottom:32px;}
+.plan-price .amount{font-family:'Orbitron',sans-serif;font-size:3rem;font-weight:900;color:var(--neon);text-shadow:var(--glow);}
+.plan-price .currency{font-size:1.5rem;vertical-align:top;margin-top:10px;display:inline-block;}
+.plan-price .range{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);margin-top:4px;}
+.plan-features{list-style:none;margin-bottom:32px;}
+.plan-features li{padding:10px 0;border-bottom:1px solid rgba(0,245,255,0.06);color:var(--muted);font-size:.9rem;display:flex;align-items:center;gap:10px;}
+.plan-features li:last-child{border-bottom:none;}
+.plan-features li::before{content:'✓';color:var(--neon4);font-size:.8rem;flex-shrink:0;}
+.plan-features li.disabled{opacity:.4;}
+.plan-features li.disabled::before{content:'✗';color:var(--neon3);}
+.plan-cta{display:block;width:100%;padding:14px;text-align:center;font-family:'Orbitron',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:6px;text-decoration:none;transition:all .3s;cursor:pointer;}
+.featured .plan-cta{background:linear-gradient(90deg,var(--neon),var(--neon2));color:var(--bg);border:none;}
+.featured .plan-cta:hover{transform:translateY(-2px);box-shadow:var(--glow);}
+.plan-cta.outline{border:1px solid var(--border);color:var(--text);background:transparent;}
+.plan-cta.outline:hover{border-color:var(--neon);color:var(--neon);}
+.popular-tag{position:absolute;top:20px;right:20px;background:linear-gradient(90deg,var(--neon),var(--neon2));color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:2px;padding:4px 10px;border-radius:20px;font-weight:700;}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:12px;overflow:hidden;}
+.faq-q{padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.95rem;}
+.faq-q:hover{color:var(--neon);}
+.faq-a{padding:0 24px 20px;color:var(--muted);font-size:.9rem;line-height:1.7;display:none;}
+.faq-a.open{display:block;}
+.faq-icon{color:var(--neon);font-family:'JetBrains Mono',monospace;transition:transform .3s;}
+.faq-icon.open{transform:rotate(45deg);}
+</style>
+{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <div>
+    <p class="section-tag" style="text-align:center;">Transparent Pricing</p>
+    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">Simple, <em>Honest</em> Plans</h1>
+    <p style="color:var(--muted);margin-top:16px;max-width:500px;">No hidden fees. No surprises. Pick a plan that fits your needs and we'll get started right away.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:20px;">
+  <div class="pricing-grid">
+
+    <!-- BASIC -->
+    <div class="pricing-card">
+      <span class="plan-badge">01 — PLAN</span>
+      <h3 class="plan-name">Basic</h3>
+      <p class="plan-desc">Perfect for startups and small businesses needing a solid online presence.</p>
+      <div class="plan-price">
+        <span class="currency">₹</span><span class="amount">5K</span>
+        <p class="range">Starting from ₹5,000 – ₹10,000</p>
+      </div>
+      <ul class="plan-features">
+        <li>Static or simple dynamic website</li>
+        <li>Up to 5 pages</li>
+        <li>Mobile responsive design</li>
+        <li>Contact form integration</li>
+        <li>Basic SEO setup</li>
+        <li class="disabled">Custom backend / database</li>
+        <li class="disabled">Cloud deployment</li>
+        <li class="disabled">API integrations</li>
+      </ul>
+      <a href="/place-order?plan=Basic" class="plan-cta outline">Get Started →</a>
+    </div>
+
+    <!-- STANDARD (FEATURED) -->
+    <div class="pricing-card featured">
+      <span class="popular-tag">MOST POPULAR</span>
+      <span class="plan-badge">02 — PLAN</span>
+      <h3 class="plan-name">Standard</h3>
+      <p class="plan-desc">Full-featured dynamic application for growing businesses.</p>
+      <div class="plan-price">
+        <span class="currency">₹</span><span class="amount">15K</span>
+        <p class="range">Starting from ₹15,000 – ₹30,000</p>
+      </div>
+      <ul class="plan-features">
+        <li>Dynamic web app with database</li>
+        <li>User authentication system</li>
+        <li>Admin dashboard</li>
+        <li>REST API development</li>
+        <li>Cloud deployment (AWS)</li>
+        <li>Mobile responsive + PWA</li>
+        <li>30-day post-launch support</li>
+        <li class="disabled">ERP / complex system features</li>
+      </ul>
+      <a href="/place-order?plan=Standard" class="plan-cta">Get Started →</a>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="pricing-card">
+      <span class="plan-badge">03 — PLAN</span>
+      <h3 class="plan-name">Premium</h3>
+      <p class="plan-desc">Enterprise-grade systems with full cloud infrastructure and ongoing support.</p>
+      <div class="plan-price">
+        <span class="currency">₹</span><span class="amount">30K</span>
+        <p class="range">Starting from ₹30,000 and above</p>
+      </div>
+      <ul class="plan-features">
+        <li>Full custom software / ERP system</li>
+        <li>Multi-role user management</li>
+        <li>Advanced API integrations</li>
+        <li>AWS cloud architecture</li>
+        <li>Docker / Kubernetes deployment</li>
+        <li>CI/CD pipeline setup</li>
+        <li>90-day post-launch support</li>
+        <li>Performance monitoring &amp; scaling</li>
+      </ul>
+      <a href="/place-order?plan=Premium" class="plan-cta outline">Get Started →</a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div style="max-width:700px;margin:80px auto 0;">
+    <p class="section-tag" style="text-align:center;">Questions</p>
+    <h2 class="section-h2" style="text-align:center;margin-bottom:40px;">Frequently Asked <em>Questions</em></h2>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How long does a project take?</span><span class="faq-icon">+</span></div><div class="faq-a">Basic sites: 1–2 weeks. Standard apps: 3–6 weeks. Premium/ERP systems: 6–16 weeks depending on complexity. We always share a detailed timeline before starting.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do you require full payment upfront?</span><span class="faq-icon">+</span></div><div class="faq-a">No. We typically work on a 50% advance and 50% on delivery model. For larger projects, we split payments into milestones to keep things transparent.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I upgrade my plan later?</span><span class="faq-icon">+</span></div><div class="faq-a">Absolutely. All our systems are built with scalability in mind. You can start with Basic and grow into Premium as your business expands.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do you offer maintenance after launch?</span><span class="faq-icon">+</span></div><div class="faq-a">Yes! All plans include post-launch support (30–90 days). After that, we offer affordable monthly maintenance packages.</div></div>
+  </div>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+function toggleFaq(el){
+  const ans=el.nextElementSibling,icon=el.querySelector('.faq-icon');
+  ans.classList.toggle('open');icon.classList.toggle('open');
+  icon.textContent=icon.classList.contains('open')?'−':'+';
+}
+</script>
+{% endblock %}
