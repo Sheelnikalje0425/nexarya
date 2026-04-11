@@ -1,5 +1,8 @@
+import os
+
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
 from flask_mysqldb import MySQL
+
 import bcrypt
 import re
 from datetime import datetime
@@ -9,11 +12,11 @@ app = Flask(__name__)
 app.secret_key = 'nexarya_super_secret_key_2025'
 
 # ── MySQL Config ────────────────────────────────────────────
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Sheel@3319'  # Change this
-app.config['MYSQL_DB'] = 'nexarya_db'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.secret_key = os.environ.get('SECRET_KEY')
+app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST')
+app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
+app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
+app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
 
 mysql = MySQL(app)
 
