@@ -2,28 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>{% block title %}Nexarya — Scalable Tech Solutions{% endblock %}</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>{% block title %}Nexarya — Premium Digital Solutions{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="/static/css/main.css"/>
 {% block extra_styles %}{% endblock %}
+<!-- Favicon -->
+<link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='img/favicon.jpeg') }}">
+
 </head>
 <body>
-<div id="cursor"></div><div id="cursor-ring"></div>
 <canvas id="bg-canvas"></canvas>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}<div class="flash-container">{% for category, msg in messages %}<div class="flash-msg flash-{{category}}">⚡ {{msg}}</div>{% endfor %}</div>{% endif %}
+{% if messages %}<div class="flash-container">{% for category, msg in messages %}<div class="flash-msg flash-{{category}}">{{ msg }}</div>{% endfor %}</div>{% endif %}
 {% endwith %}
 
 <nav id="navbar">
-  <a href="/" class="nav-logo">NEX<span>ARYA</span></a>
+  <a href="/" class="nav-logo">
+    <!-- SVG Logo built from code matching the real Nexarya logo style 
+    <svg class="nav-logo-svg" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="2" y="32" font-family="serif" font-size="28" font-weight="900" fill="#0f1e3f" stroke="#cdaa80" stroke-width="0.5">N</text>
+      <polygon points="20,8 28,22 20,36 24,36 32,22 24,8" fill="url(#xgrad)" opacity="0.95"/>
+      <text x="28" y="32" font-family="serif" font-size="28" font-weight="900" fill="#0f1e3f" stroke="#cdaa80" stroke-width="0.5">X</text>
+      <defs>
+        <linearGradient id="xgrad" x1="20" y1="8" x2="32" y2="36" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#e8c99a"/>
+          <stop offset="100%" stop-color="#7a5c35"/>
+        </linearGradient>
+      </defs>
+    </svg>  -->
+    <span class="nav-logo-text">NEXARYA</span>
+  </a>
   <ul class="nav-links">
     <li><a href="/" {% if request.endpoint=='index' %}class="active"{% endif %}>Home</a></li>
     <li><a href="/about" {% if request.endpoint=='about' %}class="active"{% endif %}>About</a></li>
     <li><a href="/services" {% if request.endpoint=='services' %}class="active"{% endif %}>Services</a></li>
-    <li><a href="/portfolio" {% if request.endpoint=='portfolio' %}class="active"{% endif %}>Portfolio</a></li>
     <li><a href="/pricing" {% if request.endpoint=='pricing' %}class="active"{% endif %}>Pricing</a></li>
-    <li><a href="/blog" {% if request.endpoint=='blog' %}class="active"{% endif %}>Blog</a></li>
     <li><a href="/contact" {% if request.endpoint=='contact' %}class="active"{% endif %}>Contact</a></li>
     {% if user %}
     <li><a href="/dashboard" class="nav-cta">👤 {{ user }}</a></li>
@@ -38,20 +52,61 @@
 {% block content %}{% endblock %}
 
 <div class="ticker-wrap"><div class="ticker">
-  <span class="ticker-item">Python Flask</span><span class="ticker-item">React / Vite</span><span class="ticker-item">Spring Boot</span><span class="ticker-item">MySQL</span><span class="ticker-item">AWS Cloud</span><span class="ticker-item">Docker</span><span class="ticker-item">REST APIs</span><span class="ticker-item">Kubernetes</span><span class="ticker-item">PostgreSQL</span><span class="ticker-item">Redis</span>
-  <span class="ticker-item">Python Flask</span><span class="ticker-item">React / Vite</span><span class="ticker-item">Spring Boot</span><span class="ticker-item">MySQL</span><span class="ticker-item">AWS Cloud</span><span class="ticker-item">Docker</span><span class="ticker-item">REST APIs</span><span class="ticker-item">Kubernetes</span><span class="ticker-item">PostgreSQL</span><span class="ticker-item">Redis</span>
+  <span class="ticker-item">Website Development</span>
+  <span class="ticker-item">Custom Web Applications</span>
+  <span class="ticker-item">AI Chatbot Integration</span>
+  <span class="ticker-item">Cloud Hosting</span>
+  <span class="ticker-item">Web Testing</span>
+  <span class="ticker-item">Mumbai, India</span>
+  <span class="ticker-item">Website Development</span>
+  <span class="ticker-item">Custom Web Applications</span>
+  <span class="ticker-item">AI Chatbot Integration</span>
+  <span class="ticker-item">Cloud Hosting</span>
+  <span class="ticker-item">Web Testing</span>
+  <span class="ticker-item">Mumbai, India</span>
 </div></div>
 
 <footer>
   <div class="footer-top">
-    <div class="footer-brand"><a href="/" class="nav-logo">NEX<span>ARYA</span></a><p>We don't just build software — we solve business problems. Mumbai-based tech company building scalable solutions.</p></div>
-    <div class="footer-col"><h5>Pages</h5><ul><li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/services">Services</a></li><li><a href="/portfolio">Portfolio</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/contact">Contact</a></li></ul></div>
-    <div class="footer-col"><h5>Services</h5><ul><li><a href="/services">Web Development</a></li><li><a href="/services">Cloud Deployment</a></li><li><a href="/services">Custom Software</a></li><li><a href="/services">API & Backend</a></li><li><a href="/services">Maintenance</a></li></ul></div>
-    <div class="footer-col"><h5>Tech Stack</h5><ul><li><a href="#">React / Vite</a></li><li><a href="#">Spring Boot</a></li><li><a href="#">Flask / Python</a></li><li><a href="#">AWS Cloud</a></li><li><a href="#">Docker / K8s</a></li></ul></div>
+    <div class="footer-brand">
+      <a href="/" class="nav-logo">
+        <svg class="nav-logo-svg" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="2" y="32" font-family="serif" font-size="28" font-weight="900" fill="#0f1e3f" stroke="#cdaa80" stroke-width="0.5">N</text>
+          <polygon points="20,8 28,22 20,36 24,36 32,22 24,8" fill="url(#xgrad2)" opacity="0.95"/>
+          <text x="28" y="32" font-family="serif" font-size="28" font-weight="900" fill="#0f1e3f" stroke="#cdaa80" stroke-width="0.5">X</text>
+          <defs><linearGradient id="xgrad2" x1="20" y1="8" x2="32" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#e8c99a"/><stop offset="100%" stop-color="#7a5c35"/></linearGradient></defs>
+        </svg>
+        <span class="nav-logo-text">NEXARYA</span>
+      </a>
+      <p>Premium digital solutions — websites, AI chatbots, web apps and cloud hosting for modern businesses.</p>
+    </div>
+    <div class="footer-col"><h5>Pages</h5><ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Services</h5><ul>
+      <li><a href="/services">Website Development</a></li>
+      <li><a href="/services">Web Applications</a></li>
+      <li><a href="/services">AI Chatbot Integration</a></li>
+      <li><a href="/services">Cloud Hosting</a></li>
+      <li><a href="/services">Web Testing</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:coderangers04@gmail.com">coderangers04@gmail.com</a></li>
+      <li><a href="tel:+919373619831">+91 93736 19831</a></li>
+      <li><a href="#">Mumbai, India 🇮🇳</a></li>
+    </ul></div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2025 NEXARYA. All rights reserved. Built in Mumbai 🇮🇳</span>
-    <div class="social-links"><a href="#" class="social-link">in</a><a href="#" class="social-link">𝕏</a><a href="#" class="social-link">gh</a><a href="#" class="social-link">▶</a></div>
+    <span class="footer-copy">© 2026 Nexarya Technologies. Built in Mumbai 🇮🇳</span>
+    <div class="social-links">
+      <a href="#" class="social-link">in</a>
+      <a href="#" class="social-link">𝕏</a>
+      <a href="#" class="social-link">gh</a>
+    </div>
   </div>
 </footer>
 

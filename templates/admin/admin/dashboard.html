@@ -4,29 +4,29 @@
 {% block extra_styles %}
 <style>
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:36px;}
-.kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;position:relative;overflow:hidden;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;position:relative;overflow:hidden;}
 .kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
-.kpi-1::after{background:var(--gold);}
-.kpi-2::after{background:var(--gold2);}
-.kpi-3::after{background:var(--gold);}
-.kpi-4::after{background:#c06060;}
-.kpi .num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--text);}
-.kpi .lbl{font-family:'Inter',sans-serif;font-size:.62rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:6px;}
+.kpi-1::after{background:var(--neon);}
+.kpi-2::after{background:var(--neon2);}
+.kpi-3::after{background:var(--neon4);}
+.kpi-4::after{background:var(--neon3);}
+.kpi .num{font-family:'Orbitron',sans-serif;font-size:2.2rem;font-weight:900;color:var(--text);}
+.kpi .lbl{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:6px;}
 .kpi .icon{position:absolute;top:16px;right:16px;font-size:1.6rem;opacity:.3;}
-.section-head{font-family:'Inter',sans-serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.section-head{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
 .table{width:100%;border-collapse:collapse;}
-.table th{font-family:'Inter',sans-serif;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+.table th{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
 .table td{padding:14px;border-bottom:1px solid rgba(0,245,255,0.05);font-size:.88rem;}
 .table tr:hover td{background:rgba(0,245,255,0.02);}
-.status-badge{font-family:'Inter',sans-serif;font-size:.6rem;letter-spacing:1px;padding:3px 9px;border-radius:20px;}
+.status-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:1px;padding:3px 9px;border-radius:20px;}
 .s-pending{background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3);color:#ffa500;}
-.s-in-review{background:rgba(123,47,255,0.1);border:1px solid rgba(123,47,255,0.3);color:var(--gold2);}
-.s-in-progress{background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.3);color:var(--gold);}
-.s-testing{background:rgba(255,45,122,0.1);border:1px solid rgba(255,45,122,0.3);color:#c06060;}
-.s-completed{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--gold);}
+.s-in-review{background:rgba(123,47,255,0.1);border:1px solid rgba(123,47,255,0.3);color:var(--neon2);}
+.s-in-progress{background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.3);color:var(--neon);}
+.s-testing{background:rgba(255,45,122,0.1);border:1px solid rgba(255,45,122,0.3);color:var(--neon3);}
+.s-completed{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--neon4);}
 .s-cancelled{background:rgba(100,100,100,0.1);border:1px solid rgba(100,100,100,0.3);color:var(--muted);}
-.tbl-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
-select.status-sel{background:rgba(0,0,0,0.5);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Inter',sans-serif;font-size:.65rem;padding:4px 8px;cursor:pointer;outline:none;}
+.tbl-box{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+select.status-sel{background:rgba(0,0,0,0.5);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:4px 8px;cursor:pointer;outline:none;}
 </style>
 {% endblock %}
 {% block content %}
@@ -44,15 +44,15 @@ select.status-sel{background:rgba(0,0,0,0.5);border:1px solid var(--border);bord
     <tbody>
       {% for o in recent_orders %}
       <tr>
-        <td style="font-family:'Inter',sans-serif;font-size:.75rem;color:var(--muted);">#{{o.order_id}}</td>
-        <td><div>{{o.user_name}}</div><div style="font-family:'Inter',sans-serif;font-size:.65rem;color:var(--muted);">{{o.email}}</div></td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);">#{{o.order_id}}</td>
+        <td><div>{{o.user_name}}</div><div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);">{{o.email}}</div></td>
         <td>{{o.order_domain}}</td>
-        <td style="font-family:'Inter',sans-serif;font-size:.75rem;color:var(--gold2);">{{o.plan_selected}}</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--neon2);">{{o.plan_selected}}</td>
         <td>
           {% set s=o.tracking_status.lower().replace(' ','-') %}
           <span class="status-badge s-{{s}}">{{o.tracking_status}}</span>
         </td>
-        <td style="font-family:'Inter',sans-serif;font-size:.72rem;color:var(--muted);">{{o.order_date.strftime('%d %b %Y') if o.order_date else '—'}}</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">{{o.order_date.strftime('%d %b %Y') if o.order_date else '—'}}</td>
         <td>
           <select class="status-sel" onchange="updateStatus({{o.order_id}},this.value)">
             {% for st in ['Pending','In Review','In Progress','Testing','Completed','Cancelled'] %}
@@ -65,7 +65,7 @@ select.status-sel{background:rgba(0,0,0,0.5);border:1px solid var(--border);bord
     </tbody>
   </table>
 </div>
-<div style="margin-top:16px;"><a href="/admin/orders" style="font-family:'Inter',sans-serif;font-size:.72rem;color:var(--gold);text-decoration:none;">View all orders →</a></div>
+<div style="margin-top:16px;"><a href="/admin/orders" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--neon);text-decoration:none;">View all orders →</a></div>
 {% endblock %}
 {% block extra_scripts %}
 <script>

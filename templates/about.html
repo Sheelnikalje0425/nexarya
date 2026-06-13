@@ -2,115 +2,146 @@
 {% block title %}About — Nexarya{% endblock %}
 {% block extra_styles %}
 <style>
-.page-hero{min-height:50vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 40px 80px;}
-.page-hero-tag{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:4px;color:var(--neon4);text-transform:uppercase;margin-bottom:20px;}
-.page-hero-tag::before{content:'// ';opacity:.5;}
-.page-hero h1{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,5vw,4rem);font-weight:900;animation:fadeUp .8s .3s both;}
-.page-hero p{color:var(--muted);font-size:1.1rem;margin-top:16px;max-width:560px;animation:fadeUp .8s .5s both;}
-.about-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.about-text h3{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:20px;}
-.about-text p{color:var(--muted);line-height:1.9;margin-bottom:16px;}
-.about-text .highlight{color:var(--neon);font-weight:600;}
-.about-visual{position:relative;height:400px;display:flex;align-items:center;justify-content:center;}
-.about-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;text-align:center;position:absolute;}
-.about-card-main{width:220px;background:linear-gradient(135deg,rgba(0,245,255,0.08),rgba(123,47,255,0.08));}
-.about-card-main .icon{font-size:3rem;margin-bottom:12px;}
-.about-card-main h4{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:var(--neon);}
-.about-card-main p{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);margin-top:6px;}
-.about-badge{width:100px;padding:16px 12px;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:1px;}
-.about-badge .num{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:var(--neon);display:block;margin-bottom:4px;}
-.badge-1{top:40px;right:20px;border-color:rgba(0,245,255,0.3);}
-.badge-2{bottom:40px;left:10px;border-color:rgba(123,47,255,0.3);}
-.badge-3{bottom:80px;right:10px;border-color:rgba(0,255,136,0.3);}
-.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;}
-.mv-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:32px;}
-.mv-card .icon{font-size:2rem;margin-bottom:16px;display:block;}
-.mv-card h4{font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:1px;color:var(--neon);margin-bottom:12px;}
-.mv-card p{color:var(--muted);font-size:.9rem;line-height:1.7;}
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;}
-.team-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;text-align:center;transition:all .4s;cursor:pointer;}
-.team-card:hover{border-color:rgba(0,245,255,0.3);transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,0.4),var(--glow);}
-.team-photo{height:220px;background:linear-gradient(135deg,rgba(0,245,255,0.08),rgba(123,47,255,0.08));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.team-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .4s;}
-.team-card:hover .team-photo img{transform:scale(1.05);}
-.team-photo-placeholder{width:100px;height:100px;border-radius:50%;border:2px solid var(--neon);display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(0,245,255,0.05);box-shadow:0 0 30px rgba(0,245,255,0.2);}
-.team-photo-label{position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--neon);background:rgba(0,0,0,0.6);border:1px solid rgba(0,245,255,0.3);padding:4px 8px;border-radius:3px;z-index:2;}
-.team-photo .overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(2,4,8,0.7) 100%);z-index:1;}
-.team-info{padding:24px;}
-.team-name{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:800;margin-bottom:6px;}
-.team-role{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:2px;color:var(--neon2);text-transform:uppercase;margin-bottom:12px;}
-.team-bio{color:var(--muted);font-size:.85rem;line-height:1.7;}
-.team-socials{display:flex;gap:8px;justify-content:center;margin-top:16px;}
-.team-social{width:30px;height:30px;border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--muted);text-decoration:none;transition:all .3s;}
-.team-social:hover{border-color:var(--neon);color:var(--neon);}
-@media(max-width:900px){.about-wrapper,.mv-grid{grid-template-columns:1fr;}.about-visual{height:200px;display:none;}}
+.page-hero { min-height:42vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:140px 7% 60px; }
+.about-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.about-text h3 { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; margin-bottom:20px; }
+.about-text p { color:var(--muted); line-height:1.9; margin-bottom:16px; font-size:.95rem; }
+.about-text .highlight { color:var(--gold); font-weight:600; }
+.about-visual { position:relative; height:400px; display:flex; align-items:center; justify-content:center; }
+.about-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:16px; padding:28px; text-align:center; position:absolute;
+}
+.about-card-main {
+  width:220px;
+  background:linear-gradient(135deg,rgba(205,170,128,0.1),rgba(33,58,86,0.5));
+  border-color:var(--border-strong);
+}
+.about-card-main .icon { font-size:2.5rem; margin-bottom:12px; }
+.about-card-main h4 { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--gold); }
+.about-card-main p { font-size:.75rem; color:var(--muted); margin-top:6px; }
+.about-badge { width:110px; padding:16px 12px; }
+.about-badge .num { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:var(--gold); display:block; margin-bottom:4px; }
+.about-badge p { font-size:.7rem; color:var(--muted); }
+.badge-1 { top:50px; right:20px; }
+.badge-2 { bottom:50px; left:10px; }
+.mv-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:20px; }
+.mv-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:16px; padding:32px;
+}
+.mv-card .icon { font-size:2rem; margin-bottom:16px; display:block; }
+.mv-card h4 { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--gold); margin-bottom:12px; }
+.mv-card p { color:var(--muted); font-size:.9rem; line-height:1.7; }
+.team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:28px; }
+.team-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:20px; overflow:hidden; text-align:center;
+  transition:all .4s;
+  /* override global reveal — always visible */
+  opacity:1 !important; transform:none !important;
+}
+.team-card:hover { border-color:var(--border-strong); transform:translateY(-6px) !important; box-shadow:var(--shadow),var(--glow); }
+.team-photo { height:220px; background:linear-gradient(135deg,rgba(205,170,128,0.08),rgba(33,58,86,0.4)); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+.team-photo img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; transition:transform .4s; }
+.team-card:hover .team-photo img { transform:scale(1.05); }
+.team-photo-fallback { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--gold); opacity:.6; }
+.team-info { padding:24px; }
+.team-name { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; margin-bottom:6px; }
+.team-role { font-size:.72rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:10px; font-weight:600; }
+.team-bio { color:var(--muted); font-size:.84rem; line-height:1.6; }
+.team-socials { display:flex; gap:8px; justify-content:center; margin-top:14px; }
+.team-social { width:30px; height:30px; border:1px solid var(--border); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:.72rem; color:var(--muted); text-decoration:none; transition:all .3s; }
+.team-social:hover { border-color:var(--gold); color:var(--gold); }
+@media(max-width:900px) { .about-wrapper,.mv-grid { grid-template-columns:1fr; } .about-visual { display:none; } }
 </style>
 {% endblock %}
 {% block content %}
+
 <div class="page-hero">
   <div>
-    <p class="page-hero-tag">Our Story</p>
-    <h1 class="section-h2" style="font-family:'Orbitron',sans-serif;font-size:clamp(2rem,5vw,4rem);">About <em>Nexarya</em></h1>
-    <p style="color:var(--muted);font-size:1.1rem;margin-top:16px;max-width:560px;animation:fadeUp .8s .5s both;">Four engineers, one mission — build technology that transforms businesses.</p>
+    <span class="section-tag" style="display:block;text-align:center;">Our Story</span>
+    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">About <em>Nexarya</em></h1>
+    <p style="color:var(--muted);font-size:1.05rem;margin-top:16px;max-width:540px;">Four engineers, one mission — build technology that transforms businesses.</p>
   </div>
 </div>
 
 <!-- WHO WE ARE -->
 <section class="section">
-  <span class="section-num">01</span>
   <div class="about-wrapper">
-    <div class="about-text reveal">
-      <p class="section-tag">Who We Are</p>
+    <div class="about-text">
+      <span class="section-tag">Who We Are</span>
       <h3>More Than Developers. <span class="highlight">Problem Solvers.</span></h3>
       <p>Nexarya is a Mumbai-based tech company founded by four passionate engineers who believe that technology should be a catalyst for business growth — not just a line item in your budget.</p>
       <p>We specialize in building scalable web applications, cloud-native systems, custom software, and robust APIs. Every project we take on is treated like our own — with the same care, precision, and commitment to excellence.</p>
       <p>Our philosophy: <span class="highlight">"We don't just build software — we solve business problems."</span></p>
     </div>
     <div class="about-visual">
-      <div class="about-card about-card-main"><div class="icon">🚀</div><h4>NEXARYA</h4><p>EST. 2024 · MUMBAI</p></div>
-      <div class="about-card about-badge badge-1"><span class="num">50+</span>Projects</div>
-      <div class="about-card about-badge badge-2"><span class="num">30+</span>Clients</div>
-      <div class="about-card about-badge badge-3"><span class="num">99%</span>Satisfaction</div>
+      <div class="about-card about-card-main">
+        <div class="icon">✦</div>
+        <h4>NEXARYA</h4>
+        <p>EST. 2024 · MUMBAI</p>
+      </div>
+      <div class="about-card about-badge badge-1">
+        <span class="num">50+</span>
+        <p>Projects</p>
+      </div>
+      <div class="about-card about-badge badge-2">
+        <span class="num">30+</span>
+        <p>Clients</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- MISSION & VISION -->
-<section class="section" style="background:rgba(0,0,0,0.3);padding-top:60px;padding-bottom:60px;">
-  <span class="section-num">02</span>
-  <p class="section-tag">Our Foundation</p>
+<section class="section" style="background:rgba(10,22,40,0.6);padding-top:60px;padding-bottom:60px;">
+  <span class="section-tag">Our Foundation</span>
   <h2 class="section-h2">Mission &amp; <em>Vision</em></h2>
   <div class="mv-grid">
-    <div class="mv-card reveal"><span class="icon">🎯</span><h4>Our Mission</h4><p>To empower businesses — from startups to enterprises — with cutting-edge, affordable technology solutions that are scalable, maintainable, and deliver measurable ROI.</p></div>
-    <div class="mv-card reveal"><span class="icon">🔭</span><h4>Our Vision</h4><p>To be India's most trusted tech partner for digital transformation, known for our speed, code quality, and client-centric approach that puts your business first.</p></div>
-    <div class="mv-card reveal"><span class="icon">💎</span><h4>Our Values</h4><p>Transparency, quality, and fast delivery. We believe in honest timelines, clean code, and partnerships that outlast a single project.</p></div>
-    <div class="mv-card reveal"><span class="icon">🤝</span><h4>Our Promise</h4><p>Every project is delivered on time, within budget, and to spec. If something's not right, we fix it — no questions asked.</p></div>
+    <div class="mv-card">
+      <span class="icon">🎯</span>
+      <h4>Our Mission</h4>
+      <p>To empower businesses — from startups to enterprises — with cutting-edge, affordable technology solutions that are scalable, maintainable, and deliver measurable ROI.</p>
+    </div>
+    <div class="mv-card">
+      <span class="icon">🔭</span>
+      <h4>Our Vision</h4>
+      <p>To be India's most trusted tech partner for digital transformation, known for our speed, code quality, and client-centric approach that puts your business first.</p>
+    </div>
+    <div class="mv-card">
+      <span class="icon">💎</span>
+      <h4>Our Values</h4>
+      <p>Transparency, quality, and fast delivery. We believe in honest timelines, clean code, and partnerships that outlast a single project.</p>
+    </div>
+    <div class="mv-card">
+      <span class="icon">🤝</span>
+      <h4>Our Promise</h4>
+      <p>Every project is delivered on time, within budget, and to spec. If something's not right, we fix it — no questions asked.</p>
+    </div>
   </div>
 </section>
 
 <!-- TEAM -->
 <section class="section" id="team">
-  <span class="section-num">03</span>
-  <p class="section-tag">The Team</p>
+  <span class="section-tag">The Team</span>
   <h2 class="section-h2">Meet the <em>Co-Founders</em></h2>
   <p class="section-desc">Four engineers with one shared vision: build tech that actually makes a difference.</p>
-  <div class="neon-line"></div>
   <div class="team-grid">
 
     <!-- Mahesh Nage -->
     <div class="team-card">
       <div class="team-photo">
-        <img src="{{ url_for('static', filename='img/mahesh.jpg') }}" alt="Mahesh Nage" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="team-photo-placeholder" style="display:none;">MN</div>
-        <div class="overlay"></div>
-        <span class="team-photo-label"><!--CEO--></span>
+        <img src="{{ url_for('static', filename='img/mahesh.jpg') }}" alt="Mahesh Nage"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="team-photo-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">MN</div>
       </div>
       <div class="team-info">
-        <h3 class="team-name">Mahesh Nage</h3>
-        <p class="team-role">Chief Executive Officer</p>
-        <p class="team-bio">Visionary leader driving Nexarya's strategy and growth. Expert in business development and client relationships with a passion for solving real-world problems through technology.</p>
+        <h4 class="team-name">Mahesh Nage</h4>
+        <p class="team-role">Co-Founder</p>
+        <p class="team-bio">Passionate software engineer focused on building innovative digital solutions and integrating AI-powered technologies into modern business applications. Dedicated to transforming ideas into scalable products that deliver real-world value.</p>
         <div class="team-socials">
-          <a href="#" class="team-social">in</a>
+          <a href="https://www.linkedin.com/in/mahesh-nage-6332372a8" target="_blank" class="team-social">in</a>
           <a href="#" class="team-social">𝕏</a>
           <a href="#" class="team-social">gh</a>
         </div>
@@ -120,17 +151,16 @@
     <!-- Sheel Nikalje -->
     <div class="team-card">
       <div class="team-photo">
-        <img src="{{ url_for('static', filename='img/sheel.jpg') }}" alt="Sheel Nikalje" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="team-photo-placeholder" style="display:none;">SN</div>
-        <div class="overlay"></div>
-        <span class="team-photo-label"><!--CEO--></span>
+        <img src="{{ url_for('static', filename='img/sheel.jpg') }}" alt="Sheel Nikalje"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="team-photo-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">SN</div>
       </div>
       <div class="team-info">
-        <h3 class="team-name">Sheel Nikalje</h3>
-        <p class="team-role">Chief Technology Officer</p>
-        <p class="team-bio">Architect of Nexarya's technical vision. Deep expertise in cloud infrastructure, system design, and emerging technologies. Ensures every product is built to last.</p>
+        <h4 class="team-name">Sheel Nikalje</h4>
+        <p class="team-role">Co-Founder</p>
+        <p class="team-bio">Software engineer experienced in cloud infrastructure, software testing, and modern application development. Dedicated to delivering scalable, reliable, and performance-driven solutions that help businesses grow with confidence.</p>
         <div class="team-socials">
-          <a href="https://www.linkedin.com/in/sheelnikalje" class="team-social">in</a>
+          <a href="https://www.linkedin.com/in/sheelnikalje" target="_blank" class="team-social">in</a>
           <a href="#" class="team-social">𝕏</a>
           <a href="#" class="team-social">gh</a>
         </div>
@@ -140,17 +170,16 @@
     <!-- Bhupesh Mukane -->
     <div class="team-card">
       <div class="team-photo">
-        <img src="{{ url_for('static', filename='img/bhupesh.jpg') }}" alt="Bhupesh Mukane" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="team-photo-placeholder" style="display:none;">BM</div>
-        <div class="overlay"></div>
-        <span class="team-photo-label"><!--CEO--></span>
+        <img src="{{ url_for('static', filename='img/bhupesh.jpg') }}" alt="Bhupesh Mukane"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="team-photo-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">BM</div>
       </div>
       <div class="team-info">
-        <h3 class="team-name">Bhupesh Mukane</h3>
-        <p class="team-role">Backend Lead Engineer</p>
-        <p class="team-bio">The engine behind our server-side systems. Specializes in Spring Boot, Python Flask, REST APIs, and database optimization. Builds backends that never break under pressure.</p>
+        <h4 class="team-name">Bhupesh Mukane</h4>
+        <p class="team-role">Co-Founder</p>
+        <p class="team-bio">Engineer specializing in software development, testing, and system reliability. Committed to delivering robust applications through clean architecture, thorough validation, and continuous improvement practices.</p>
         <div class="team-socials">
-          <a href="#" class="team-social">in</a>
+          <a href="https://www.linkedin.com/in/bhupesh-mukane-000a06298?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="team-social">in</a>
           <a href="#" class="team-social">𝕏</a>
           <a href="#" class="team-social">gh</a>
         </div>
@@ -160,25 +189,23 @@
     <!-- Pravin Epili -->
     <div class="team-card">
       <div class="team-photo">
-        <img src="{{ url_for('static', filename='img/pravin.jpg') }}" alt="Pravin Epili" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="team-photo-placeholder" style="display:none;">PE</div>
-        <div class="overlay"></div>
-        <span class="team-photo-label"><!--CEO--></span>
+        <img src="{{ url_for('static', filename='img/pravin.jpg') }}" alt="Pravin Epili"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="team-photo-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">PE</div>
       </div>
       <div class="team-info">
-        <h3 class="team-name">Pravin Epili</h3>
-        <p class="team-role">Frontend Lead Engineer</p>
-        <p class="team-bio">Crafts pixel-perfect, high-performance UIs with React and modern CSS. Obsessed with user experience, animations, and making every interface feel alive and intuitive.</p>
+        <h4 class="team-name">Pravin Epili</h4>
+        <p class="team-role">Co-Founder</p>
+        <p class="team-bio">Passionate about software development, digital marketing, and user-focused solutions. Combines technical expertise with creative thinking to build engaging products and help businesses strengthen their digital presence.</p>
         <div class="team-socials">
-          <a href="#" class="team-social">in</a>
+          <a href="https://www.linkedin.com/in/pravinkumarepili" target="_blank" class="team-social">in</a>
           <a href="#" class="team-social">𝕏</a>
-          <a href="#" class="team-social">gh</a>
+          <a href="mailto:pravinkumarepili024@gmail.com" class="team-social">M</a>
         </div>
       </div>
     </div>
 
   </div>
-
-
 </section>
+
 {% endblock %}

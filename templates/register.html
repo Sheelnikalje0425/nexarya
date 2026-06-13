@@ -3,26 +3,26 @@
 {% block extra_styles %}
 <style>
 .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 24px 60px;}
-.auth-box{width:100%;max-width:480px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:48px 40px;position:relative;overflow:hidden;}
-.auth-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));}
-.auth-logo{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:900;color:var(--neon);letter-spacing:3px;text-decoration:none;display:block;margin-bottom:32px;text-align:center;}
-.auth-logo span{color:var(--neon2);}
-.auth-title{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:8px;}
+.auth-box{width:100%;max-width:480px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:48px 40px;position:relative;overflow:hidden;}
+.auth-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.auth-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--gold);letter-spacing:3px;text-decoration:none;display:block;margin-bottom:32px;text-align:center;}
+.auth-logo span{color:var(--gold2);}
+.auth-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;margin-bottom:8px;}
 .auth-sub{color:var(--muted);font-size:.9rem;margin-bottom:32px;}
 .form-group{margin-bottom:20px;}
-.form-group label{display:block;font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.form-group input{width:100%;padding:12px 16px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:1rem;transition:all .3s;outline:none;}
-.form-group input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,245,255,0.1);}
-.form-group input.error-field{border-color:var(--neon3);}
-.form-group input.valid-field{border-color:var(--neon4);}
-.auth-btn{width:100%;padding:14px;background:linear-gradient(90deg,var(--neon),var(--neon2));border:none;border-radius:6px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--bg);transition:all .3s;margin-top:8px;}
+.form-group label{display:block;font-family:'Inter',sans-serif;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.form-group input{width:100%;padding:12px 16px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:1rem;transition:all .3s;outline:none;}
+.form-group input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(0,245,255,0.1);}
+.form-group input.error-field{border-color:#c06060;}
+.form-group input.valid-field{border-color:var(--gold);}
+.auth-btn{width:100%;padding:14px;background:linear-gradient(90deg,var(--gold),var(--gold2));border:none;border-radius:12px;cursor:pointer;font-family:'Playfair Display',serif;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--bg);transition:all .3s;margin-top:8px;}
 .auth-btn:hover{transform:translateY(-2px);box-shadow:var(--glow);}
 .auth-switch{text-align:center;margin-top:24px;color:var(--muted);font-size:.9rem;}
-.auth-switch a{color:var(--neon);text-decoration:none;}
-.error-list{background:rgba(255,45,122,0.1);border:1px solid rgba(255,45,122,0.3);border-radius:6px;padding:12px 16px;margin-bottom:20px;list-style:none;}
-.error-list li{color:var(--neon3);font-size:.85rem;font-family:'JetBrains Mono',monospace;}
+.auth-switch a{color:var(--gold);text-decoration:none;}
+.error-list{background:rgba(255,45,122,0.1);border:1px solid rgba(255,45,122,0.3);border-radius:12px;padding:12px 16px;margin-bottom:20px;list-style:none;}
+.error-list li{color:#c06060;font-size:.85rem;font-family:'Inter',sans-serif;}
 .error-list li::before{content:'✗ ';}
-.email-status{font-family:'JetBrains Mono',monospace;font-size:.65rem;margin-top:6px;height:14px;}
+.email-status{font-family:'Inter',sans-serif;font-size:.65rem;margin-top:6px;height:14px;}
 </style>
 {% endblock %}
 {% block content %}
@@ -58,8 +58,8 @@ document.getElementById('email').addEventListener('input',function(){
     s.textContent='Checking...';s.style.color='var(--muted)';
     const res=await fetch('/api/check-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
     const data=await res.json();
-    if(data.exists){s.textContent='✗ Email already registered';s.style.color='var(--neon3)';this.classList.add('error-field');}
-    else{s.textContent='✓ Email available';s.style.color='var(--neon4)';this.classList.remove('error-field');this.classList.add('valid-field');}
+    if(data.exists){s.textContent='✗ Email already registered';s.style.color='#c06060';this.classList.add('error-field');}
+    else{s.textContent='✓ Email available';s.style.color='var(--gold)';this.classList.remove('error-field');this.classList.add('valid-field');}
   },600);
 });
 async function doRegister(){
