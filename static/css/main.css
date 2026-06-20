@@ -96,6 +96,9 @@ h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform
 /* Mobile auth links inside hamburger — hidden on desktop */
 .mobile-nav-auth { display: none; }
 
+/* Mobile right side group — hidden on desktop */
+.mobile-nav-right { display: none; }
+
 .flash{
     color: #fff;
     padding: 12px;
@@ -447,7 +450,8 @@ h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform
   /* ---- NAV ---- */
   .nav-links { display: none; }
   .nav-toggle { display: flex; }
-  .nav-actions { display: none; } /* hidden — auth moved into hamburger menu */
+  .nav-actions { display: none; }
+  .mobile-nav-right { display: flex; }
 
   /* Hamburger open state */
   .nav-links.open {

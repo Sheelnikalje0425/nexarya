@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v=2"/>
 {% block extra_styles %}{% endblock %}
 <style>
 /* ── Profile dropdown ── */
@@ -115,34 +115,75 @@
   color: #ef4444;
 }
 
-/* ── Mobile dashboard floating icon ── */
-.mobile-dash-btn {
+/* ── Mobile nav right side (avatar + welcome + hamburger) ── */
+.mobile-nav-right {
   display: none; /* hidden on desktop */
-  position: fixed;
-  top: 10px;
-  right: 64px; /* leave space for hamburger menu on the right */
-  z-index: 1100;
-  width: 36px;
-  height: 36px;
-  background: var(--forest);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
   align-items: center;
-  justify-content: center;
-  color: #fff;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  transition: background 0.2s;
-}
-.mobile-dash-btn:hover {
-  background: var(--forest-lt);
+  gap: 8px;
+  margin-left: auto;
 }
 
-/* ── Hide welcome text + profile label on mobile, keep just avatar ── */
+/* Mobile circle avatar with initial */
+.mobile-avatar-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4a843, #1e5631);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* Mobile welcome text next to avatar */
+.mobile-welcome {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.75);
+  white-space: nowrap;
+}
+.mobile-welcome span {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Mobile login/register buttons */
+.mobile-login-btn {
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.mobile-register-btn {
+  font-size: 0.75rem;
+  color: #fff;
+  background: var(--forest);
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Mobile hamburger - always stays at right edge */
+.nav-toggle { display: none; color: var(--muted); padding: 6px; flex-shrink: 0; }
+
+/* Mobile auth links inside hamburger dropdown */
+.mobile-nav-auth { display: none; }
+
 @media (max-width: 768px) {
-  .mobile-dash-btn { display: flex; }
+  .mobile-nav-right { display: flex; }
+  .nav-toggle { display: flex; }
+  .nav-actions { display: none; }
   .nav-welcome { display: none; }
-  .nav-actions { display: none; } /* hide login/register/profile from nav on mobile — handled by hamburger menu */
 }
 </style>
 </head>
@@ -151,17 +192,21 @@
 <!-- NAV -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
+
+    <!-- LOGO -->
     <a href="/" class="nav-logo">
       <span>Nexarya</span>
       <span style="font-size:0.65rem;color:var(--gold);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:2px;border-left:1px solid var(--border-md);padding-left:8px;">Beyond Build</span>
     </a>
+
+    <!-- DESKTOP NAV LINKS -->
     <div class="nav-links" id="navLinks">
       <a href="/services" class="nav-link {% if request.endpoint=='services' %}active{% endif %}">Services</a>
       <a href="/about" class="nav-link {% if request.endpoint=='about' %}active{% endif %}">About</a>
       <a href="/blog" class="nav-link {% if request.endpoint=='blog' %}active{% endif %}">Blog</a>
       <a href="/contact" class="nav-link {% if request.endpoint=='contact' %}active{% endif %}">Contact</a>
 
-      <!-- These links appear inside the hamburger menu on mobile -->
+      <!-- Auth links shown inside hamburger menu on mobile -->
       <div class="mobile-nav-auth">
         {% if session.get('user_name') %}
           <a href="/dashboard" class="nav-link">📊 Dashboard</a>
@@ -173,9 +218,9 @@
       </div>
     </div>
 
+    <!-- DESKTOP AUTH (hidden on mobile) -->
     <div class="nav-actions">
       {% if session.get('user_name') %}
-        <!-- Logged-in: welcome + profile dropdown -->
         <div class="nav-profile" id="profileWrapper">
           <span class="nav-welcome">Welcome, <span>{{ session.get('user_name').split(' ')[0] }}</span></span>
           <button class="profile-btn" id="profileBtn" onclick="toggleProfileDropdown()">
@@ -192,12 +237,28 @@
           </div>
         </div>
       {% else %}
-        <!-- Not logged in: login + register -->
         <a href="/login" class="btn btn-secondary" style="padding:8px 16px;font-size:0.9rem;">Log in</a>
         <a href="/register" class="btn btn-primary" style="padding:8px 16px;font-size:0.9rem;">Register</a>
       {% endif %}
     </div>
 
+    <!-- MOBILE RIGHT SIDE: avatar/welcome OR login/register + hamburger -->
+    <div class="mobile-nav-right">
+      {% if session.get('user_name') %}
+        <!-- Circle avatar with first letter linking to dashboard -->
+        <a href="/dashboard" class="mobile-avatar-btn" title="Dashboard">
+          {{ session.get('user_name')[0] }}
+        </a>
+        <!-- Welcome text next to avatar -->
+        <span class="mobile-welcome">Hi, <span>{{ session.get('user_name').split(' ')[0] }}</span></span>
+      {% else %}
+        <!-- Not logged in: show login + register buttons -->
+        <a href="/login" class="mobile-login-btn">Log in</a>
+        <a href="/register" class="mobile-register-btn">Register</a>
+      {% endif %}
+    </div>
+
+    <!-- HAMBURGER — always at far right -->
     <button class="nav-toggle" id="navToggle">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <line x1="3" y1="6" x2="21" y2="6" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -205,20 +266,9 @@
         <line x1="3" y1="18" x2="21" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
+
   </div>
 </nav>
-
-<!-- MOBILE DASHBOARD ICON (only shown when logged in, only visible on mobile via CSS) -->
-{% if session.get('user_name') %}
-<a href="/dashboard" class="mobile-dash-btn" title="Dashboard">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="3" width="7" height="7"/>
-    <rect x="14" y="3" width="7" height="7"/>
-    <rect x="14" y="14" width="7" height="7"/>
-    <rect x="3" y="14" width="7" height="7"/>
-  </svg>
-</a>
-{% endif %}
 
 <!-- FLASH MESSAGES -->
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -231,8 +281,6 @@
   {% endif %}
 {% endwith %}
 
-<!-- TOAST CONTAINER (managed by JS) -->
-
 <!-- PAGE CONTENT -->
 {% block content %}{% endblock %}
 
@@ -241,9 +289,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="/" class="footer-logo">
-          Nexarya
-        </a>
+        <a href="/" class="footer-logo">Nexarya</a>
         <p class="footer-tagline" style="color:var(--gold);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;font-size:0.7rem;margin-bottom:8px;">Beyond Build</p>
         <p class="footer-tagline">Custom web applications and AI solutions for modern businesses.</p>
       </div>
