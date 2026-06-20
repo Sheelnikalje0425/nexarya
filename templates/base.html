@@ -411,9 +411,7 @@ function toggleMobileDropdown() {
 }
 
 function logout() {
-  fetch('/logout', { method: 'POST' }).then(() => {
-    location.href = '/';
-  });
+   window.location.href = '/logout';
 }
 
 // Close both dropdowns when clicking outside
