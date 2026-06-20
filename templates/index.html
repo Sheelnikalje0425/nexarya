@@ -1,275 +1,100 @@
 {% extends "base.html" %}
-{% block title %}Nexarya — Premium Digital Solutions{% endblock %}
-{% block extra_styles %}
-<style>
-/* ─── HERO ─── */
-#home {
-  min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center;
-  padding:140px 7% 80px; position:relative;
-}
-.hero-badge {
-  display:inline-flex; align-items:center; gap:8px;
-  padding:10px 20px; border:1px solid var(--border-strong);
-  border-radius:50px; color:var(--gold); font-size:.78rem;
-  font-weight:600; letter-spacing:2px; text-transform:uppercase;
-  margin-bottom:32px; background:rgba(205,170,128,0.05);
-  opacity:0; animation:fadeUp .7s .2s forwards;
-}
-.hero-badge-dot { width:8px; height:8px; background:var(--gold); border-radius:50%; animation:pulse 2s infinite; }
-.hero-h1 {
-  font-family:'Playfair Display', serif;
-  font-size:clamp(2.8rem,6vw,5.5rem);
-  font-weight:700; line-height:1.1; letter-spacing:-1px;
-  margin-bottom:28px;
-  opacity:0; animation:fadeUp .8s .4s forwards;
-}
-.hero-h1 .line1 { display:block; color:var(--text); }
-.hero-h1 .line2 { display:block; color:var(--gold); font-style:italic; }
-.hero-sub {
-  font-size:1.1rem; color:var(--muted); line-height:1.8;
-  margin-bottom:52px; max-width:580px;
-  opacity:0; animation:fadeUp .8s .6s forwards;
-}
-.hero-btns {
-  display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
-  opacity:0; animation:fadeUp .8s .8s forwards;
-}
-.hero-scroll {
-  position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; align-items:center; gap:8px;
-  opacity:0; animation:fadeIn 1s 1.4s forwards;
-}
-.hero-scroll span { font-size:.65rem; letter-spacing:3px; color:var(--muted); text-transform:uppercase; }
-.scroll-line { width:1px; height:50px; background:linear-gradient(to bottom,var(--gold),transparent); animation:pulse 2s infinite; }
-
-/* ─── SERVICES CARDS ─── */
-.services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:24px; }
-.service-card {
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:20px; padding:36px 30px;
-  position:relative; overflow:hidden;
-  cursor:default; transition:all .35s;
-  box-shadow:0 4px 20px rgba(0,0,0,0.2);
-}
-.service-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  transform:scaleX(0); transform-origin:left; transition:transform .4s;
-}
-.service-card:hover::before { transform:scaleX(1); }
-.service-card:hover {
-  border-color:var(--border-strong);
-  background:rgba(33,58,86,0.9);
-  transform:translateY(-6px);
-  box-shadow:0 20px 50px rgba(0,0,0,0.35), var(--glow);
-}
-.svc-icon-wrap {
-  width:58px; height:58px; border-radius:16px;
-  border:1px solid var(--border-strong);
-  display:flex; align-items:center; justify-content:center;
-  margin-bottom:22px;
-  background:linear-gradient(135deg,rgba(205,170,128,0.12),rgba(33,58,86,0.3));
-}
-.svc-icon-svg { width:28px; height:28px; }
-.svc-num { font-size:.65rem; color:var(--gold); letter-spacing:3px; margin-bottom:10px; display:block; font-weight:600; }
-.svc-title { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; margin-bottom:12px; color:var(--text); }
-.svc-desc { color:var(--muted); font-size:.9rem; line-height:1.7; }
-.svc-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
-.svc-tag {
-  font-size:.65rem; letter-spacing:1px; padding:4px 12px;
-  border:1px solid var(--border-strong); border-radius:20px;
-  color:var(--gold); background:rgba(205,170,128,0.06); font-weight:500;
-}
-
-/* ─── WHY US ─── */
-.why-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
-.why-points { display:flex; flex-direction:column; gap:18px; }
-.why-point {
-  display:flex; gap:18px; align-items:flex-start;
-  padding:22px 24px; border-radius:16px;
-  border:1px solid transparent; transition:all .3s;
-}
-.why-point:hover { border-color:var(--border); background:var(--surface); }
-.why-point-icon {
-  width:46px; height:46px; flex-shrink:0;
-  border:1px solid var(--border-strong); border-radius:12px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.3rem;
-  background:linear-gradient(135deg,rgba(205,170,128,0.1),rgba(33,58,86,0.3));
-}
-.why-point-body h4 { font-size:.95rem; font-weight:700; margin-bottom:6px; color:var(--text); }
-.why-point-body p { color:var(--muted); font-size:.88rem; line-height:1.6; }
-.why-visual {
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:24px; padding:50px;
-  display:flex; align-items:center; justify-content:center;
-  min-height:360px; position:relative; overflow:hidden;
-}
-.why-visual::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse at center,rgba(205,170,128,0.06) 0%,transparent 70%);
-}
-.why-logo-big {
-  font-family:'Playfair Display',serif;
-  font-size:4.5rem; font-weight:700;
-  color:var(--gold); opacity:.15; letter-spacing:4px;
-  position:absolute;
-}
-.why-center-icon { font-size:5rem; animation:float 4s ease-in-out infinite; filter:drop-shadow(0 0 20px rgba(205,170,128,0.4)); position:relative; z-index:1; }
-
-/* ─── CTA ─── */
-.cta-banner {
-  padding:100px 7%; text-align:center;
-  background:linear-gradient(135deg,rgba(33,58,86,0.5),rgba(15,30,63,0.7));
-  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-  position:relative; overflow:hidden;
-}
-.cta-banner::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse at center,rgba(205,170,128,0.07) 0%,transparent 70%);
-}
-.cta-h2 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,3rem); font-weight:700; margin-bottom:20px; position:relative; color:var(--text); }
-.cta-h2 em { font-style:italic; color:var(--gold); }
-.cta-sub { color:var(--muted); font-size:1.05rem; margin-bottom:44px; max-width:520px; margin-left:auto; margin-right:auto; position:relative; line-height:1.8; }
-
-@media(max-width:900px) {
-  .why-grid { grid-template-columns:1fr; }
-  .why-visual { min-height:200px; }
-}
-</style>
-{% endblock %}
+{% block title %}Nexarya — Custom Web Development & AI Solutions{% endblock %}
 {% block content %}
 
 <!-- HERO -->
-<section id="home">
-  <div class="hero-badge"><div class="hero-badge-dot"></div> Mumbai-Based Tech Company</div>
-  <h1 class="hero-h1">
-    <span class="line1">Building Premium</span>
-    <span class="line2">Digital Experiences</span>
-  </h1>
-  <p class="hero-sub">Websites, AI chatbots, custom web apps and cloud hosting — crafted with precision and delivered with excellence.</p>
-  <div class="hero-btns">
-    <a href="/pricing" class="btn-primary">Get a Quote →</a>
-    <a href="/services" class="btn-outline">Our Services</a>
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Beyond Build</span>
+    <h1>The web development<br><em>system for your business</em></h1>
+    <p class="hero-sub">Purpose-built custom web applications, AI chatbots, and cloud infrastructure. Designed to scale.</p>
+    <div class="hero-cta">
+      <a href="/place-order" class="btn btn-primary">Start a project</a>
+      <a href="/services" class="btn btn-secondary">View our services</a>
+    </div>
   </div>
-  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</div>
+
+<!-- WHAT WE DO -->
+<section class="section">
+  <p class="section-label">What we do</p>
+  <h2 style="margin-bottom:48px;max-width:500px;">A new kind of<br>web development partner.</h2>
+
+  <div class="features-grid">
+    <a href="/services" class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <h3>Custom Web Applications</h3>
+      <p>Full-stack web apps built to your exact workflow. From simple tools to complex multi-role enterprise platforms.</p>
+    </a>
+    <a href="/services" class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      <h3>AI Chatbot Integration</h3>
+      <p>Embed intelligent chatbots trained on your data into your website or app. Support, lead capture, and automation.</p>
+    </a>
+    <a href="/services" class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <h3>Cloud Hosting & DevOps</h3>
+      <p>We deploy and manage your application on AWS. EC2, RDS, S3, and automated CI/CD pipelines included.</p>
+    </a>
+    <a href="/services" class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <h3>QA & Web Testing</h3>
+      <p>Manual and automated testing across browsers and devices. We make sure everything works before it ships.</p>
+    </a>
+    <a href="/services" class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <h3>Admin Panels & Dashboards</h3>
+      <p>Clean, role-based admin systems so you can manage your business without touching code.</p>
+    </a>
+    <a href="/services" class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <h3>Maintenance & Support</h3>
+      <p>Ongoing support, bug fixes, and feature additions. We stay with your project after launch.</p>
+    </a>
+  </div>
 </section>
 
-<!-- SERVICES -->
-<section class="section" id="services">
-  <span class="section-tag">What We Do</span>
-  <h2 class="section-h2">Our <em>Services</em></h2>
-  <p class="section-desc">From a simple landing page to a full AI-powered web application — we design and deliver it all.</p>
-  <div class="gold-line"></div>
+<!-- SERVICES BREAKDOWN -->
+<section class="section" style="padding-top:40px;">
+  <p class="section-label">How it works</p>
+  <h2 style="margin-bottom:48px;max-width:480px;">From idea to production,<br>in three steps.</h2>
+
   <div class="services-grid">
-
-    <div class="service-card">
-      <div class="svc-icon-wrap">
-        <svg class="svc-icon-svg" viewBox="0 0 28 28" fill="none">
-          <rect x="2" y="5" width="24" height="18" rx="3" stroke="#cdaa80" stroke-width="1.5"/>
-          <path d="M2 9h24" stroke="#cdaa80" stroke-width="1.5"/>
-          <circle cx="6" cy="7" r="1" fill="#cdaa80"/>
-          <circle cx="10" cy="7" r="1" fill="#cdaa80"/>
-          <path d="M8 14l-3 3 3 3M20 14l3 3-3 3M13 13l2 8" stroke="#cdaa80" stroke-width="1.3" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="svc-num">01 — SERVICE</span>
-      <h3 class="svc-title">Website Development</h3>
-      <p class="svc-desc">Beautiful, fast and responsive websites built to convert visitors into customers.</p>
-      <div class="svc-tags"><span class="svc-tag">HTML/CSS/JS</span><span class="svc-tag">Flask</span><span class="svc-tag">React</span></div>
+    <div class="service-item">
+      <div class="service-number">01</div>
+      <h3>Intake & Planning</h3>
+      <p>Tell us what you need. We gather requirements, clarify scope, and send you a detailed proposal with timeline and cost.</p>
     </div>
-
-    <div class="service-card">
-      <div class="svc-icon-wrap">
-        <svg class="svc-icon-svg" viewBox="0 0 28 28" fill="none">
-          <rect x="2" y="4" width="16" height="20" rx="3" stroke="#cdaa80" stroke-width="1.5"/>
-          <rect x="10" y="8" width="16" height="16" rx="3" stroke="#cdaa80" stroke-width="1.5" fill="rgba(205,170,128,0.08)"/>
-          <path d="M14 12h8M14 16h6M14 20h4" stroke="#cdaa80" stroke-width="1.3" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="svc-num">02 — SERVICE</span>
-      <h3 class="svc-title">Custom Web Applications</h3>
-      <p class="svc-desc">Bespoke web apps, dashboards, CRMs and ERPs tailored exactly to your business needs.</p>
-      <div class="svc-tags"><span class="svc-tag">Full-Stack</span><span class="svc-tag">MySQL</span><span class="svc-tag">APIs</span></div>
+    <div class="service-item">
+      <div class="service-number">02</div>
+      <h3>Build & Review</h3>
+      <p>We design and develop in sprints. You review progress at each milestone and give feedback before we move forward.</p>
     </div>
-
-    <div class="service-card">
-      <div class="svc-icon-wrap">
-        <svg class="svc-icon-svg" viewBox="0 0 28 28" fill="none">
-          <circle cx="14" cy="14" r="10" stroke="#cdaa80" stroke-width="1.5"/>
-          <path d="M8 16s1-4 6-4 6 4 6 4" stroke="#cdaa80" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="10" cy="12" r="1.5" fill="#cdaa80"/>
-          <circle cx="18" cy="12" r="1.5" fill="#cdaa80"/>
-          <path d="M6 20h16" stroke="#cdaa80" stroke-width="1" stroke-dasharray="2 2"/>
-        </svg>
-      </div>
-      <span class="svc-num">03 — SERVICE</span>
-      <h3 class="svc-title">AI Chatbot Integration</h3>
-      <p class="svc-desc">Intelligent chatbots powered by AI to automate customer support and lead generation.</p>
-      <div class="svc-tags"><span class="svc-tag">AI/ML</span><span class="svc-tag">OpenAI</span><span class="svc-tag">Chat API</span></div>
+    <div class="service-item">
+      <div class="service-number">03</div>
+      <h3>Deploy & Monitor</h3>
+      <p>We deploy your application to production, set up monitoring, and hand over documentation. You stay in control.</p>
     </div>
-
-    <div class="service-card">
-      <div class="svc-icon-wrap">
-        <svg class="svc-icon-svg" viewBox="0 0 28 28" fill="none">
-          <ellipse cx="14" cy="10" rx="10" ry="5" stroke="#cdaa80" stroke-width="1.5"/>
-          <path d="M4 10v8c0 2.8 4.5 5 10 5s10-2.2 10-5v-8" stroke="#cdaa80" stroke-width="1.5"/>
-          <path d="M4 14c0 2.8 4.5 5 10 5s10-2.2 10-5" stroke="#cdaa80" stroke-width="1.2" stroke-dasharray="3 2"/>
-        </svg>
-      </div>
-      <span class="svc-num">04 — SERVICE</span>
-      <h3 class="svc-title">Cloud Hosting & Maintenance</h3>
-      <p class="svc-desc">Reliable AWS hosting, server management, and ongoing maintenance to keep your app running perfectly.</p>
-      <div class="svc-tags"><span class="svc-tag">AWS</span><span class="svc-tag">Docker</span><span class="svc-tag">24/7</span></div>
-    </div>
-
-    <div class="service-card">
-      <div class="svc-icon-wrap">
-        <svg class="svc-icon-svg" viewBox="0 0 28 28" fill="none">
-          <path d="M5 14l4 4 10-10" stroke="#cdaa80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="14" cy="14" r="11" stroke="#cdaa80" stroke-width="1.5"/>
-          <path d="M14 5v2M14 21v2M5 14H3M25 14h-2" stroke="#cdaa80" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="svc-num">05 — SERVICE</span>
-      <h3 class="svc-title">Web Testing</h3>
-      <p class="svc-desc">Comprehensive quality assurance — functional, performance and security testing for your web products.</p>
-      <div class="svc-tags"><span class="svc-tag">QA</span><span class="svc-tag">Performance</span><span class="svc-tag">Security</span></div>
-    </div>
-
-  </div>
-</section>
-
-<!-- WHY NEXARYA -->
-<section class="section" style="background:rgba(10,22,40,0.6);">
-  <div class="why-grid">
-    <div class="why-visual">
-      <div class="why-logo-big">NX</div>
-      <div class="why-center-icon">✦</div>
-    </div>
-    <div>
-      <span class="section-tag">Why Choose Us</span>
-      <h2 class="section-h2">Built for <em>Excellence</em></h2>
-      <div class="why-points">
-        <div class="why-point"><div class="why-point-icon">⚡</div><div class="why-point-body"><h4>Fast Delivery</h4><p>We ship faster than traditional agencies — MVPs in days, full systems in weeks.</p></div></div>
-        <div class="why-point"><div class="why-point-icon">🎨</div><div class="why-point-body"><h4>Premium Design</h4><p>Every product we build is elegant, modern and crafted with attention to detail.</p></div></div>
-        <div class="why-point"><div class="why-point-icon">🤝</div><div class="why-point-body"><h4>Client-First Approach</h4><p>Your success is our success. We stay involved until you're fully satisfied.</p></div></div>
-        <div class="why-point"><div class="why-point-icon">💰</div><div class="why-point-body"><h4>Affordable Pricing</h4><p>Premium quality at startup-friendly prices. Flexible packages for every budget.</p></div></div>
-      </div>
+    <div class="service-item">
+      <div class="service-number">04</div>
+      <h3>Support & Grow</h3>
+      <p>After launch, we're still here. Add features, fix bugs, scale infrastructure — your project keeps moving forward.</p>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<div class="cta-banner">
-  <h2 class="cta-h2">Ready to Build Something <em>Exceptional?</em></h2>
-  <p class="cta-sub">We don't just build software — we solve business problems. Let's start a conversation about your project.</p>
-  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;">
-    <a href="/pricing" class="btn-primary">Get a Quote →</a>
-    <a href="/contact" class="btn-outline">Talk to Us</a>
+<section class="section" style="padding-top:20px;">
+  <div class="cta-strip">
+    <div>
+      <h2>Ready to build<br>something?</h2>
+      <p>Tell us about your project. We'll get back to you within 24 hours.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+      <a href="/place-order" class="btn btn-primary">Start a project</a>
+      <a href="/contact" style="font-size:0.82rem;color:var(--muted);">Or get in touch →</a>
+    </div>
   </div>
-</div>
+</section>
+
 {% endblock %}
