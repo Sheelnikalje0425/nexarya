@@ -1,210 +1,120 @@
 {% extends "base.html" %}
 {% block title %}About — Nexarya{% endblock %}
-{% block extra_styles %}
-<style>
-.page-hero { min-height:42vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:140px 7% 60px; }
-.about-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
-.about-text h3 { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; margin-bottom:20px; }
-.about-text p { color:var(--muted); line-height:1.9; margin-bottom:16px; font-size:.95rem; }
-.about-text .highlight { color:var(--gold); font-weight:600; }
-.about-visual { position:relative; height:400px; display:flex; align-items:center; justify-content:center; }
-.about-card {
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:16px; padding:28px; text-align:center; position:absolute;
-}
-.about-card-main {
-  width:220px;
-  background:linear-gradient(135deg,rgba(205,170,128,0.1),rgba(33,58,86,0.5));
-  border-color:var(--border-strong);
-}
-.about-card-main .icon { font-size:2.5rem; margin-bottom:12px; }
-.about-card-main h4 { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--gold); }
-.about-card-main p { font-size:.75rem; color:var(--muted); margin-top:6px; }
-.about-badge { width:110px; padding:16px 12px; }
-.about-badge .num { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:var(--gold); display:block; margin-bottom:4px; }
-.about-badge p { font-size:.7rem; color:var(--muted); }
-.badge-1 { top:50px; right:20px; }
-.badge-2 { bottom:50px; left:10px; }
-.mv-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:20px; }
-.mv-card {
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:16px; padding:32px;
-}
-.mv-card .icon { font-size:2rem; margin-bottom:16px; display:block; }
-.mv-card h4 { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--gold); margin-bottom:12px; }
-.mv-card p { color:var(--muted); font-size:.9rem; line-height:1.7; }
-.team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:28px; }
-.team-card {
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:20px; overflow:hidden; text-align:center;
-  transition:all .4s;
-  /* override global reveal — always visible */
-  opacity:1 !important; transform:none !important;
-}
-.team-card:hover { border-color:var(--border-strong); transform:translateY(-6px) !important; box-shadow:var(--shadow),var(--glow); }
-.team-photo { height:220px; background:linear-gradient(135deg,rgba(205,170,128,0.08),rgba(33,58,86,0.4)); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
-.team-photo img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; transition:transform .4s; }
-.team-card:hover .team-photo img { transform:scale(1.05); }
-.team-photo-fallback { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--gold); opacity:.6; }
-.team-info { padding:24px; }
-.team-name { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; margin-bottom:6px; }
-.team-role { font-size:.72rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:10px; font-weight:600; }
-.team-bio { color:var(--muted); font-size:.84rem; line-height:1.6; }
-.team-socials { display:flex; gap:8px; justify-content:center; margin-top:14px; }
-.team-social { width:30px; height:30px; border:1px solid var(--border); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:.72rem; color:var(--muted); text-decoration:none; transition:all .3s; }
-.team-social:hover { border-color:var(--gold); color:var(--gold); }
-@media(max-width:900px) { .about-wrapper,.mv-grid { grid-template-columns:1fr; } .about-visual { display:none; } }
-</style>
-{% endblock %}
 {% block content %}
 
 <div class="page-hero">
-  <div>
-    <span class="section-tag" style="display:block;text-align:center;">Our Story</span>
-    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">About <em>Nexarya</em></h1>
-    <p style="color:var(--muted);font-size:1.05rem;margin-top:16px;max-width:540px;">Four engineers, one mission — build technology that transforms businesses.</p>
-  </div>
+  <p class="section-label">About us</p>
+  <h1>We build software<br>businesses depend on.</h1>
+  <p>Nexarya is a Mumbai-based web development studio founded in 2022. We build custom web applications, AI systems, and cloud infrastructure for businesses across India.</p>
 </div>
 
-<!-- WHO WE ARE -->
-<section class="section">
-  <div class="about-wrapper">
-    <div class="about-text">
-      <span class="section-tag">Who We Are</span>
-      <h3>More Than Developers. <span class="highlight">Problem Solvers.</span></h3>
-      <p>Nexarya is a Mumbai-based tech company founded by four passionate engineers who believe that technology should be a catalyst for business growth — not just a line item in your budget.</p>
-      <p>We specialize in building scalable web applications, cloud-native systems, custom software, and robust APIs. Every project we take on is treated like our own — with the same care, precision, and commitment to excellence.</p>
-      <p>Our philosophy: <span class="highlight">"We don't just build software — we solve business problems."</span></p>
+<!--<section class="section" style="padding-top:0;">
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-number">40+</div>
+      <div class="stat-label">Projects delivered</div>
     </div>
-    <div class="about-visual">
-      <div class="about-card about-card-main">
-        <div class="icon">✦</div>
-        <h4>NEXARYA</h4>
-        <p>EST. 2024 · MUMBAI</p>
-      </div>
-      <div class="about-card about-badge badge-1">
-        <span class="num">50+</span>
-        <p>Projects</p>
-      </div>
-      <div class="about-card about-badge badge-2">
-        <span class="num">30+</span>
-        <p>Clients</p>
-      </div>
+    <div class="stat-item">
+      <div class="stat-number">3+</div>
+      <div class="stat-label">Years building</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">15+</div>
+      <div class="stat-label">Industries served</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">Mumbai</div>
+      <div class="stat-label">Headquarters</div>
     </div>
   </div>
-</section>
+</section> -->
 
-<!-- MISSION & VISION -->
-<section class="section" style="background:rgba(10,22,40,0.6);padding-top:60px;padding-bottom:60px;">
-  <span class="section-tag">Our Foundation</span>
-  <h2 class="section-h2">Mission &amp; <em>Vision</em></h2>
-  <div class="mv-grid">
-    <div class="mv-card">
-      <span class="icon">🎯</span>
-      <h4>Our Mission</h4>
-      <p>To empower businesses — from startups to enterprises — with cutting-edge, affordable technology solutions that are scalable, maintainable, and deliver measurable ROI.</p>
+<!-- MISSION -->
+<section class="section" style="padding-top:0;">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p class="section-label">Our approach</p>
+      <h2 style="margin-bottom:20px;">Built for purpose,<br>designed for speed.</h2>
+      <p>Most agencies treat every project the same way. We don't. We spend time understanding your actual business problem before writing a single line of code.</p>
+      <p style="margin-top:16px;">Our team is small by design. That means you always work with the people actually building your product — not account managers handing things off.</p>
     </div>
-    <div class="mv-card">
-      <span class="icon">🔭</span>
-      <h4>Our Vision</h4>
-      <p>To be India's most trusted tech partner for digital transformation, known for our speed, code quality, and client-centric approach that puts your business first.</p>
-    </div>
-    <div class="mv-card">
-      <span class="icon">💎</span>
-      <h4>Our Values</h4>
-      <p>Transparency, quality, and fast delivery. We believe in honest timelines, clean code, and partnerships that outlast a single project.</p>
-    </div>
-    <div class="mv-card">
-      <span class="icon">🤝</span>
-      <h4>Our Promise</h4>
-      <p>Every project is delivered on time, within budget, and to spec. If something's not right, we fix it — no questions asked.</p>
+    <div class="contact-form-wrap">
+      <p class="section-label">Our principles</p>
+      <div style="margin-top:24px;">
+        <div style="padding:20px 0;border-bottom:1px solid var(--border);">
+          <h3 style="font-size:0.9rem;margin-bottom:6px;">Scope before starting</h3>
+          <p style="color:var(--muted);font-size:0.85rem;">We document exactly what we're building before any work begins. No surprises mid-project.</p>
+        </div>
+        <div style="padding:20px 0;border-bottom:1px solid var(--border);">
+          <h3 style="font-size:0.9rem;margin-bottom:6px;">Ownership stays with you</h3>
+          <p style="color:var(--muted);font-size:0.85rem;">All code, infrastructure, and assets belong to you. We hand over everything, documented.</p>
+        </div>
+        <div style="padding:20px 0;border-bottom:1px solid var(--border);">
+          <h3 style="font-size:0.9rem;margin-bottom:6px;">We stay after launch</h3>
+          <p style="color:var(--muted);font-size:0.85rem;">Going live is not the finish line. Every project includes post-launch support and monitoring.</p>
+        </div>
+        <div style="padding:20px 0;">
+          <h3 style="font-size:0.9rem;margin-bottom:6px;">No agency markup</h3>
+          <p style="color:var(--muted);font-size:0.85rem;">We quote what it actually costs to build your project. No inflated estimates, no hidden fees.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- TEAM -->
-<section class="section" id="team">
-  <span class="section-tag">The Team</span>
-  <h2 class="section-h2">Meet the <em>Co-Founders</em></h2>
-  <p class="section-desc">Four engineers with one shared vision: build tech that actually makes a difference.</p>
+<section class="section" style="padding-top:0;">
+  <p class="section-label">The team</p>
+  <h2 style="margin-bottom:40px;">Who you're working with</h2>
+
   <div class="team-grid">
 
-    <!-- Mahesh Nage -->
-    <div class="team-card">
-      <div class="team-photo">
-        <img src="{{ url_for('static', filename='img/mahesh.jpg') }}" alt="Mahesh Nage"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="team-photo-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">MN</div>
-      </div>
-      <div class="team-info">
-        <h4 class="team-name">Mahesh Nage</h4>
-        <p class="team-role">Co-Founder</p>
-        <p class="team-bio">Passionate software engineer focused on building innovative digital solutions and integrating AI-powered technologies into modern business applications. Dedicated to transforming ideas into scalable products that deliver real-world value.</p>
-        <div class="team-socials">
-          <a href="https://www.linkedin.com/in/mahesh-nage-6332372a8" target="_blank" class="team-social">in</a>
-          <a href="#" class="team-social">𝕏</a>
-          <a href="#" class="team-social">gh</a>
-        </div>
-      </div>
-    </div>
+  <a href="https://www.linkedin.com/in/mahesh-nage-6332372a8"
+     target="_blank" class="team-item">
+    <img src="{{ url_for('static', filename='img/mahesh.jpg') }}" alt="Mahesh"
+         class="team-avatar" onerror="this.style.display='none'"/>
+    <div class="team-name">Mahesh</div>
+    <div class="team-role">Co-Founder</div>
+  </a>
 
-    <!-- Sheel Nikalje -->
-    <div class="team-card">
-      <div class="team-photo">
-        <img src="{{ url_for('static', filename='img/sheel.jpg') }}" alt="Sheel Nikalje"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="team-photo-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">SN</div>
-      </div>
-      <div class="team-info">
-        <h4 class="team-name">Sheel Nikalje</h4>
-        <p class="team-role">Co-Founder</p>
-        <p class="team-bio">Software engineer experienced in cloud infrastructure, software testing, and modern application development. Dedicated to delivering scalable, reliable, and performance-driven solutions that help businesses grow with confidence.</p>
-        <div class="team-socials">
-          <a href="https://www.linkedin.com/in/sheelnikalje" target="_blank" class="team-social">in</a>
-          <a href="#" class="team-social">𝕏</a>
-          <a href="#" class="team-social">gh</a>
-        </div>
-      </div>
-    </div>
+  <a href="https://www.linkedin.com/in/sheelnikalje"
+     target="_blank" class="team-item">
+    <img src="{{ url_for('static', filename='img/sheel.jpg') }}" alt="Sheel Nikalje"
+         class="team-avatar" onerror="this.style.display='none'"/>
+    <div class="team-name">Sheel Nikalje</div>
+    <div class="team-role">Co-Founder</div>
+  </a>
 
-    <!-- Bhupesh Mukane -->
-    <div class="team-card">
-      <div class="team-photo">
-        <img src="{{ url_for('static', filename='img/bhupesh.jpg') }}" alt="Bhupesh Mukane"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="team-photo-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">BM</div>
-      </div>
-      <div class="team-info">
-        <h4 class="team-name">Bhupesh Mukane</h4>
-        <p class="team-role">Co-Founder</p>
-        <p class="team-bio">Engineer specializing in software development, testing, and system reliability. Committed to delivering robust applications through clean architecture, thorough validation, and continuous improvement practices.</p>
-        <div class="team-socials">
-          <a href="https://www.linkedin.com/in/bhupesh-mukane-000a06298?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="team-social">in</a>
-          <a href="#" class="team-social">𝕏</a>
-          <a href="#" class="team-social">gh</a>
-        </div>
-      </div>
-    </div>
+  <a href="https://www.linkedin.com/in/bhupesh-mukane-000a06298?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+     target="_blank" class="team-item">
+    <img src="{{ url_for('static', filename='img/bhupesh.jpg') }}" alt="Bhupesh"
+         class="team-avatar" onerror="this.style.display='none'"/>
+    <div class="team-name">Bhupesh</div>
+    <div class="team-role">Co-Founder</div>
+  </a>
 
-    <!-- Pravin Epili -->
-    <div class="team-card">
-      <div class="team-photo">
-        <img src="{{ url_for('static', filename='img/pravin.jpg') }}" alt="Pravin Epili"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="team-photo-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">PE</div>
-      </div>
-      <div class="team-info">
-        <h4 class="team-name">Pravin Epili</h4>
-        <p class="team-role">Co-Founder</p>
-        <p class="team-bio">Passionate about software development, digital marketing, and user-focused solutions. Combines technical expertise with creative thinking to build engaging products and help businesses strengthen their digital presence.</p>
-        <div class="team-socials">
-          <a href="https://www.linkedin.com/in/pravinkumarepili" target="_blank" class="team-social">in</a>
-          <a href="#" class="team-social">𝕏</a>
-          <a href="mailto:pravinkumarepili024@gmail.com" class="team-social">M</a>
-        </div>
-      </div>
-    </div>
+  <a href="https://www.linkedin.com/in/pravinkumarepili"
+     target="_blank" class="team-item">
+    <img src="{{ url_for('static', filename='img/pravin.jpg') }}" alt="Pravin"
+         class="team-avatar" onerror="this.style.display='none'"/>
+    <div class="team-name">Pravin</div>
+    <div class="team-role">Co-Founder</div>
+  </a>
 
+</div>
+    
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding-top:0;">
+  <div class="cta-strip">
+    <div>
+      <h2>Let's work together</h2>
+      <p>Tell us about your project and we'll get back to you within 24 hours.</p>
+    </div>
+    <a href="/contact" class="btn btn-primary">Get in touch</a>
   </div>
 </section>
 

@@ -1,94 +1,52 @@
 {% extends "base.html" %}
 {% block title %}Blog — Nexarya{% endblock %}
-{% block extra_styles %}
-<style>
-.page-hero{min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 40px 60px;}
-.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;}
-.blog-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all .4s;cursor:pointer;}
-.blog-card:hover{border-color:rgba(0,245,255,0.3);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
-.blog-banner{height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
-.bb-1{background:linear-gradient(135deg,#0d1b2a,#1a2d4a);}
-.bb-2{background:linear-gradient(135deg,#1a0d2a,#2d1a4a);}
-.bb-3{background:linear-gradient(135deg,#0d2a1a,#1a4a2d);}
-.bb-4{background:linear-gradient(135deg,#2a1a0d,#4a2d1a);}
-.bb-5{background:linear-gradient(135deg,#1a0a1a,#2d142d);}
-.bb-6{background:linear-gradient(135deg,#0a1a2a,#0d2a3a);}
-.blog-cat{position:absolute;top:12px;left:12px;font-family:'Inter',sans-serif;font-size:.6rem;letter-spacing:2px;padding:4px 10px;border-radius:3px;background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.2);color:var(--gold);}
-.blog-body{padding:24px;}
-.blog-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:10px;line-height:1.4;}
-.blog-excerpt{color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:18px;}
-.blog-meta{display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:.65rem;color:var(--muted);}
-.blog-read{color:var(--gold);text-decoration:none;transition:color .3s;}
-.blog-read:hover{color:var(--gold2);}
-.blog-date{opacity:.7;}
-</style>
-{% endblock %}
 {% block content %}
+
 <div class="page-hero">
-  <div>
-    <p class="section-tag" style="text-align:center;">Knowledge Hub</p>
-    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">Nexarya <em>Blog</em></h1>
-    <p style="color:var(--muted);margin-top:16px;max-width:520px;">Insights on tech, startups, and building scalable digital products.</p>
-  </div>
+  <p class="section-label">Blog</p>
+  <h1>Insights & updates</h1>
+  <p>Thoughts on web development, cloud infrastructure, and building software businesses.</p>
 </div>
 
-<section class="section" style="padding-top:20px;">
+<section class="section" style="padding-top:0;">
   <div class="blog-grid">
-
-    <div class="blog-card">
-      <div class="blog-banner bb-1"><span class="blog-cat">Web Dev</span>🌐</div>
-      <div class="blog-body">
-        <h3 class="blog-title">Why Your Business Needs a Website in 2025</h3>
-        <p class="blog-excerpt">Still running on WhatsApp and referrals? Here's why a professional website is no longer optional — and what it's costing you not to have one.</p>
-        <div class="blog-meta"><span class="blog-date">Jan 15, 2025 · 5 min read</span><a href="#" class="blog-read">Read →</a></div>
-      </div>
+    <div class="blog-item">
+      <div class="blog-meta">May 2025 &nbsp;·&nbsp; Web Development</div>
+      <h3>Why Flask is still a great choice for small business backends</h3>
+      <p>When your product doesn't need microservices, choosing a simple, well-understood framework saves time and money. Here's why we still reach for Flask.</p>
+      <a href="#" class="blog-link">Read more →</a>
     </div>
-
-    <div class="blog-card">
-      <div class="blog-banner bb-2"><span class="blog-cat">Cloud</span>☁️</div>
-      <div class="blog-body">
-        <h3 class="blog-title">Cloud vs Traditional Hosting — What's Right for You?</h3>
-        <p class="blog-excerpt">A plain-language breakdown of the real differences between shared hosting, VPS, and cloud platforms like AWS — and when to use each.</p>
-        <div class="blog-meta"><span class="blog-date">Feb 2, 2025 · 7 min read</span><a href="#" class="blog-read">Read →</a></div>
-      </div>
+    <div class="blog-item">
+      <div class="blog-meta">April 2025 &nbsp;·&nbsp; Cloud</div>
+      <h3>Setting up a production-ready AWS deployment for Flask apps</h3>
+      <p>EC2, RDS, S3, Elastic IP, and GitHub Actions CI/CD — a practical guide to what we actually use when deploying client projects.</p>
+      <a href="#" class="blog-link">Read more →</a>
     </div>
-
-    <div class="blog-card">
-      <div class="blog-banner bb-3"><span class="blog-cat">Startups</span>🚀</div>
-      <div class="blog-body">
-        <h3 class="blog-title">Best Tech Stack for Indian Startups in 2025</h3>
-        <p class="blog-excerpt">Flask vs Django vs Spring Boot vs Node? We break down the right tech choices for speed, cost, and scalability at every startup stage.</p>
-        <div class="blog-meta"><span class="blog-date">Feb 20, 2025 · 9 min read</span><a href="#" class="blog-read">Read →</a></div>
-      </div>
+    <div class="blog-item">
+      <div class="blog-meta">March 2025 &nbsp;·&nbsp; AI</div>
+      <h3>How to build a useful AI chatbot without hallucinations</h3>
+      <p>RAG-based chatbots trained on your own documents are far more reliable than prompting a general model. Here's how we build them.</p>
+      <a href="#" class="blog-link">Read more →</a>
     </div>
-
-    <div class="blog-card">
-      <div class="blog-banner bb-4"><span class="blog-cat">Backend</span>⚙️</div>
-      <div class="blog-body">
-        <h3 class="blog-title">REST API Design Mistakes That Will Haunt You</h3>
-        <p class="blog-excerpt">From poor versioning to leaking stack traces in error responses — here are the API mistakes we see most often, and how to avoid them.</p>
-        <div class="blog-meta"><span class="blog-date">Mar 5, 2025 · 6 min read</span><a href="#" class="blog-read">Read →</a></div>
-      </div>
+    <div class="blog-item">
+      <div class="blog-meta">February 2025 &nbsp;·&nbsp; Process</div>
+      <h3>What goes wrong when agencies don't write specs first</h3>
+      <p>Scope creep, missed deadlines, client frustration — almost all of it comes from the same root cause. Our process for preventing it.</p>
+      <a href="#" class="blog-link">Read more →</a>
     </div>
-
-    <div class="blog-card">
-      <div class="blog-banner bb-5"><span class="blog-cat">Database</span>🗄️</div>
-      <div class="blog-body">
-        <h3 class="blog-title">MySQL vs PostgreSQL — Which Should You Pick?</h3>
-        <p class="blog-excerpt">Both are excellent. But depending on your project's needs, one will serve you significantly better. Here's how to decide.</p>
-        <div class="blog-meta"><span class="blog-date">Mar 18, 2025 · 5 min read</span><a href="#" class="blog-read">Read →</a></div>
-      </div>
+    <div class="blog-item">
+      <div class="blog-meta">January 2025 &nbsp;·&nbsp; Database</div>
+      <h3>MySQL schema design mistakes we see in every legacy codebase</h3>
+      <p>Missing indexes, varchar(255) everywhere, no foreign keys. A practical guide to the mistakes that slow your app down and how to fix them.</p>
+      <a href="#" class="blog-link">Read more →</a>
     </div>
-
-    <div class="blog-card">
-      <div class="blog-banner bb-6"><span class="blog-cat">Security</span>🔐</div>
-      <div class="blog-body">
-        <h3 class="blog-title">10 Security Basics Every Web App Must Have</h3>
-        <p class="blog-excerpt">HTTPS, hashed passwords, CSRF protection, SQL injection prevention — a practical security checklist every developer should follow before launch.</p>
-        <div class="blog-meta"><span class="blog-date">Apr 1, 2025 · 8 min read</span><a href="#" class="blog-read">Read →</a></div>
-      </div>
+    <div class="blog-item">
+      <div class="blog-meta">December 2024 &nbsp;·&nbsp; Business</div>
+      <h3>How Indian SMBs can use custom software to compete with larger players</h3>
+      <p>Off-the-shelf SaaS tools often don't fit how Indian businesses actually operate. Custom software built to your workflow changes the equation.</p>
+      <a href="#" class="blog-link">Read more →</a>
     </div>
-
   </div>
 </section>
+
 {% endblock %}

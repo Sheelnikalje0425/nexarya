@@ -36,7 +36,7 @@ select.status-sel:disabled{opacity:.5;cursor:not-allowed;}
 </style>
 {% endblock %}
 {% block content %}
-<div class="toast-container" id="toastContainer"></div>
+ 
 <div class="filter-bar">
   <a href="/admin/orders" class="filter-btn {% if not status_filter %}active{% endif %}">All</a>
   {% for st in ['Pending','In Review','In Progress','Testing','Completed','Cancelled'] %}
@@ -90,44 +90,4 @@ select.status-sel:disabled{opacity:.5;cursor:not-allowed;}
 </div>
 <p style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-top:12px;">{{orders|length}} order(s) shown</p>
 {% endblock %}
-{% block extra_scripts %}
-<script>
-function statusSlug(s){
-  return s.toLowerCase().split(' ').join('-');
-}
-function showToast(message, type='success'){
-  const c=document.getElementById('toastContainer');
-  const t=document.createElement('div');
-  t.className=`toast ${type}`;
-  t.innerHTML=`<span>${type==='success'?'✓':'✗'}</span><span>${message}</span>`;
-  c.appendChild(t);
-  setTimeout(()=>{t.classList.add('fade-out');setTimeout(()=>t.remove(),400);},3000);
-}
-async function updateStatus(orderId){
-  const sel=document.getElementById(`sel-${orderId}`);
-  const btn=document.getElementById(`btn-${orderId}`);
-  const badge=document.getElementById(`badge-${orderId}`);
-  const newStatus=sel.value;
-  sel.disabled=true; btn.disabled=true; btn.textContent='Saving...';
-  try{
-    const res=await fetch(`/admin/order/${orderId}/update`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({status:newStatus})
-    });
-    const data=await res.json();
-    if(data.success){
-      badge.textContent=newStatus;
-      badge.className=`status-badge s-${statusSlug(newStatus)}`;
-      showToast(`Order #${orderId} → "${newStatus}"`);
-    } else {
-      showToast(`Failed to update order #${orderId}`,'error');
-    }
-  } catch(err){
-    showToast('Network error — please try again','error');
-  } finally {
-    sel.disabled=false; btn.disabled=false; btn.textContent='↑ Save Status';
-  }
-}
-</script>
-{% endblock %}
+{% block extra_scripts %}{% endblock %}

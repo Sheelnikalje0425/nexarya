@@ -1,0 +1,34 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Order #{{ order.order_id }} — Admin{% endblock %}
+{% block page_title %}Order #{{ order.order_id }}{% endblock %}
+{% block content %}
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <div>
+      <h3 style="margin:0;">{{ order.order_domain or 'Project' }}</h3>
+      <div style="font-size:0.85rem;color:var(--muted);">Client: {{ order.user_name }} · {{ order.email }}</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <a href="/admin/order/{{ order.order_id }}/payment" class="btn btn-secondary">Payment settings</a>
+      <a href="/admin/orders" class="btn btn-secondary">Back</a>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div>
+      <div style="font-size:0.75rem;color:var(--muted);text-transform:uppercase;">Description</div>
+      <p style="margin-top:8px;color:var(--muted);">{{ order.details }}</p>
+    </div>
+    <div>
+      <div style="font-size:0.75rem;color:var(--muted);text-transform:uppercase;">Details</div>
+      <ul style="margin-top:8px;">
+        <li><strong>Plan:</strong> {{ order.plan_selected or '—' }}</li>
+        <li><strong>Total price:</strong> {{ order.total_price or '—' }}</li>
+        <li><strong>Amount paid:</strong> {{ order.amount_paid or 0 }}</li>
+        <li><strong>Stages:</strong> {{ order.payment_stages or 1 }}</li>
+        <li><strong>Status:</strong> {{ order.tracking_status }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

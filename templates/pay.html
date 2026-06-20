@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Pay — Nexarya{% endblock %}
+{% block content %}
+<div class="order-page">
+  <p class="section-label">Payment</p>
+  <h1>Pay for {{ order.order_domain or 'your project' }}</h1>
+  <p>Order #{{ order.order_id }} · Total: ₹{{ order.total_price or '—' }}</p>
+
+  <div style="max-width:520px;margin-top:24px;">
+    <p style="font-size:0.95rem;color:var(--muted);">Amount paid so far: <strong>₹{{ order.amount_paid or 0 }}</strong></p>
+    <p style="font-size:0.95rem;color:var(--muted);">Stages: <strong>{{ order.payment_stages or 1 }}</strong></p>
+
+    <div>
+      <label style="display:block;margin-bottom:8px;font-weight:500;">Amount to pay now</label>
+      <input type="number" step="0.01" id="payAmount" class="form-input" value="{{ (order.total_price or 0) / (order.payment_stages or 1) }}" style="margin-bottom:24px;" />
+      
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button id="payRazorpay" class="btn btn-primary" type="button">💳 Pay Now (Razorpay)</button>
+        <a href="/order/{{ order.order_id }}" class="btn btn-secondary">← Back</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Razorpay Checkout Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+const orderId = {{ order.order_id }};
+const payAmount = document.getElementById('payAmount');
+const payRazorpay = document.getElementById('payRazorpay');
+
+payRazorpay.addEventListener('click', async ()=>{
+  const amount = parseFloat(payAmount.value);
+  if(amount <= 0){
+    showToast('Please enter a valid amount', 'error');
+    return;
+  }
+  
+  payRazorpay.disabled = true;
+  payRazorpay.textContent = '⏳ Creating order...';
+  
+  try{
+    // Create Razorpay order on server
+    const res = await fetch(`/pay/${orderId}/create-razorpay-order`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({amount})
+    });
+    
+    const data = await res.json();
+    if(!data.success){
+      showToast(data.error || 'Failed to create payment order', 'error');
+      payRazorpay.disabled = false;
+      payRazorpay.textContent = '💳 Pay Now (Razorpay)';
+      return;
+    }
+    
+    // Launch Razorpay checkout
+    const options = {
+      key: data.razorpay_key_id,
+      amount: data.amount_paise,
+      currency: 'INR',
+      name: 'Nexarya',
+      description: `Order #${orderId}`,
+      order_id: data.razorpay_order_id,
+      handler: async (response)=>{
+        showToast('Payment successful! Verifying...', 'success');
+        // Verify payment on server
+        try{
+          const verifyRes = await fetch(`/pay/${orderId}/verify-razorpay`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature
+            })
+          });
+          
+          const verifyData = await verifyRes.json();
+          if(verifyData.success){
+            showToast(verifyData.message || 'Payment verified and recorded!', 'success');
+            setTimeout(()=>location.reload(), 2000);
+          } else {
+            showToast(verifyData.error || 'Payment verification failed', 'error');
+          }
+        } catch(err){
+          showToast('Error verifying payment: ' + err.message, 'error');
+        }
+      },
+      prefill: {
+        email: '{{ session.get("user_email", "") }}'
+      },
+      theme: {
+        color: '#1e5631'
+      }
+    };
+    
+    const rzp = new Razorpay(options);
+    rzp.open();
+  } catch(err){
+    showToast('Error: ' + err.message, 'error');
+  } finally {
+    payRazorpay.disabled = false;
+    payRazorpay.textContent = '💳 Pay Now (Razorpay)';
+  }
+});
+</script>
+{% endblock %}

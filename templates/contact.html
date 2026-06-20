@@ -1,298 +1,90 @@
 {% extends "base.html" %}
 {% block title %}Contact — Nexarya{% endblock %}
-{% block extra_styles %}
-<style>
-.page-hero { min-height:32vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:110px 7% 50px; }
-.contact-wrapper { display:grid; grid-template-columns:1fr 1.4fr; gap:60px; }
-.contact-info h3 { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; margin-bottom:16px; }
-.contact-info p { color:var(--muted); line-height:1.8; margin-bottom:36px; font-size:.95rem; }
-.contact-item { display:flex; gap:16px; align-items:center; margin-bottom:22px; }
-.contact-icon { width:48px; height:48px; border-radius:12px; border:1px solid var(--border-strong); display:flex; align-items:center; justify-content:center; font-size:1.2rem; background:rgba(205,170,128,0.08); flex-shrink:0; }
-.contact-item-text span { font-size:.65rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; display:block; margin-bottom:3px; font-weight:600; }
-.contact-item-text strong { font-size:.95rem; color:var(--text); }
-.contact-form {
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:20px; padding:44px; position:relative;
-}
-.contact-form::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent,var(--gold),transparent); border-radius:20px 20px 0 0; }
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.submit-btn {
-  width:100%; padding:16px; background:var(--gold);
-  border:none; border-radius:12px; cursor:pointer;
-  font-family:'Inter',sans-serif; font-size:.85rem; font-weight:700;
-  letter-spacing:1px; text-transform:uppercase;
-  color:var(--bg); transition:all .3s; box-shadow:0 4px 20px rgba(205,170,128,0.3);
-}
-.submit-btn:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 8px 35px rgba(205,170,128,0.4); }
-.submit-btn:disabled { opacity:.6; cursor:not-allowed; transform:none; }
-
-/* Inquiry Section */
-.inquiry-section { margin-top:100px; }
-.inquiry-tabs { display:flex; gap:0; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:6px; max-width:480px; margin:0 auto 48px; }
-.inquiry-tab { flex:1; padding:12px 20px; text-align:center; border-radius:10px; cursor:pointer; font-size:.8rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); transition:all .3s; border:none; background:none; }
-.inquiry-tab.active { background:var(--gold); color:var(--bg); }
-.inquiry-panel { display:none; }
-.inquiry-panel.active { display:block; }
-.inquiry-card {
-  max-width:700px; margin:0 auto;
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:20px; padding:44px; position:relative; overflow:hidden;
-}
-.inquiry-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
-.inquiry-card h3 { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:8px; }
-.inquiry-card .sub { color:var(--muted); font-size:.9rem; margin-bottom:32px; line-height:1.6; }
-.toast {
-  position:fixed; bottom:32px; right:32px; z-index:9999;
-  background:var(--surface); border:1px solid var(--gold);
-  border-radius:14px; padding:18px 28px;
-  font-size:.9rem; color:var(--text); box-shadow:0 8px 32px rgba(0,0,0,0.4);
-  transform:translateY(20px); opacity:0; transition:all .4s;
-  pointer-events:none; max-width:340px;
-}
-.toast.show { transform:translateY(0); opacity:1; }
-.toast.error { border-color:#c06060; }
-.toast-icon { font-size:1.3rem; margin-bottom:6px; display:block; }
-@media(max-width:900px) { .contact-wrapper { grid-template-columns:1fr; } .form-row { grid-template-columns:1fr; } }
-</style>
-{% endblock %}
 {% block content %}
+
 <div class="page-hero">
-  <div>
-    <span class="section-tag" style="display:block;text-align:center;">Get In Touch</span>
-    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">Let's <em>Talk</em></h1>
-    <p style="color:var(--muted);margin-top:16px;max-width:480px;">Tell us about your project. We'll get back to you within 24 hours.</p>
-  </div>
+  <p class="section-label">Get in touch</p>
+  <h1>How can we help?</h1>
+  <p>Get in touch with our team for demos, onboarding support, or project questions.</p>
 </div>
 
-<section class="section" style="padding-top:20px;">
-  <div class="contact-wrapper">
-    <div class="contact-info reveal">
-      <h3>Ready to Build Something Great?</h3>
-      <p>Whether you have a clear brief or just a rough idea, reach out. We'll help you shape it into a plan — for free.</p>
-      <div class="contact-item">
-        <div class="contact-icon">📧</div>
-        <div class="contact-item-text">
-          <span>Email</span>
-          <strong><a href="mailto:nexarya12@gmail.com" style="color:var(--text);text-decoration:none;">nexarya12@gmail.com</a></strong>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-        <div class="contact-item-text">
-          <span>Phone / WhatsApp</span>
-          <strong><a href="tel:+919373619831 / +917021550709" style="color:var(--text);text-decoration:none;">+91 93736 19831  / +91 70215 50709</a></strong>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-        <div class="contact-item-text"><span>Location</span><strong>Mumbai, Maharashtra, India</strong></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">⏱️</div>
-        <div class="contact-item-text"><span>Response Time</span><strong>Within 24 hours</strong></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">🕐</div>
-        <div class="contact-item-text"><span>Working Hours</span><strong>Mon – Sat, 10 AM – 8 PM IST</strong></div>
-      </div>
-    </div>
-    <div class="contact-form reveal">
-      <form id="projectForm">
-        <div class="form-row">
-          <div class="form-group"><label>Your Name</label><input type="text" name="name" id="pName" placeholder="John Doe" required/></div>
-          <div class="form-group"><label>Email Address</label><input type="email" name="email" id="pEmail" placeholder="john@example.com" required/></div>
-        </div>
-        <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" id="pPhone" placeholder="+91 XXXXX XXXXX"/></div>
-        <div class="form-group">
-          <label>Service Interested In</label>
-          <select name="service" id="pService">
-            <option value="">Select a Service</option>
-            <option>Website Development</option>
-            <option>Custom Web Application</option>
-            <option>AI Chatbot Integration</option>
-            <option>Cloud Hosting &amp; Maintenance</option>
-            <option>Web Testing</option>
-            <option>Other / Not Sure</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Your Message</label><textarea name="message" id="pMessage" placeholder="Tell us about your project, budget, and timeline..." required></textarea></div>
-        <button type="submit" class="submit-btn" id="projectBtn">Send Message →</button>
-      </form>
-    </div>
-  </div>
+<section class="section" style="padding-top:0;">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h2 style="margin-bottom:16px;">Talk to us</h2>
+      <p>We respond to all enquiries within 24 hours on business days. For urgent matters, reach us directly on WhatsApp.</p>
 
-  <!-- INQUIRY SECTION -->
-  <div class="inquiry-section reveal">
-    <p class="section-tag" style="text-align:center;">Help Center</p>
-    <h2 class="section-h2" style="text-align:center;margin-bottom:10px;">How Can We <em>Help?</em></h2>
-    <p style="text-align:center;color:var(--muted);margin-bottom:40px;font-size:.95rem;">Have a question, complaint, or just want to know more? Pick a category and reach out directly.</p>
+      <div style="margin-top:36px;">
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            nexarya.in@gmail.com
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div class="contact-detail-text">
+            <strong>WhatsApp</strong>
+            +91 XXXXX XXXXX
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="contact-detail-text">
+            <strong>Location</strong>
+            Mumbai, Maharashtra, India
+          </div>
+        </div>
+      </div>
 
-    <div class="inquiry-tabs">
-      <button class="inquiry-tab active" onclick="switchTab('help')">❓ Help</button>
-      <button class="inquiry-tab" onclick="switchTab('complaint')">⚠️ Complaint</button>
-      <button class="inquiry-tab" onclick="switchTab('inquiry')">💬 Inquiry</button>
-    </div>
-
-    <!-- HELP -->
-    <div class="inquiry-panel active" id="tab-help">
-      <div class="inquiry-card">
-        <h3>Get Help</h3>
-        <p class="sub">Stuck with something? Facing an issue with your existing project or service? Drop us a message and our team will help you resolve it.</p>
-        <div id="helpForm">
-          <div class="form-group"><label>Your Email</label><input type="email" id="h_email" placeholder="your@email.com" required/></div>
-          <div class="form-group"><label>Subject</label><input type="text" id="h_subject" placeholder="e.g. My website is down" required/></div>
-          <div class="form-group"><label>Describe Your Issue</label><textarea id="h_body" placeholder="Please describe the issue in detail..." style="min-height:140px;" required></textarea></div>
-          <button class="submit-btn" onclick="sendInquiry('help')">Send Help Request →</button>
+      <div style="margin-top:40px;padding-top:32px;border-top:1px solid var(--border);">
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;">QUICK LINKS</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="/place-order" style="font-size:0.875rem;color:var(--text);display:flex;align-items:center;gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            Start a project
+          </a>
+          <a href="/services" style="font-size:0.875rem;color:var(--muted);display:flex;align-items:center;gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            View services
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- COMPLAINT -->
-    <div class="inquiry-panel" id="tab-complaint">
-      <div class="inquiry-card">
-        <h3>File a Complaint</h3>
-        <p class="sub">We take every complaint seriously. If something didn't meet your expectations, tell us and we'll make it right.</p>
-        <div id="complaintForm">
-          <div class="form-group"><label>Your Email</label><input type="email" id="c_email" placeholder="your@email.com" required/></div>
-          <div class="form-group"><label>Subject</label><input type="text" id="c_subject" placeholder="e.g. Delayed delivery / Quality issue" required/></div>
-          <div class="form-group"><label>Complaint Details</label><textarea id="c_body" placeholder="Please explain your complaint with as much detail as possible..." style="min-height:140px;" required></textarea></div>
-          <button class="submit-btn" onclick="sendInquiry('complaint')">Submit Complaint →</button>
-        </div>
-      </div>
-    </div>
+    <div class="contact-form-wrap">
+      <h3 style="font-size:1rem;margin-bottom:6px;">Send a message</h3>
+      <p style="color:var(--muted);font-size:0.85rem;margin-bottom:28px;">We'll get back to you within 24 hours.</p>
 
-    <!-- GENERAL INQUIRY -->
-    <div class="inquiry-panel" id="tab-inquiry">
-      <div class="inquiry-card">
-        <h3>General Inquiry</h3>
-        <p class="sub">Have a question about our services, process, or pricing? We're happy to answer anything.</p>
-        <div id="inquiryForm">
-          <div class="form-group"><label>Your Email</label><input type="email" id="i_email" placeholder="your@email.com" required/></div>
-          <div class="form-group"><label>Subject</label><input type="text" id="i_subject" placeholder="e.g. Do you offer monthly maintenance?" required/></div>
-          <div class="form-group"><label>Your Message</label><textarea id="i_body" placeholder="Ask us anything..." style="min-height:140px;" required></textarea></div>
-          <button class="submit-btn" onclick="sendInquiry('inquiry')">Send Inquiry →</button>
+      {% if success %}
+        <div style="background:#0d2b1a;border:1px solid #1a5c38;color:#4ade80;padding:16px;border-radius:8px;font-size:0.875rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;margin-right:8px;"><polyline points="20 6 9 17 4 12"/></svg>
+          Message sent. We'll respond shortly.
         </div>
-      </div>
+      {% else %}
+        <form method="POST" action="/contact">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-input" placeholder="Your name" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" placeholder="you@example.com" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" name="subject" class="form-input" placeholder="What's this about?"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea name="message" class="form-textarea" placeholder="Tell us about your project or question..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send message</button>
+        </form>
+      {% endif %}
     </div>
   </div>
 </section>
 
-<!-- Toast -->
-<div class="toast" id="toast">
-  <span class="toast-icon" id="toastIcon">✅</span>
-  <span id="toastMsg">Message sent successfully!</span>
-</div>
-{% endblock %}
-
-{% block extra_scripts %}
-<script>
-// ─── TOAST ───────────────────────────────────────────────────
-function showToast(msg, ok=true){
-  const t=document.getElementById('toast');
-  document.getElementById('toastMsg').textContent=msg;
-  document.getElementById('toastIcon').textContent=ok?'✅':'❌';
-  t.className='toast'+(ok?'':' error')+' show';
-  setTimeout(()=>t.className='toast'+(ok?'':' error'),4000);
-}
-
-// ─── PROJECT FORM (top form) ─────────────────────────────────
-document.getElementById('projectForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-  const btn=document.getElementById('projectBtn');
-  btn.disabled=true; btn.textContent='Sending…';
-  
-  const params={
-    type: 'project',
-    from_name: document.getElementById('pName').value,
-    from_email: document.getElementById('pEmail').value,
-    phone: document.getElementById('pPhone').value || 'Not provided',
-    service: document.getElementById('pService').value || 'Not specified',
-    subject: document.getElementById('pName').value + ' - Project Inquiry',
-    message: document.getElementById('pMessage').value
-  };
-  
-  try {
-    const response = await fetch('/send-inquiry', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(params)
-    });
-    const data = await response.json();
-    
-    if(data.success){
-      showToast("Message sent! We'll reply within 24 hours.");
-      this.reset();
-    } else {
-      showToast(data.error || 'Failed to send message', false);
-    }
-  } catch(err){
-    showToast('Failed to send. Please email us directly at coderangers04@gmail.com', false);
-  }
-  btn.disabled=false; btn.textContent='Send Message →';
-});
-
-// ─── TABS ────────────────────────────────────────────────
-function switchTab(name){
-  document.querySelectorAll('.inquiry-tab').forEach((t,i)=>{
-    const tabs=['help','complaint','inquiry'];
-    t.classList.toggle('active', tabs[i]===name);
-  });
-  document.querySelectorAll('.inquiry-panel').forEach(p=>{
-    p.classList.toggle('active', p.id==='tab-'+name);
-  });
-}
-
-// ─── INQUIRY FORMS ───────────────────────────────────────
-async function sendInquiry(type){
-  const map = {
-    help:      {email:'h_email', subject:'h_subject', body:'h_body'},
-    complaint: {email:'c_email', subject:'c_subject', body:'c_body'},
-    inquiry:   {email:'i_email', subject:'i_subject', body:'i_body'}
-  };
-  
-  const m = map[type];
-  const emailEl   = document.getElementById(m.email);
-  const subjectEl = document.getElementById(m.subject);
-  const bodyEl    = document.getElementById(m.body);
-  
-  if(!emailEl.value || !subjectEl.value || !bodyEl.value){
-    showToast('Please fill in all fields.', false);
-    return;
-  }
-  
-  const btn = event.target;
-  btn.disabled=true;
-  btn.textContent='Sending…';
-  
-  const typeLabels = {help:'Help Request',complaint:'Complaint',inquiry:'General Inquiry'};
-  const params = {
-    type: type,
-    from_name: emailEl.value,
-    from_email: emailEl.value,
-    subject: subjectEl.value,
-    message: bodyEl.value
-  };
-  
-  try {
-    const response = await fetch('/send-inquiry', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(params)
-    });
-    const data = await response.json();
-    
-    if(data.success){
-      showToast("Sent! We'll get back to you within 24 hours.");
-      emailEl.value=''; subjectEl.value=''; bodyEl.value='';
-    } else {
-      showToast(data.error || 'Failed to send', false);
-    }
-  } catch(err){
-    showToast('Failed to send. Email us directly at coderangers04@gmail.com', false);
-  }
-  
-  btn.disabled=false;
-  btn.textContent = type==='complaint'?'Submit Complaint →':type==='help'?'Send Help Request →':'Send Inquiry →';
-}
-</script>
 {% endblock %}

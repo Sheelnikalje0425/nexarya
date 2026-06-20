@@ -1,43 +1,39 @@
 {% extends "admin/base_admin.html" %}
-{% block title %}Users — Nexarya Admin{% endblock %}
-{% block page_title %}Registered Users{% endblock %}
-{% block extra_styles %}
-<style>
-.tbl-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;overflow-x:auto;}
-.table{width:100%;border-collapse:collapse;min-width:700px;}
-.table th{font-family:'Inter',sans-serif;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);}
-.table td{padding:14px 16px;border-bottom:1px solid rgba(0,245,255,0.05);font-size:.88rem;}
-.table tr:hover td{background:rgba(0,245,255,0.02);}
-.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.75rem;font-weight:700;color:var(--bg);flex-shrink:0;}
-.user-cell{display:flex;gap:12px;align-items:center;}
-.order-count{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:var(--gold);}
-</style>
-{% endblock %}
+{% block title %}Users — Admin{% endblock %}
+{% block page_title %}Users{% endblock %}
 {% block content %}
-<p style="font-family:'Inter',sans-serif;font-size:.72rem;color:var(--muted);margin-bottom:20px;">{{users|length}} registered user(s)</p>
-<div class="tbl-box">
-  <table class="table">
-    <thead><tr><th>#</th><th>User</th><th>Email</th><th>Phone</th><th>Orders</th><th>Joined</th></tr></thead>
+
+<div class="card">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+    <h2 style="font-size:0.85rem;font-weight:600;">Registered users</h2>
+    <span style="font-size:0.75rem;color:var(--muted);">{{ users|length }} total</span>
+  </div>
+  {% if users %}
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Orders</th>
+        <th>Joined</th>
+      </tr>
+    </thead>
     <tbody>
       {% for u in users %}
       <tr>
-        <td style="font-family:'Inter',sans-serif;color:var(--muted);font-size:.72rem;">{{u.user_id}}</td>
-        <td>
-          <div class="user-cell">
-            <div class="avatar">{{u.name[0].upper()}}</div>
-            <span style="font-weight:600;">{{u.name}}</span>
-          </div>
-        </td>
-        <td style="font-family:'Inter',sans-serif;font-size:.78rem;color:var(--muted);">{{u.email}}</td>
-        <td style="font-family:'Inter',sans-serif;font-size:.78rem;color:var(--muted);">{{u.phone}}</td>
-        <td><span class="order-count">{{u.order_count}}</span></td>
-        <td style="font-family:'Inter',sans-serif;font-size:.72rem;color:var(--muted);">{{u.created_at.strftime('%d %b %Y') if u.created_at else '—'}}</td>
+        <td>{{ u.id }}</td>
+        <td class="primary">{{ u.name or '—' }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.order_count or 0 }}</td>
+        <td>{{ u.created_at.strftime('%d %b %Y') if u.created_at else '—' }}</td>
       </tr>
       {% endfor %}
-      {% if not users %}
-      <tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted);">No users yet.</td></tr>
-      {% endif %}
     </tbody>
   </table>
+  {% else %}
+  <p style="color:var(--muted);font-size:0.85rem;padding:20px 0;">No users registered yet.</p>
+  {% endif %}
 </div>
+
 {% endblock %}

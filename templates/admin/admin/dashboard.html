@@ -67,12 +67,4 @@ select.status-sel{background:rgba(0,0,0,0.5);border:1px solid var(--border);bord
 </div>
 <div style="margin-top:16px;"><a href="/admin/orders" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--neon);text-decoration:none;">View all orders →</a></div>
 {% endblock %}
-{% block extra_scripts %}
-<script>
-async function updateStatus(orderId,status){
-  const res=await fetch(`/admin/order/${orderId}/update`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})});
-  const data=await res.json();
-  if(data.success){const dot=document.querySelector(`[onchange*="${orderId}"]`).closest('tr').querySelector('.status-badge');if(dot){dot.textContent=status;dot.className='status-badge s-'+status.toLowerCase().replace(' ','-');}}
-}
-</script>
-{% endblock %}
+{% block extra_scripts %}{% endblock %}

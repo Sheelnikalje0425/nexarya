@@ -1,29 +1,106 @@
 {% extends "base.html" %}
 {% block title %}Portfolio — Nexarya{% endblock %}
-{% block extra_styles %}
-<style>
-.page-hero{min-height:50vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 7% 80px;}
-.coming-box{background:var(--surface);border:1px solid var(--border-strong);border-radius:24px;padding:80px 60px;text-align:center;max-width:600px;margin:0 auto;position:relative;overflow:hidden;}
-.coming-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.coming-icon{font-size:4rem;margin-bottom:24px;display:block;animation:float 3s ease-in-out infinite;}
-.coming-box h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;margin-bottom:16px;color:var(--text);}
-.coming-box p{color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:32px;}
-</style>
-{% endblock %}
 {% block content %}
+
 <div class="page-hero">
-  <div>
-    <span class="section-tag" style="display:block;text-align:center;">Our Work</span>
-    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">Our <em>Portfolio</em></h1>
-    <p style="color:var(--muted);margin-top:16px;max-width:500px;">We are a fresh startup with big ambitions. Our portfolio is being built as we speak.</p>
-  </div>
+  <p class="section-label">Our work</p>
+  <h1>Portfolio</h1>
+  <p>Real projects, real results. Every system we ship is built to perform.</p>
 </div>
-<section class="section" style="padding-top:20px;">
-  <div class="coming-box reveal">
-    <span class="coming-icon">🚀</span>
-    <h2>Projects Coming Soon</h2>
-    <p>We are a new startup actively working on exciting projects. Our portfolio will be updated as we complete our first client engagements. Be one of our first clients!</p>
-    <a href="/contact" class="btn-primary">Work With Us →</a>
+
+<section class="section" style="padding-top:0;">
+  <div class="portfolio-grid">
+
+    <div class="portfolio-item">
+      <div class="year">2024</div>
+      <div class="project-tag">Enterprise Software</div>
+      <h3>Manufacturing ERP System</h3>
+      <p>Full-scale ERP for a mid-size manufacturing company covering inventory, procurement, production scheduling, HR, and finance modules. 200+ users across three locations.</p>
+      <div class="project-stack">
+        <span class="stack-badge">Spring Boot</span>
+        <span class="stack-badge">React</span>
+        <span class="stack-badge">MySQL</span>
+        <span class="stack-badge">AWS EC2</span>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="year">2024</div>
+      <div class="project-tag">E-Commerce</div>
+      <h3>Multi-Vendor Online Store</h3>
+      <p>Full-featured e-commerce platform with vendor management, shopping cart, Razorpay payment gateway, and an analytics dashboard for store owners.</p>
+      <div class="project-stack">
+        <span class="stack-badge">Flask</span>
+        <span class="stack-badge">MySQL</span>
+        <span class="stack-badge">Razorpay</span>
+        <span class="stack-badge">Docker</span>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="year">2024</div>
+      <div class="project-tag">Analytics</div>
+      <h3>Business Intelligence Portal</h3>
+      <p>Real-time BI dashboard for a retail chain with KPIs, sales trends, inventory alerts, and automated monthly PDF reports sent via email.</p>
+      <div class="project-stack">
+        <span class="stack-badge">Python</span>
+        <span class="stack-badge">Chart.js</span>
+        <span class="stack-badge">PostgreSQL</span>
+        <span class="stack-badge">AWS Lambda</span>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="year">2025</div>
+      <div class="project-tag">Healthcare</div>
+      <h3>Clinic Management System</h3>
+      <p>Patient appointment booking, doctor schedule management, billing, and digital prescription history for a multi-specialty clinic in Mumbai.</p>
+      <div class="project-stack">
+        <span class="stack-badge">Spring Boot</span>
+        <span class="stack-badge">React</span>
+        <span class="stack-badge">MySQL</span>
+        <span class="stack-badge">Nginx</span>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="year">2025</div>
+      <div class="project-tag">Fintech</div>
+      <h3>Loan Management Platform</h3>
+      <p>End-to-end loan lifecycle management from application to disbursement to EMI tracking for an NBFC. Includes digital KYC and risk scoring.</p>
+      <div class="project-stack">
+        <span class="stack-badge">Flask</span>
+        <span class="stack-badge">React</span>
+        <span class="stack-badge">MySQL</span>
+        <span class="stack-badge">AWS S3</span>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="year">2025</div>
+      <div class="project-tag">Real Estate</div>
+      <h3>Property Listing Portal</h3>
+      <p>Property listing and lead management with advanced search, virtual tour links, and an agent CRM dashboard. WhatsApp and email notifications built in.</p>
+      <div class="project-stack">
+        <span class="stack-badge">Flask</span>
+        <span class="stack-badge">JavaScript</span>
+        <span class="stack-badge">MySQL</span>
+        <span class="stack-badge">Cloudinary</span>
+      </div>
+    </div>
+
   </div>
 </section>
+
+<!-- CTA -->
+<section class="section" style="padding-top:0;">
+  <div class="cta-strip">
+    <div>
+      <h2>Want to be on this list?</h2>
+      <p>Tell us about your project. We'll build something worth showing off.</p>
+    </div>
+    <a href="/place-order" class="btn btn-primary">Start a project</a>
+  </div>
+</section>
+
 {% endblock %}

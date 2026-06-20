@@ -1,0 +1,27 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Set Payment — Admin{% endblock %}
+{% block page_title %}Payment Settings{% endblock %}
+{% block content %}
+<div class="card">
+  <h3 style="margin-bottom:12px;">Payment settings for order #{{ order.order_id }}</h3>
+  <form method="POST" action="">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;">
+      <label>
+        Total price
+        <input type="text" name="total_price" value="{{ order.total_price or '' }}" class="form-input" />
+      </label>
+      <label>
+        Payment stages
+        <input type="number" name="payment_stages" value="{{ order.payment_stages or 1 }}" min="1" class="form-input" />
+      </label>
+      <label style="grid-column:1/-1;display:flex;align-items:center;gap:12px;">
+        <input type="checkbox" name="payment_enabled" {% if order.payment_enabled %}checked{% endif %} /> Enable payments for this order
+      </label>
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn btn-primary">Save</button>
+      <a href="/admin/orders" class="btn btn-secondary">Back</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

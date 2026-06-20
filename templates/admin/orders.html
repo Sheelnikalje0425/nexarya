@@ -1,133 +1,55 @@
 {% extends "admin/base_admin.html" %}
-{% block title %}Orders — Nexarya Admin{% endblock %}
-{% block page_title %}All Orders{% endblock %}
-{% block extra_styles %}
-<style>
-.filter-bar{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
-.filter-btn{font-family:'Inter',sans-serif;font-size:.65rem;letter-spacing:1px;padding:7px 16px;border-radius:10px;text-decoration:none;border:1px solid var(--border);color:var(--muted);transition:all .3s;}
-.filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(0,245,255,0.05);}
-.tbl-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;overflow-x:auto;}
-.table{width:100%;border-collapse:collapse;min-width:800px;}
-.table th{font-family:'Inter',sans-serif;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);}
-.table td{padding:14px 16px;border-bottom:1px solid rgba(0,245,255,0.05);font-size:.88rem;vertical-align:middle;}
-.table tr:hover td{background:rgba(0,245,255,0.02);}
-.status-badge{font-family:'Inter',sans-serif;font-size:.6rem;letter-spacing:1px;padding:3px 9px;border-radius:20px;white-space:nowrap;display:inline-block;}
-.s-pending{background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3);color:#ffa500;}
-.s-in-review{background:rgba(123,47,255,0.1);border:1px solid rgba(123,47,255,0.3);color:var(--gold2);}
-.s-in-progress{background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.3);color:var(--gold);}
-.s-testing{background:rgba(255,45,122,0.1);border:1px solid rgba(255,45,122,0.3);color:#c06060;}
-.s-completed{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--gold);}
-.s-cancelled{background:rgba(100,100,100,0.1);border:1px solid rgba(100,100,100,0.3);color:var(--muted);}
-select.status-sel{background:rgba(0,0,0,0.5);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Inter',sans-serif;font-size:.65rem;padding:6px 10px;cursor:pointer;outline:none;width:140px;transition:border-color .3s;}
-select.status-sel:hover{border-color:var(--gold);}
-select.status-sel:disabled{opacity:.5;cursor:not-allowed;}
-.desc-cell{max-width:200px;color:var(--muted);font-size:.82rem;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.update-btn{font-family:'Inter',sans-serif;font-size:.62rem;letter-spacing:1px;padding:6px 12px;border-radius:10px;border:1px solid rgba(0,245,255,0.3);background:rgba(0,245,255,0.05);color:var(--gold);cursor:pointer;transition:all .3s;white-space:nowrap;width:140px;}
-.update-btn:hover{background:rgba(0,245,255,0.15);border-color:var(--gold);}
-.update-btn:disabled{opacity:.5;cursor:not-allowed;}
-.update-cell{display:flex;flex-direction:column;gap:8px;}
-.toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;}
-.toast{font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:1px;padding:12px 20px;border-radius:12px;min-width:260px;display:flex;align-items:center;gap:10px;animation:slideIn .3s ease;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
-.toast.success{background:rgba(0,20,12,0.98);border:1px solid rgba(0,255,136,0.4);color:var(--gold);}
-.toast.error{background:rgba(20,0,8,0.98);border:1px solid rgba(255,45,122,0.4);color:#c06060;}
-.toast.fade-out{animation:fadeOut .4s ease forwards;}
-@keyframes slideIn{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
-@keyframes fadeOut{from{opacity:1;}to{opacity:0;transform:translateX(40px);}}
-</style>
-{% endblock %}
+{% block title %}Orders — Admin{% endblock %}
+{% block page_title %}Orders{% endblock %}
 {% block content %}
-<div class="toast-container" id="toastContainer"></div>
-<div class="filter-bar">
-  <a href="/admin/orders" class="filter-btn {% if not status_filter %}active{% endif %}">All</a>
-  {% for st in ['Pending','In Review','In Progress','Testing','Completed','Cancelled'] %}
-  <a href="/admin/orders?status={{st}}" class="filter-btn {% if status_filter==st %}active{% endif %}">{{st}}</a>
-  {% endfor %}
-</div>
-<div class="tbl-box">
-  <table class="table">
+
+<div class="card">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+    <h2 style="font-size:0.85rem;font-weight:600;">All orders</h2>
+    <span style="font-size:0.75rem;color:var(--muted);">{{ orders|length }} total</span>
+  </div>
+  {% if orders %}
+  <table>
     <thead>
       <tr>
-        <th>#</th><th>Client</th><th>Domain</th><th>Description</th>
-        <th>Plan</th><th>Current Status</th><th>Date</th><th>Update Status</th>
+        <th>#</th>
+        <th>Project</th>
+        <th>User</th>
+        <th>Service</th>
+        <th>Budget</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Payment</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       {% for o in orders %}
-      <tr id="row-{{o.order_id}}">
-        <td style="font-family:'Inter',sans-serif;color:var(--muted);font-size:.72rem;">#{{o.order_id}}</td>
+      <tr>
+        <td>{{ o.order_id }}</td>
+        <td class="primary">{{ o.order_domain or 'Untitled' }}</td>
+        <td>{{ o.email or '—' }}</td>
+        <td>{{ o.plan_selected or '—' }}</td>
+        <td>{{ o.user_location or '—' }}</td>
         <td>
-          <div style="font-weight:600;">{{o.user_name}}</div>
-          <div style="font-family:'Inter',sans-serif;font-size:.65rem;color:var(--muted);">{{o.email}}</div>
-          <div style="font-family:'Inter',sans-serif;font-size:.65rem;color:var(--muted);">{{o.phone}}</div>
-        </td>
-        <td style="font-weight:600;">{{o.order_domain}}</td>
-        <td><div class="desc-cell" title="{{o.details}}">{{o.details}}</div></td>
-        <td style="font-family:'Inter',sans-serif;font-size:.72rem;color:var(--gold2);">{{o.plan_selected}}</td>
-        <td>
-          {% set s=o.tracking_status.lower().replace(' ','-') %}
-          <span class="status-badge s-{{s}}" id="badge-{{o.order_id}}">{{o.tracking_status}}</span>
-        </td>
-        <td style="font-family:'Inter',sans-serif;font-size:.7rem;color:var(--muted);">
-          {{o.order_date.strftime('%d %b %Y') if o.order_date else '—'}}
-        </td>
-        <td>
-          <div class="update-cell">
-            <select class="status-sel" id="sel-{{o.order_id}}">
-              {% for st in ['Pending','In Review','In Progress','Testing','Completed','Cancelled'] %}
-              <option value="{{st}}" {% if st==o.tracking_status %}selected{% endif %}>{{st}}</option>
-              {% endfor %}
+          <form method="POST" action="/admin/order/{{ o.order_id }}/update" style="display:inline;">
+            <select name="status" onchange="this.form.submit()" class="btn-sm">
+              <option value="Pending" {% if o.tracking_status=='Pending' %}selected{% endif %}>Pending</option>
+              <option value="In Progress" {% if o.tracking_status=='In Progress' %}selected{% endif %}>In Progress</option>
+              <option value="Completed" {% if o.tracking_status=='Completed' %}selected{% endif %}>Completed</option>
             </select>
-            <button class="update-btn" onclick="updateStatus({{o.order_id}})" id="btn-{{o.order_id}}">↑ Save Status</button>
-          </div>
+          </form>
         </td>
+        <td>{{ o.order_date.strftime('%d %b %Y') if o.order_date else '—' }}</td>
+        <td style="font-size:0.85rem;"><a href="/admin/order/{{ o.order_id }}/payment" style="color:var(--muted);">Settings</a></td>
+        <td><a href="/admin/orders/{{ o.order_id }}" style="font-size:0.75rem;color:var(--muted);">View →</a></td>
       </tr>
       {% endfor %}
-      {% if not orders %}
-      <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">No orders found.</td></tr>
-      {% endif %}
     </tbody>
   </table>
+  {% else %}
+  <p style="color:var(--muted);font-size:0.85rem;padding:20px 0;">No orders yet.</p>
+  {% endif %}
 </div>
-<p style="font-family:'Inter',sans-serif;font-size:.7rem;color:var(--muted);margin-top:12px;">{{orders|length}} order(s) shown</p>
-{% endblock %}
-{% block extra_scripts %}
-<script>
-function statusSlug(s){
-  return s.toLowerCase().split(' ').join('-');
-}
-function showToast(message, type='success'){
-  const c=document.getElementById('toastContainer');
-  const t=document.createElement('div');
-  t.className=`toast ${type}`;
-  t.innerHTML=`<span>${type==='success'?'✓':'✗'}</span><span>${message}</span>`;
-  c.appendChild(t);
-  setTimeout(()=>{t.classList.add('fade-out');setTimeout(()=>t.remove(),400);},3000);
-}
-async function updateStatus(orderId){
-  const sel=document.getElementById(`sel-${orderId}`);
-  const btn=document.getElementById(`btn-${orderId}`);
-  const badge=document.getElementById(`badge-${orderId}`);
-  const newStatus=sel.value;
-  sel.disabled=true; btn.disabled=true; btn.textContent='Saving...';
-  try{
-    const res=await fetch(`/admin/order/${orderId}/update`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({status:newStatus})
-    });
-    const data=await res.json();
-    if(data.success){
-      badge.textContent=newStatus;
-      badge.className=`status-badge s-${statusSlug(newStatus)}`;
-      showToast(`Order #${orderId} → "${newStatus}"`);
-    } else {
-      showToast(`Failed to update order #${orderId}`,'error');
-    }
-  } catch(err){
-    showToast('Network error — please try again','error');
-  } finally {
-    sel.disabled=false; btn.disabled=false; btn.textContent='↑ Save Status';
-  }
-}
-</script>
+
 {% endblock %}

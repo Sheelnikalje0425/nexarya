@@ -1,159 +1,141 @@
 {% extends "base.html" %}
 {% block title %}Pricing — Nexarya{% endblock %}
-{% block extra_styles %}<style>
-.page-hero{min-height:32vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:110px 7% 50px;}
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
-.pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 36px;position:relative;overflow:hidden;transition:all .4s;box-shadow:0 4px 20px rgba(0,0,0,0.2);}
-.pricing-card.featured{border-color:var(--border-strong);background:linear-gradient(135deg,rgba(205,170,128,0.1),rgba(33,58,86,0.6));}
-.pricing-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.pricing-card:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.4),var(--glow);}
-.plan-badge{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;display:block;font-weight:600;}
-.plan-name{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:8px;color:var(--text);}
-.plan-desc{color:var(--muted);font-size:.9rem;margin-bottom:28px;line-height:1.6;}
-.plan-price{margin-bottom:32px;}
-.plan-price .amount{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--gold);}
-.plan-price .currency{font-size:1.4rem;vertical-align:top;margin-top:8px;display:inline-block;color:var(--gold);}
-.plan-price .range{font-size:.78rem;color:var(--muted);margin-top:6px;line-height:1.5;}
-.plan-features{list-style:none;margin-bottom:32px;}
-.plan-features li{padding:10px 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:.9rem;display:flex;align-items:center;gap:10px;}
-.plan-features li:last-child{border-bottom:none;}
-.plan-features li::before{content:'✓';color:var(--gold);font-size:.8rem;flex-shrink:0;}
-.plan-features li.disabled{opacity:.4;}
-.plan-features li.disabled::before{content:'✗';color:#c06060;}
-.plan-cta{display:block;width:100%;padding:14px;text-align:center;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:12px;text-decoration:none;transition:all .3s;cursor:pointer;}
-.featured .plan-cta{background:var(--gold);color:var(--bg);border:none;}
-.featured .plan-cta:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:var(--glow);}
-.plan-cta.outline{border:1px solid var(--border-strong);color:var(--text);background:transparent;}
-.plan-cta.outline:hover{border-color:var(--gold);color:var(--gold);}
-.popular-tag{position:absolute;top:20px;right:20px;background:var(--gold);color:var(--bg);font-size:.6rem;letter-spacing:2px;padding:4px 12px;border-radius:20px;font-weight:700;}
-.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;}
-.faq-q{padding:18px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.95rem;}
-.faq-q:hover{color:var(--gold);}
-.faq-a{padding:0 24px 18px;color:var(--muted);font-size:.9rem;line-height:1.7;display:none;}
-.faq-a.open{display:block;}
-.custom-note{background:linear-gradient(135deg,rgba(205,170,128,0.08),rgba(33,58,86,0.4));border:1px solid var(--border-strong);border-radius:20px;padding:44px;text-align:center;max-width:760px;margin:60px auto 0;position:relative;overflow:hidden;}
-.custom-note::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.custom-note h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:14px;color:var(--text);}
-.custom-note p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:28px;}
-.custom-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px;}
-.custom-tag{font-size:.72rem;letter-spacing:1px;padding:6px 16px;border:1px solid var(--border-strong);border-radius:20px;color:var(--gold);background:rgba(205,170,128,0.06);}
-</style>{% endblock %}
 {% block content %}
+
 <div class="page-hero">
-  <div>
-    <p class="section-tag" style="text-align:center;">Transparent Pricing</p>
-    <h1 class="section-h2" style="font-size:clamp(2rem,5vw,4rem);">Simple, <em>Honest</em> Plans</h1>
-    <p style="color:var(--muted);margin-top:16px;max-width:560px;">Our plans are starting points — not limits. Every project is different, and we always tailor the scope and price to exactly what you need.</p>
-  </div>
+  <p class="section-label">Pricing</p>
+  <h1>Simple, honest pricing.</h1>
+  <p>All plans include deployment, handover documentation, and 30 days of post-launch support.</p>
 </div>
 
-<section class="section" style="padding-top:20px;">
+<section class="section" style="padding-top:0;">
   <div class="pricing-grid">
-
-    <!-- PLAN 1 -->
-    <div class="pricing-card reveal">
-      <span class="plan-badge">01 — STARTER</span>
-      <h3 class="plan-name">Web Only</h3>
-      <p class="plan-desc">A professionally designed, fully responsive website — ready for the world, no deployment hassle on your end.</p>
-      <div class="plan-price">
-        <span class="currency">₹</span><span class="amount">10K</span>
-        <p class="range">Fixed at ₹10,000<br><em style="font-style:normal;color:var(--gold);font-size:.7rem;">Price may vary based on your requirements</em></p>
-      </div>
-      <ul class="plan-features">
-        <li>Custom website design (up to 6 pages)</li>
-        <li>Mobile responsive &amp; SEO-ready</li>
-        <li>Contact form integration</li>
-        <li>Basic admin panel (if needed)</li>
-        <li>Source code delivered to you</li>
-        <li class="disabled">Live deployment on server</li>
-        <li class="disabled">Ongoing maintenance</li>
-        <li class="disabled">AI / chatbot features</li>
+    <div class="pricing-card">
+      <div class="pricing-name">Starter</div>
+      <div class="pricing-price">₹25,000</div>
+      <div class="pricing-period">one-time project</div>
+      <ul class="pricing-features">
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Up to 5 pages or screens
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Basic admin panel
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          MySQL database
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          AWS deployment
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          30-day support
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          2-week delivery
+        </li>
       </ul>
-      <a href="/place-order?plan=Web+Only" class="plan-cta outline">Get Started →</a>
+      <a href="/place-order" class="btn btn-secondary" style="width:100%;justify-content:center;">Get started</a>
     </div>
 
-    <!-- PLAN 2 (FEATURED) -->
-    <div class="pricing-card featured reveal">
-      <span class="popular-tag">MOST POPULAR</span>
-      <span class="plan-badge">02 — GROWTH</span>
-      <h3 class="plan-name">Web + Deployment</h3>
-      <p class="plan-desc">Your website, live on the internet — fully deployed, secured with SSL, and ready for real traffic.</p>
-      <div class="plan-price">
-        <span class="currency">₹</span><span class="amount">15K</span>
-        <p class="range">Starting at ₹15,000<br><em style="font-style:normal;color:var(--gold);font-size:.7rem;">Price may vary based on your requirements</em></p>
-      </div>
-      <ul class="plan-features">
-        <li>Everything in Web Only plan</li>
-        <li>Cloud deployment (AWS / Render / Railway)</li>
-        <li>Custom domain &amp; SSL setup</li>
-        <li>Database setup &amp; configuration</li>
-        <li>User authentication system</li>
-        <li>30-day post-launch support</li>
-        <li class="disabled">Ongoing monthly maintenance</li>
-        <li class="disabled">AI / chatbot features</li>
+    <div class="pricing-card featured">
+      <div class="pricing-name">Professional</div>
+      <div class="pricing-price">₹75,000</div>
+      <div class="pricing-period">one-time project</div>
+      <ul class="pricing-features">
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Up to 15 pages or screens
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Full admin dashboard
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Payment gateway integration
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Email & WhatsApp notifications
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          CI/CD pipeline
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          60-day support
+        </li>
       </ul>
-      <a href="/place-order?plan=Web+Deployment" class="plan-cta">Get Started →</a>
+      <a href="/place-order" class="btn btn-primary" style="width:100%;justify-content:center;">Get started</a>
     </div>
 
-    <!-- PLAN 3 -->
-    <div class="pricing-card reveal">
-      <span class="plan-badge">03 — PREMIUM</span>
-      <h3 class="plan-name">Web + Maintenance</h3>
-      <p class="plan-desc">Full-service package — we build it, deploy it, and keep it running smoothly with ongoing support.</p>
-      <div class="plan-price">
-        <span class="currency">₹</span><span class="amount">25K</span>
-        <p class="range">Starting at ₹25,000<br><em style="font-style:normal;color:var(--gold);font-size:.7rem;">Price may vary based on your requirements</em></p>
-      </div>
-      <ul class="plan-features">
-        <li>Everything in Web + Deployment plan</li>
-        <li>Monthly performance monitoring</li>
-        <li>Security updates &amp; patches</li>
-        <li>Content &amp; feature update support</li>
-        <li>Priority response (within 12 hrs)</li>
-        <li>Uptime monitoring &amp; alerts</li>
-        <li>Detailed monthly report</li>
-        <li>Scalable infrastructure setup</li>
+    <div class="pricing-card">
+      <div class="pricing-name">Enterprise</div>
+      <div class="pricing-price">Custom</div>
+      <div class="pricing-period">contact for quote</div>
+      <ul class="pricing-features">
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Unlimited scope
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Multi-role user management
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          AI & automation features
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Dedicated AWS infrastructure
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Ongoing retainer support
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Priority response SLA
+        </li>
       </ul>
-      <a href="/place-order?plan=Web+Maintenance" class="plan-cta outline">Get Started →</a>
+      <a href="/contact" class="btn btn-secondary" style="width:100%;justify-content:center;">Contact us</a>
     </div>
-
   </div>
 
-  <!-- CUSTOM QUOTE NOTE -->
-  <div class="custom-note reveal">
-    <p style="font-size:2rem;margin-bottom:16px;">🤝</p>
-    <h3>Not Sure Which Plan Fits?</h3>
-    <p>Every client has unique requirements — and that's completely fine. Our plans are <strong style="color:var(--text);">starting points</strong>, not rigid boxes. Whether you need an AI chatbot, a multi-role ERP system, an e-commerce store, or just a simple landing page — we'll scope it properly and give you a <strong style="color:var(--gold);">custom quote with zero pressure</strong>.</p>
-    <div class="custom-tags">
-      <span class="custom-tag">AI Chatbot Add-on</span>
-      <span class="custom-tag">E-Commerce</span>
-      <span class="custom-tag">ERP / CRM Systems</span>
-      <span class="custom-tag">Web App Development</span>
-      <span class="custom-tag">Cloud Hosting</span>
-      <span class="custom-tag">Web Testing</span>
-    </div>
-    <a href="/contact" class="btn-primary">Get a Free Custom Quote →</a>
-  </div>
+  <p style="text-align:center;color:var(--muted);font-size:0.8rem;margin-top:24px;">All prices are excluding GST. Final price depends on exact scope — we'll confirm everything before you pay anything.</p>
+</section>
 
-  <!-- FAQ -->
-  <div style="max-width:700px;margin:80px auto 0;">
-    <p class="section-tag" style="text-align:center;">Questions</p>
-    <h2 class="section-h2" style="text-align:center;margin-bottom:40px;">Frequently Asked <em>Questions</em></h2>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Are the prices fixed or negotiable?</span><span class="faq-icon">+</span></div><div class="faq-a">The prices shown are starting points. Your final quote depends on your exact requirements — number of pages, features, complexity, and timeline. We always share a detailed breakdown before any payment.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How long does a project take?</span><span class="faq-icon">+</span></div><div class="faq-a">Simple websites: 1–2 weeks. Web apps with deployment: 3–6 weeks. Full maintenance packages or complex systems: 6–12 weeks. We provide a clear timeline after your first consultation — for free.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do you require full payment upfront?</span><span class="faq-icon">+</span></div><div class="faq-a">No. We work on a 50% advance, 50% on delivery model. For larger projects, payments are split into milestones so you only pay as work is completed.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I add AI chatbot to any plan?</span><span class="faq-icon">+</span></div><div class="faq-a">Yes! AI chatbot integration can be added to any plan as an add-on. The additional cost depends on the complexity and the AI model used. Contact us for a custom quote.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I upgrade my plan later?</span><span class="faq-icon">+</span></div><div class="faq-a">Absolutely. All our systems are built with scalability in mind. You can start with the Web Only plan and scale up to deployment or maintenance as your business grows.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What if I need something not listed here?</span><span class="faq-icon">+</span></div><div class="faq-a">Just reach out! We handle web testing, e-commerce platforms, multi-tenant SaaS apps, data dashboards, and more. If you can describe it, we can build it — and we'll quote it fairly.</div></div>
+<!-- FAQ -->
+<section class="section" style="padding-top:0;">
+  <p class="section-label">Common questions</p>
+  <h2 style="margin-bottom:40px;">FAQ</h2>
+
+  <div class="services-grid">
+    <div class="service-item">
+      <h3>How do payments work?</h3>
+      <p style="margin-top:10px;">We take 50% upfront to begin work and 50% on delivery. For larger projects, we can arrange milestone-based payments.</p>
+    </div>
+    <div class="service-item">
+      <h3>What if I need changes after launch?</h3>
+      <p style="margin-top:10px;">All plans include a 30–60 day support period for bug fixes. Feature additions are quoted separately and are always optional.</p>
+    </div>
+    <div class="service-item">
+      <h3>Who hosts the project?</h3>
+      <p style="margin-top:10px;">We deploy on your own AWS account so you fully own everything. We can also manage it under our account if you prefer.</p>
+    </div>
+    <div class="service-item">
+      <h3>Can you work with an existing codebase?</h3>
+      <p style="margin-top:10px;">Yes. We regularly take over and extend existing projects. Just share what you have and we'll review it before quoting.</p>
+    </div>
   </div>
 </section>
-{% endblock %}
-{% block extra_scripts %}
-<script>
-function toggleFaq(el){
-  const ans=el.nextElementSibling,icon=el.querySelector('.faq-icon');
-  ans.classList.toggle('open');icon.classList.toggle('open');
-  icon.textContent=icon.classList.contains('open')?'−':'+';
-}
-</script>
+
 {% endblock %}
