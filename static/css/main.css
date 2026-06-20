@@ -93,26 +93,18 @@ h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform
 .btn-primary-nav:hover { background: var(--forest-lt); }
 .nav-toggle { display: none; color: var(--muted); padding: 6px; }
 
+/* Mobile auth links inside hamburger — hidden on desktop */
+.mobile-nav-auth { display: none; }
+
 .flash{
     color: #fff;
     padding: 12px;
     text-align: center;
     font-size: 0.9rem;
 }
-
-.flash-error{
-    background: #ef4444;
-}
-
-.flash-warning{
-    background: #f97316;
-}
-
-.flash-success{
-    background: #10b981;
-}
-
-
+.flash-error{ background: #ef4444; }
+.flash-warning{ background: #f97316; }
+.flash-success{ background: #10b981; }
 
 /* ---- BUTTONS ---- */
 .btn {
@@ -246,14 +238,6 @@ h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform
 .testimonial-author { font-size: 0.8rem; font-weight: 600; }
 .testimonial-role { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
 
-/* ---- TEAM ---- 
-.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-.team-item { background: var(--bg); padding: 36px 24px; text-align: center; }
-.team-item:hover { background: var(--surface); }
-.team-avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; margin: 0 auto 16px; border: 1px solid var(--border); }
-.team-name { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
-.team-role { font-size: 0.78rem; color: var(--muted); } */
-
 /* ---- TEAM ---- */
 .team-grid {
     display: grid;
@@ -264,24 +248,21 @@ h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform
     border-radius: var(--radius-lg);
     overflow: hidden;
 }
-
-.team-item{
+.team-item {
     background: var(--bg);
     padding: 48px 24px;
     text-align: center;
-    text-decoration: none; /* remove underline */
-    color: inherit;        /* keep text color */
+    text-decoration: none;
+    color: inherit;
     display: block;
     transition: all 0.3s ease;
     cursor: pointer;
 }
-
-.team-item:hover{
+.team-item:hover {
     background: var(--surface);
     transform: translateY(-5px);
 }
-
-.team-avatar{
+.team-avatar {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -289,15 +270,13 @@ h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform
     margin: 0 auto 20px;
     border: 2px solid rgba(255,255,255,0.1);
 }
-
 .team-name {
-    font-size: 1rem;  /* Increased from 0.9rem */
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 6px;
 }
-
 .team-role {
-    font-size: 0.85rem; /* Increased from 0.78rem */
+    font-size: 0.85rem;
     color: var(--muted);
 }
 
@@ -424,24 +403,188 @@ h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform
 .stat-number { font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 4px; }
 .stat-label { font-size: 0.78rem; color: var(--muted); }
 
-/* ---- RESPONSIVE ---- */
+/* ============================================================
+   RESPONSIVE — TABLET (max 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .section { padding: 80px 20px; }
+
+  /* Nav */
+  .nav-inner { gap: 20px; }
+
+  /* Features: 3 → 2 columns */
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Team: 4 → 2 columns */
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Pricing: 3 → 2 columns (middle card stays featured) */
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Testimonials: 3 → 2 columns */
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Stat row: 4 → 2 columns */
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+
+  /* Footer cols less gap */
+  .footer-cols { gap: 40px; }
+  .footer-top { gap: 48px; }
+
+  /* CTA strip */
+  .cta-strip { padding: 48px 40px; }
+
+  /* Contact padding */
+  .contact-info { padding: 40px 32px; }
+  .contact-form-wrap { padding: 40px 32px; }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (max 768px)
+   ============================================================ */
 @media (max-width: 768px) {
+
+  /* ---- NAV ---- */
   .nav-links { display: none; }
   .nav-toggle { display: flex; }
+  .nav-actions { display: none; } /* hidden — auth moved into hamburger menu */
+
+  /* Hamburger open state */
   .nav-links.open {
-    display: flex; flex-direction: column;
-    position: fixed; top: 56px; left: 0; right: 0;
-    background: var(--bg); border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
     padding: 16px 24px 24px;
+    gap: 4px;
+    z-index: 999;
   }
+
+  /* Show auth links inside hamburger on mobile */
+  .mobile-nav-auth {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+    padding-top: 8px;
+    gap: 4px;
+  }
+  .mobile-logout-btn {
+    text-align: left;
+    font-size: 0.85rem;
+    color: rgba(239,68,68,0.85);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: 450;
+    width: 100%;
+  }
+
+  /* ---- LAYOUT ---- */
+  .section { padding: 60px 16px; }
+  .container { padding: 0 16px; }
+
+  /* ---- HERO ---- */
+  .hero {
+    padding: 100px 16px 60px;
+    min-height: auto;
+  }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-cta { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .hero-cta .btn { width: 100%; justify-content: center; }
+
+  /* ---- PAGE HERO ---- */
+  .page-hero {
+    padding: 100px 16px 40px;
+    margin-bottom: 40px;
+  }
+
+  /* ---- GRIDS → Single column ---- */
   .features-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-grid  { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .blog-grid { grid-template-columns: 1fr; }
+
+  /* ---- TEAM → 2 columns on mobile ---- */
   .team-grid { grid-template-columns: repeat(2, 1fr); }
-  .contact-grid { grid-template-columns: 1fr; }
-  .cta-strip { flex-direction: column; padding: 40px 32px; }
-  .footer-top { flex-direction: column; gap: 40px; }
-  .footer-cols { flex-wrap: wrap; gap: 32px; justify-content: flex-start; }
+  .team-avatar { width: 100px; height: 100px; }
+  .team-item { padding: 32px 16px; }
+
+  /* ---- STAT ROW → 2 columns ---- */
   .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .stat-number { font-size: 1.6rem; }
+
+  /* ---- CONTACT → Stack vertically ---- */
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-info { padding: 32px 24px; }
+  .contact-form-wrap { padding: 32px 24px; }
+
+  /* ---- CTA STRIP ---- */
+  .cta-strip {
+    flex-direction: column;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .cta-strip h2 { max-width: 100%; }
+  .cta-strip p { max-width: 100%; }
+
+  /* ---- FOOTER ---- */
+  .footer-top { flex-direction: column; gap: 32px; }
+  .footer-brand { max-width: 100%; }
+  .footer-cols { flex-wrap: wrap; gap: 24px; justify-content: flex-start; }
+  .footer-col { min-width: 120px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+  /* ---- AUTH BOX ---- */
+  .auth-box { padding: 32px 20px; }
+
+  /* ---- DASHBOARD TABLE — make it scrollable horizontally ---- */
+  .dash-content { padding: 24px 16px; }
+  .dash-header { padding: 32px 16px 24px; }
+  .orders-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .orders-table th, .orders-table td { padding: 10px 12px; font-size: 0.8rem; }
+
+  /* ---- ORDER PAGE ---- */
+  .order-page { padding: 100px 16px 60px; }
+
+  /* ---- SERVICE ITEMS ---- */
+  .service-item { padding: 28px 20px; }
+  .feature-cell { padding: 28px 20px; }
+
+  /* ---- LOGO STRIP ---- */
+  .logo-strip-logos { gap: 24px; }
+  .logo-strip { padding: 32px 16px; }
+}
+
+/* ============================================================
+   RESPONSIVE — SMALL MOBILE (max 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+
+  /* Typography scale down */
+  h1 { font-size: clamp(1.7rem, 8vw, 2.5rem); }
+  h2 { font-size: clamp(1.3rem, 6vw, 1.8rem); }
+
+  /* Team → single column on very small screens */
+  .team-grid { grid-template-columns: 1fr; }
+  .team-avatar { width: 120px; height: 120px; }
+
+  /* Stat row → single column on very small */
+  .stat-row { grid-template-columns: 1fr; }
+
+  /* Pricing cards full padding fix */
+  .pricing-card { padding: 24px 20px; }
+
+  /* Auth box */
+  .auth-box { padding: 24px 16px; }
+
+  /* Footer cols full width */
+  .footer-cols { flex-direction: column; gap: 20px; }
+
+  /* Buttons full width in hero */
+  .btn { font-size: 0.85rem; padding: 10px 16px; }
 }
