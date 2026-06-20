@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v=2"/>
 {% block extra_styles %}{% endblock %}
 <style>
-/* ── Profile dropdown ── */
+/* ── Desktop Profile dropdown ── */
 .nav-profile {
   position: relative;
   display: flex;
@@ -73,7 +73,7 @@
   visibility: hidden;
   transform: translateY(-6px);
   transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
-  z-index: 999;
+  z-index: 1200;
 }
 .profile-dropdown.open {
   opacity: 1;
@@ -115,15 +115,21 @@
   color: #ef4444;
 }
 
-/* ── Mobile nav right side (avatar + welcome + hamburger) ── */
+/* ── Mobile nav right group ── */
 .mobile-nav-right {
-  display: none; /* hidden on desktop */
+  display: none;
   align-items: center;
   gap: 8px;
   margin-left: auto;
 }
 
-/* Mobile circle avatar with initial */
+/* Mobile circle avatar button */
+.mobile-profile-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .mobile-avatar-btn {
   width: 34px;
   height: 34px;
@@ -136,12 +142,12 @@
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
-  text-decoration: none;
   flex-shrink: 0;
   border: 2px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  /* no background/border reset so it keeps the gradient */
+  font-family: inherit;
 }
-
-/* Mobile welcome text next to avatar */
 .mobile-welcome {
   font-size: 0.78rem;
   color: rgba(255,255,255,0.75);
@@ -150,6 +156,64 @@
 .mobile-welcome span {
   color: #fff;
   font-weight: 600;
+}
+
+/* Mobile dropdown — same style as desktop */
+.mobile-profile-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #121a10;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 6px;
+  min-width: 170px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+  z-index: 1200;
+}
+.mobile-profile-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.mobile-profile-dropdown a,
+.mobile-profile-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-size: 0.84rem;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+}
+.mobile-profile-dropdown a:hover,
+.mobile-profile-dropdown button:hover {
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+}
+.mobile-profile-dropdown .dd-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 5px 0;
+}
+.mobile-profile-dropdown .dd-logout {
+  color: rgba(239,68,68,0.85);
+}
+.mobile-profile-dropdown .dd-logout:hover {
+  background: rgba(239,68,68,0.1);
+  color: #ef4444;
 }
 
 /* Mobile login/register buttons */
@@ -173,10 +237,10 @@
   font-weight: 600;
 }
 
-/* Mobile hamburger - always stays at right edge */
+/* Hamburger */
 .nav-toggle { display: none; color: var(--muted); padding: 6px; flex-shrink: 0; }
 
-/* Mobile auth links inside hamburger dropdown */
+/* Mobile auth links inside hamburger */
 .mobile-nav-auth { display: none; }
 
 @media (max-width: 768px) {
@@ -199,18 +263,17 @@
       <span style="font-size:0.65rem;color:var(--gold);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:2px;border-left:1px solid var(--border-md);padding-left:8px;">Beyond Build</span>
     </a>
 
-    <!-- DESKTOP NAV LINKS -->
+    <!-- DESKTOP + HAMBURGER NAV LINKS -->
     <div class="nav-links" id="navLinks">
       <a href="/services" class="nav-link {% if request.endpoint=='services' %}active{% endif %}">Services</a>
       <a href="/about" class="nav-link {% if request.endpoint=='about' %}active{% endif %}">About</a>
       <a href="/blog" class="nav-link {% if request.endpoint=='blog' %}active{% endif %}">Blog</a>
       <a href="/contact" class="nav-link {% if request.endpoint=='contact' %}active{% endif %}">Contact</a>
-
-      <!-- Auth links shown inside hamburger menu on mobile -->
+      <!-- Auth shown inside hamburger on mobile -->
       <div class="mobile-nav-auth">
         {% if session.get('user_name') %}
           <a href="/dashboard" class="nav-link">📊 Dashboard</a>
-          <button onclick="logout()" class="nav-link mobile-logout-btn">🚪 Logout</button>
+          <button onclick="logout()" class="nav-link" style="text-align:left;color:rgba(239,68,68,0.85);width:100%;font-size:0.85rem;padding:6px 10px;border-radius:6px;">🚪 Logout</button>
         {% else %}
           <a href="/login" class="nav-link">Log in</a>
           <a href="/register" class="nav-link" style="color:var(--text);font-weight:600;">Register</a>
@@ -242,23 +305,30 @@
       {% endif %}
     </div>
 
-    <!-- MOBILE RIGHT SIDE: avatar/welcome OR login/register + hamburger -->
+    <!-- MOBILE RIGHT SIDE -->
     <div class="mobile-nav-right">
       {% if session.get('user_name') %}
-        <!-- Circle avatar with first letter linking to dashboard -->
-        <a href="/dashboard" class="mobile-avatar-btn" title="Dashboard">
-          {{ session.get('user_name')[0] }}
-        </a>
-        <!-- Welcome text next to avatar -->
-        <span class="mobile-welcome">Hi, <span>{{ session.get('user_name').split(' ')[0] }}</span></span>
+        <!-- Circle avatar with dropdown for Dashboard + Logout -->
+        <div class="mobile-profile-wrap" id="mobileProfileWrapper">
+          <button class="mobile-avatar-btn" onclick="toggleMobileDropdown()">
+            {{ session.get('user_name')[0] }}
+          </button>
+          <span class="mobile-welcome">Hi, <span>{{ session.get('user_name').split(' ')[0] }}</span></span>
+          <!-- Dropdown -->
+          <div class="mobile-profile-dropdown" id="mobileProfileDropdown">
+            <a href="/dashboard">📊 Dashboard</a>
+            <div class="dd-divider"></div>
+            <button onclick="logout()" class="dd-logout">🚪 Logout</button>
+          </div>
+        </div>
       {% else %}
-        <!-- Not logged in: show login + register buttons -->
+        <!-- Not logged in -->
         <a href="/login" class="mobile-login-btn">Log in</a>
         <a href="/register" class="mobile-register-btn">Register</a>
       {% endif %}
     </div>
 
-    <!-- HAMBURGER — always at far right -->
+    <!-- HAMBURGER -->
     <button class="nav-toggle" id="navToggle">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <line x1="3" y1="6" x2="21" y2="6" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -325,6 +395,7 @@
 
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 <script>
+// Desktop profile dropdown
 function toggleProfileDropdown() {
   const dd = document.getElementById('profileDropdown');
   const chevron = document.getElementById('profileChevron');
@@ -333,20 +404,33 @@ function toggleProfileDropdown() {
   chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
 }
 
+// Mobile avatar dropdown
+function toggleMobileDropdown() {
+  const dd = document.getElementById('mobileProfileDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+
 function logout() {
   fetch('/logout', { method: 'POST' }).then(() => {
     location.href = '/';
   });
 }
 
-// Close dropdown when clicking outside
+// Close both dropdowns when clicking outside
 document.addEventListener('click', function(e) {
+  // Desktop
   const wrapper = document.getElementById('profileWrapper');
   if (wrapper && !wrapper.contains(e.target)) {
     const dd = document.getElementById('profileDropdown');
     const chevron = document.getElementById('profileChevron');
     if (dd) dd.classList.remove('open');
     if (chevron) chevron.style.transform = '';
+  }
+  // Mobile
+  const mobileWrapper = document.getElementById('mobileProfileWrapper');
+  if (mobileWrapper && !mobileWrapper.contains(e.target)) {
+    const mdd = document.getElementById('mobileProfileDropdown');
+    if (mdd) mdd.classList.remove('open');
   }
 });
 </script>
