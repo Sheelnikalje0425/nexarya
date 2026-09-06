@@ -1,0 +1,7 @@
+# NEXARYA Robots Exclusion Protocol
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+Sitemap: https://nexarya.in/sitemap.xml
