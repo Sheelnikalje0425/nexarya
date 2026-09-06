@@ -11,6 +11,7 @@ server/data/
 *.db-journal
 *.db-wal
 *.db-shm
+instance/
 
 # Scratch & temporary test scripts
 scratch/
@@ -24,10 +25,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Build & Dependencies
 node_modules
 dist
 dist-ssr
 *.local
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+venv/
 
 # Editor directories and files
 .vscode/*

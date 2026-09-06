@@ -64,10 +64,56 @@ The codebase separates the presentation tier from the core transactional API:
                ▼                              ▼
     Static CDN / Nginx / Vite         SQLite (WAL Mode)
     Distribution (Port 3000)          nexarya.db (Port 5000)
+=======
+# NEXARYA — Full Stack Website
+
+## Tech Stack
+- **Backend:** Python Flask
+- **Database:** MySQL
+- **Frontend:** HTML, CSS, JavaScript (no framework, pure dark neon design)
+
+---
+
+## Project Structure
+```
+nexarya/
+├── app.py                  # Main Flask application
+├── schema.sql              # MySQL database schema + seed
+├── requirements.txt
+├── static/
+│   ├── css/main.css        # Global styles
+│   ├── js/main.js          # Canvas, cursor, animations
+│   └── img/                # Co-founder photos go here
+│       ├── mahesh.jpg
+│       ├── sheel.jpg
+│       ├── bhupesh.jpg
+│       └── pravin.jpg
+└── templates/
+    ├── base.html           # Shared navbar/footer/canvas
+    ├── index.html          # Homepage
+    ├── about.html          # About + co-founders
+    ├── services.html       # Services (5 sections)
+    ├── portfolio.html      # 6 projects
+    ├── pricing.html        # 3 plans + FAQ
+    ├── blog.html           # 6 articles
+    ├── contact.html        # Contact form
+    ├── login.html          # User login
+    ├── register.html       # User registration
+    ├── dashboard.html      # User order dashboard
+    ├── place_order.html    # Order placement form
+    ├── order_detail.html   # Order tracking page
+    └── admin/
+        ├── login.html      # Admin login
+        ├── base_admin.html # Admin sidebar layout
+        ├── dashboard.html  # Admin KPIs + recent orders
+        ├── orders.html     # All orders + status update
+        └── users.html      # All registered users
+>>>>>>> origin/main
 ```
 
 ---
 
+<<<<<<< HEAD
 ## 4. Project Structure
 
 ```
