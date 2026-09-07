@@ -3,6 +3,7 @@ import SEOHead from "@/components/seo/SEOHead";
 import Hero from "@/components/hero/Hero";
 import SelectedWork from "@/components/work/SelectedWork";
 import EngineeringSection from "@/components/engineering/EngineeringSection";
+import InTheWorkMedia from "@/components/media/InTheWorkMedia";
 import Capabilities from "@/components/capabilities/Capabilities";
 import LeadershipTeam from "@/components/team/LeadershipTeam";
 import TestimonialSpotlight from "@/components/testimonials/TestimonialSpotlight";
@@ -24,6 +25,9 @@ export default function HomePage() {
 
       {/* 03. LOCKED: Section 3: Engineering (From business complexity to working software) */}
       <EngineeringSection />
+
+      {/* Section: In The Work (Documentary Engineering Media) */}
+      <InTheWorkMedia />
 
       {/* 04. LOCKED: Section 4: Capabilities (Systems designed around the work) */}
       <Capabilities />
