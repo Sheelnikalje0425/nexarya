@@ -16,6 +16,7 @@ import InsightDetailPage from "@/pages/insights/InsightDetailPage";
 import PricingPage from "@/pages/pricing/PricingPage";
 import ContactInquiryPage from "@/pages/contact/ContactInquiryPage";
 import ClientFeedbackPage from "@/pages/feedback/ClientFeedbackPage";
+import InvitedFeedbackPage from "@/pages/feedback/InvitedFeedbackPage";
 import PrivacyPage from "@/pages/legal/PrivacyPage";
 import TermsPage from "@/pages/legal/TermsPage";
 import NotFoundPage from "@/pages/NotFoundPage";
@@ -69,6 +70,7 @@ export default function App() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/contact" element={<ContactInquiryPage />} />
           <Route path="/feedback" element={<ClientFeedbackPage />} />
+          <Route path="/feedback/invite/:token" element={<InvitedFeedbackPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="*" element={<NotFoundPage />} />

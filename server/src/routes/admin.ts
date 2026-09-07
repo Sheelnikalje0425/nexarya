@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { db } from "../db/index";
 import { requireAuth, requireRole } from "../middleware/auth";
 import { recordAuditLog } from "../services/audit";
+import { EmailService } from "../services/email";
 
 const router = Router();
 
@@ -192,6 +193,115 @@ router.delete("/testimonials/:id", requireRole(["SUPER_ADMIN", "ADMIN"]), (req: 
     res.json({ success: true, message: "Testimonial deleted" });
   } else {
     res.status(404).json({ error: "Testimonial not found", code: "NOT_FOUND" });
+  }
+});
+
+// 4b. Feedback Invitations (SUPER_ADMIN, ADMIN, EDITOR)
+router.get("/feedback-invitations", requireRole(["SUPER_ADMIN", "ADMIN", "EDITOR"]), (req: Request, res: Response) => {
+  const invitations = db.prepare(`
+    SELECT id, recipient_name, recipient_email, company, designation, project_ref, expires_at, used_at, created_at, created_by, status
+    FROM feedback_invitations
+    ORDER BY created_at DESC
+  `).all();
+  res.json({ invitations });
+});
+
+router.post("/feedback-invitations", requireRole(["SUPER_ADMIN", "ADMIN"]), async (req: Request, res: Response) => {
+  const { recipient_name, recipient_email, company, designation, project_ref, expires_in_days = 30 } = req.body;
+
+  if (!recipient_name || !recipient_email || !company) {
+    res.status(400).json({
+      error: "Please provide recipient_name, recipient_email, and company",
+      code: "VALIDATION_FAILED",
+    });
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(recipient_email)) {
+    res.status(400).json({ error: "Invalid recipient email address", code: "INVALID_EMAIL" });
+    return;
+  }
+
+  const id = `inv_${crypto.randomUUID()}`;
+  const rawToken = crypto.randomBytes(32).toString("hex"); // 64-char cryptographically secure random token
+  const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
+  const now = new Date().toISOString();
+  const days = Math.max(1, Math.min(Number(expires_in_days) || 30, 90)); // Between 1 and 90 days
+  const expiresAt = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
+
+  try {
+    const stmt = db.prepare(`
+      INSERT INTO feedback_invitations (id, token_hash, project_ref, recipient_name, recipient_email, company, designation, expires_at, created_at, created_by, status)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE')
+    `);
+
+    stmt.run(
+      id,
+      tokenHash,
+      project_ref ? project_ref.trim() : null,
+      recipient_name.trim(),
+      recipient_email.trim(),
+      company.trim(),
+      designation ? designation.trim() : null,
+      expiresAt,
+      now,
+      req.user!.email
+    );
+
+    recordAuditLog(
+      req.user!.id,
+      req.user!.email,
+      "CREATE",
+      "feedback_invitations",
+      id,
+      { recipient_email, company, project_ref, expiresAt },
+      req.ip
+    );
+
+    // Form absolute invitation link
+    const host = req.get("host") || "localhost:3000";
+    const protocol = req.protocol === "https" || req.headers["x-forwarded-proto"] === "https" ? "https" : "http";
+    const inviteUrl = `${protocol}://${host}/feedback/invite/${rawToken}`;
+
+    // Send invitation email
+    await EmailService.sendFeedbackInvitation({
+      recipientEmail: recipient_email.trim(),
+      recipientName: recipient_name.trim(),
+      company: company.trim(),
+      projectRef: project_ref ? project_ref.trim() : undefined,
+      inviteUrl,
+      expiresAt,
+    });
+
+    // Return invitation details and raw link once upon generation
+    res.status(201).json({
+      success: true,
+      id,
+      inviteUrl,
+      expiresAt,
+      message: "Feedback invitation generated and dispatched.",
+    });
+  } catch (err) {
+    console.error("Failed to create feedback invitation:", err);
+    res.status(500).json({ error: "Failed to create feedback invitation", code: "SERVER_ERROR" });
+  }
+});
+
+router.patch("/feedback-invitations/:id/revoke", requireRole(["SUPER_ADMIN", "ADMIN"]), (req: Request, res: Response) => {
+  const { id } = req.params;
+  const stmt = db.prepare(`
+    UPDATE feedback_invitations
+    SET status = 'REVOKED'
+    WHERE id = ? AND status = 'ACTIVE'
+  `);
+  const result = stmt.run(id);
+
+  if (result.changes > 0) {
+    recordAuditLog(req.user!.id, req.user!.email, "REVOKE", "feedback_invitations", id, {}, req.ip);
+    res.json({ success: true, message: "Feedback invitation revoked." });
+  } else {
+    res.status(404).json({ error: "Active invitation not found or already used/revoked", code: "NOT_FOUND" });
   }
 });
 

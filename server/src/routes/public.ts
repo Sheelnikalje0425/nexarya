@@ -104,7 +104,7 @@ router.get("/testimonials", (req: Request, res: Response) => {
   res.json({ testimonials });
 });
 
-// 6. Client Feedback Submission
+// 6. Client Feedback Submission (Standard Public Route)
 router.post("/feedback", async (req: Request, res: Response) => {
   const {
     name,
@@ -192,6 +192,218 @@ router.post("/feedback", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error", code: "SERVER_ERROR" });
   }
 });
+
+// 7. Secure Client Feedback Invitation Validation
+router.get("/feedback/invite/:token", async (req: Request, res: Response) => {
+  const { token } = req.params;
+  if (!token || typeof token !== "string" || token.length < 16) {
+    res.status(404).json({
+      error: "This feedback invitation link is invalid or malformed.",
+      code: "INVITATION_INVALID",
+    });
+    return;
+  }
+
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+  const invitation = db.prepare(`
+    SELECT id, recipient_name, company, designation, project_ref, expires_at, status
+    FROM feedback_invitations
+    WHERE token_hash = ?
+  `).get(tokenHash) as any;
+
+  if (!invitation) {
+    res.status(404).json({
+      error: "This feedback invitation link is invalid or does not exist.",
+      code: "INVITATION_NOT_FOUND",
+    });
+    return;
+  }
+
+  if (invitation.status === "USED") {
+    res.status(410).json({
+      error: "This invitation link has already been used to submit verified project feedback.",
+      code: "INVITATION_ALREADY_USED",
+    });
+    return;
+  }
+
+  if (invitation.status === "REVOKED") {
+    res.status(410).json({
+      error: "This invitation link has been revoked by administration.",
+      code: "INVITATION_REVOKED",
+    });
+    return;
+  }
+
+  const isExpired = new Date(invitation.expires_at).getTime() < Date.now();
+  if (isExpired || invitation.status === "EXPIRED") {
+    if (invitation.status !== "EXPIRED") {
+      db.prepare("UPDATE feedback_invitations SET status = 'EXPIRED' WHERE id = ?").run(invitation.id);
+    }
+    res.status(410).json({
+      error: "This feedback invitation link has expired. Please contact Nexarya for a refreshed link.",
+      code: "INVITATION_EXPIRED",
+    });
+    return;
+  }
+
+  // Return sanitized invitation details without exposing internal IDs or database tokens
+  res.json({
+    valid: true,
+    invitation: {
+      recipientName: invitation.recipient_name,
+      company: invitation.company,
+      designation: invitation.designation || "",
+      projectRef: invitation.project_ref || "",
+      expiresAt: invitation.expires_at,
+    },
+  });
+});
+
+// 8. Secure Client Feedback Submission via Invitation (Atomic Single-Use)
+router.post("/feedback/invite/:token", async (req: Request, res: Response) => {
+  const { token } = req.params;
+  const rawBody = req.body || {};
+  const name = rawBody.name || rawBody.client_name;
+  const designation = rawBody.designation || rawBody.role;
+  const company = rawBody.company;
+  const project = rawBody.project;
+  const rating = rawBody.rating !== undefined ? rawBody.rating : 5;
+  const quote = rawBody.quote || rawBody.review;
+  const recommendation = rawBody.recommendation;
+  const photo = rawBody.photo;
+  const consent_website = rawBody.consent_website !== undefined ? (rawBody.consent_website ? 1 : 0) : 1;
+  const consent_social = rawBody.consent_social ? 1 : 0;
+  const hp_field = rawBody.hp_field;
+
+  // Honeypot anti-bot trap
+  if (hp_field) {
+    res.status(400).json({ error: "Automated submission detected", code: "BOT_DETECTED" });
+    return;
+  }
+
+  if (!token || typeof token !== "string") {
+    res.status(400).json({ error: "Missing invitation token", code: "TOKEN_REQUIRED" });
+    return;
+  }
+
+  if (!name || !company || !quote) {
+    res.status(400).json({
+      error: "Please complete all required fields: name, company, quote",
+      code: "VALIDATION_FAILED",
+    });
+    return;
+  }
+
+  if (!consent_website) {
+    res.status(400).json({
+      error: "Website publication consent is required to submit feedback for review.",
+      code: "CONSENT_REQUIRED",
+    });
+    return;
+  }
+
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+  const id = `fb_${crypto.randomUUID()}`;
+  const referenceId = `NXN-FB-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+  const now = new Date().toISOString();
+
+  try {
+    // Atomic SQLite Transaction: Validates, inserts testimonial, marks invitation USED
+    const submitTransaction = db.transaction(() => {
+      const inv = db.prepare(`
+        SELECT id, project_ref, company, recipient_name, status, expires_at
+        FROM feedback_invitations
+        WHERE token_hash = ?
+      `).get(tokenHash) as any;
+
+      if (!inv) {
+        throw new Error("INVITATION_NOT_FOUND");
+      }
+
+      if (inv.status !== "ACTIVE") {
+        throw new Error(`INVITATION_STATUS_${inv.status}`);
+      }
+
+      if (new Date(inv.expires_at).getTime() < Date.now()) {
+        throw new Error("INVITATION_EXPIRED");
+      }
+
+      // 1. Insert into testimonials (Pending moderation)
+      const insertStmt = db.prepare(`
+        INSERT INTO testimonials (id, reference_id, client_name, designation, company, project, rating, quote, recommendation, photo, consent_website, consent_social, status, published, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'PENDING', 0, ?, ?)
+      `);
+
+      insertStmt.run(
+        id,
+        referenceId,
+        name.trim(),
+        (designation || "Executive").trim(),
+        company.trim(),
+        (project || inv.project_ref || "Custom Engineering").trim(),
+        Number(rating) || 5,
+        quote.trim(),
+        recommendation ? recommendation.trim() : null,
+        photo || null,
+        consent_website ? 1 : 0,
+        consent_social ? 1 : 0,
+        now,
+        now
+      );
+
+      // 2. Consume invitation token (Guarantees single-use idempotency)
+      const updateInvStmt = db.prepare(`
+        UPDATE feedback_invitations
+        SET status = 'USED', used_at = ?
+        WHERE id = ?
+      `);
+      updateInvStmt.run(now, inv.id);
+
+      // 3. Insert notification for admin moderation
+      const notifStmt = db.prepare(`
+        INSERT INTO notifications (id, title, message, type, is_read, link, created_at)
+        VALUES (?, ?, ?, 'SYSTEM', 0, ?, ?)
+      `);
+      notifStmt.run(
+        `notif_${crypto.randomUUID()}`,
+        `Verified Client Feedback Received: ${referenceId}`,
+        `Submitted by ${name} (${company}) via secure invitation for ${project || inv.project_ref || "Project"}`,
+        `/admin/testimonials`,
+        now
+      );
+    });
+
+    submitTransaction();
+
+    res.status(201).json({
+      success: true,
+      referenceId,
+      message: "Thank you. Your verified project feedback has been received and queued for review.",
+    });
+  } catch (err: any) {
+    if (err.message === "INVITATION_NOT_FOUND") {
+      res.status(404).json({ error: "Invalid invitation link.", code: "INVITATION_NOT_FOUND" });
+      return;
+    }
+    if (err.message === "INVITATION_STATUS_USED") {
+      res.status(410).json({ error: "This invitation link has already been used.", code: "INVITATION_ALREADY_USED" });
+      return;
+    }
+    if (err.message === "INVITATION_STATUS_REVOKED") {
+      res.status(410).json({ error: "This invitation link has been revoked.", code: "INVITATION_REVOKED" });
+      return;
+    }
+    if (err.message === "INVITATION_EXPIRED") {
+      res.status(410).json({ error: "This invitation link has expired.", code: "INVITATION_EXPIRED" });
+      return;
+    }
+
+    console.error("Invited feedback submission error:", err);
+    res.status(500).json({ error: "Internal server error", code: "SERVER_ERROR" });
+  }
+});
+
 
 // 7. Project Inquiries Submission (with honeypot anti-spam)
 router.post("/inquiries", async (req: Request, res: Response) => {

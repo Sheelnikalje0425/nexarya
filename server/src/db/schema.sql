@@ -169,13 +169,31 @@ CREATE TABLE IF NOT EXISTS settings (
     updated_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS feedback_invitations (
+    id TEXT PRIMARY KEY,
+    token_hash TEXT UNIQUE NOT NULL,
+    project_ref TEXT,
+    recipient_name TEXT NOT NULL,
+    recipient_email TEXT NOT NULL,
+    company TEXT NOT NULL,
+    designation TEXT,
+    expires_at TEXT NOT NULL,
+    used_at TEXT,
+    created_at TEXT NOT NULL,
+    created_by TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'ACTIVE' CHECK(status IN ('ACTIVE', 'USED', 'EXPIRED', 'REVOKED'))
+);
+
 -- Indexes for optimal lookup and query performance
 CREATE INDEX IF NOT EXISTS idx_inquiries_ref ON inquiries(reference_id);
 CREATE INDEX IF NOT EXISTS idx_inquiries_status ON inquiries(status);
 CREATE INDEX IF NOT EXISTS idx_testimonials_ref ON testimonials(reference_id);
 CREATE INDEX IF NOT EXISTS idx_testimonials_status ON testimonials(status);
+CREATE INDEX IF NOT EXISTS idx_fb_inv_token ON feedback_invitations(token_hash);
+CREATE INDEX IF NOT EXISTS idx_fb_inv_status ON feedback_invitations(status);
 CREATE INDEX IF NOT EXISTS idx_case_studies_slug ON case_studies(slug);
 CREATE INDEX IF NOT EXISTS idx_services_slug ON services(slug);
 CREATE INDEX IF NOT EXISTS idx_articles_slug ON articles(slug);
 CREATE INDEX IF NOT EXISTS idx_audit_created ON audit_logs(created_at);
 CREATE INDEX IF NOT EXISTS idx_payments_tx ON payments(transaction_id);
+

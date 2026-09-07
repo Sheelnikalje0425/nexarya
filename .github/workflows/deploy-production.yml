@@ -1,0 +1,100 @@
+name: NEXARYA CI/CD — Auto-Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      skip_tests:
+        description: 'Skip pre-deployment tests'
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Auto-Deploy to AWS EC2
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Pre-Deployment Static Typecheck & Build Validation
+        if: ${{ !inputs.skip_tests }}
+        run: |
+          npx tsc --noEmit
+          npm run build
+        env:
+          NODE_ENV: production
+          VITE_API_URL: /api/v1
+
+      - name: Configure SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY || secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Execute Zero-Downtime Deployment on EC2
+        env:
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ${{ secrets.EC2_USER || 'ubuntu' }}
+        run: |
+          echo "Connecting to ${USER}@${HOST} and deploying latest code..."
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${USER}@${HOST} "bash -s" << 'EOF'
+            set -e
+            echo "==> Navigating to /var/www/nexarya"
+            cd /var/www/nexarya
+
+            echo "==> Pulling latest changes from GitHub main"
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "==> Installing Node.js packages"
+            npm install --production=false
+
+            echo "==> Compiling production frontend bundle"
+            npm run build
+
+            echo "==> Reloading PM2 backend service (Zero Downtime)"
+            pm2 reload nexarya-api || pm2 start "npm run server" --name nexarya-api
+            pm2 save
+
+            echo "==> Setting directory permissions & reloading Nginx"
+            sudo chmod -R 755 /var/www/nexarya/dist
+            sudo nginx -t
+            sudo systemctl reload nginx
+
+            echo "==> Remote server update complete."
+          EOF
+
+      - name: Verify Live Health Endpoint
+        env:
+          TARGET_URL: ${{ secrets.APP_BASE_URL || 'https://nexarya.in' }}
+        run: |
+          echo "Testing live health check at ${TARGET_URL}/api/v1/health..."
+          for i in {1..10}; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${TARGET_URL}/api/v1/health" || true)
+            if [ "$STATUS" -eq 200 ]; then
+              echo "Health check PASSED! Live website is OPERATIONAL (HTTP 200)."
+              exit 0
+            fi
+            echo "Attempt $i: Received HTTP $STATUS. Retrying in 3 seconds..."
+            sleep 3
+          done
+          echo "WARNING: Health check did not return 200 within expected timeframe."

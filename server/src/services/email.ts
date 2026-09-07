@@ -76,4 +76,58 @@ export class EmailService {
 
     return this.sendEmail({ to: adminEmail, subject, html });
   }
+
+  public static async sendFeedbackInvitation(params: {
+    recipientEmail: string;
+    recipientName: string;
+    company: string;
+    projectRef?: string;
+    inviteUrl: string;
+    expiresAt: string;
+  }) {
+    const formattedExpiry = new Date(params.expiresAt).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
+    const subject = `Invitation for Project Feedback — Nexarya Engineering`;
+    const html = `
+      <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #03070B; color: #F2EFE7; padding: 40px 20px;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #070D12; border: 1px solid rgba(255,255,255,0.1); padding: 32px;">
+          <div style="font-size: 14px; letter-spacing: 0.2em; color: #D4A72C; text-transform: uppercase; font-weight: bold; margin-bottom: 24px;">
+            NEXARYA // BEYOND BUILD
+          </div>
+          <h2 style="font-size: 24px; color: #F2EFE7; margin-bottom: 16px;">Client Feedback Invitation</h2>
+          <p style="color: #A7A9A8; font-size: 14px; line-height: 1.6;">
+            Hello ${params.recipientName},<br/><br/>
+            Thank you for partnering with Nexarya on <strong>${params.projectRef || "your software engagement"}</strong>.
+          </p>
+          <p style="color: #A7A9A8; font-size: 14px; line-height: 1.6;">
+            We invite you to share your candid perspective on our engineering methodology, technical delivery, and communication. Your feedback directly informs our standards and helps prospective engineering partners understand how we work.
+          </p>
+          <div style="margin: 28px 0; text-align: center;">
+            <a href="${params.inviteUrl}" style="display: inline-block; background-color: #D4A72C; color: #03070B; font-weight: bold; font-size: 14px; text-decoration: none; padding: 14px 28px; letter-spacing: 0.05em; text-transform: uppercase;">
+              Provide Project Feedback →
+            </a>
+          </div>
+          <p style="color: #6F7475; font-size: 12px; line-height: 1.5;">
+            This single-use private link is secure and valid until <strong>${formattedExpiry}</strong>. No account creation is required.
+          </p>
+          <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: #6F7475;">
+            Nexarya — High-Performance Software Engineering Studio<br/>
+            Mumbai, India | hello@nexarya.in
+          </div>
+        </div>
+      </div>
+    `;
+
+    // In non-production environments, log invitation URL for testing convenience
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`[FEEDBACK INVITATION LINK (DEV)]: To=${params.recipientEmail} | Link=${params.inviteUrl}`);
+    }
+
+    return this.sendEmail({ to: params.recipientEmail, subject, html });
+  }
 }
+

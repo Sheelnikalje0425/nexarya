@@ -69,6 +69,30 @@ export const api = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
+  getFeedbackInvitation: (token: string) =>
+    fetchApi<{ valid: boolean; invitation: { recipientName: string; company: string; designation: string; projectRef: string; expiresAt: string } }>(
+      `/feedback/invite/${token}`
+    ),
+  submitInvitedFeedback: (
+    token: string,
+    payload: {
+      name: string;
+      company: string;
+      designation?: string;
+      project?: string;
+      rating: number;
+      quote: string;
+      recommendation?: string;
+      photo?: string;
+      consent_website: number;
+      consent_social: number;
+      hp_field?: string;
+    }
+  ) =>
+    fetchApi<{ success: boolean; referenceId: string; message: string }>(`/feedback/invite/${token}`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
   createPayment: (payload: {
     amount: number;
     currency: string;
@@ -96,6 +120,23 @@ export const api = {
     createTestimonial: (data: any) => fetchApi<any>("/admin/testimonials", { method: "POST", body: JSON.stringify(data) }),
     updateTestimonial: (id: string, data: any) => fetchApi<any>(`/admin/testimonials/${id}`, { method: "PATCH", body: JSON.stringify(data) }),
     deleteTestimonial: (id: string) => fetchApi<any>(`/admin/testimonials/${id}`, { method: "DELETE" }),
+    getFeedbackInvitations: () => fetchApi<{ invitations: any[] }>("/admin/feedback-invitations"),
+    createFeedbackInvitation: (data: {
+      recipient_name: string;
+      recipient_email: string;
+      company: string;
+      designation?: string;
+      project_ref?: string;
+      expires_in_days?: number;
+    }) =>
+      fetchApi<{ success: boolean; id: string; inviteUrl: string; expiresAt: string; message: string }>("/admin/feedback-invitations", {
+        method: "POST",
+        body: JSON.stringify(data),
+      }),
+    revokeFeedbackInvitation: (id: string) =>
+      fetchApi<{ success: boolean; message: string }>(`/admin/feedback-invitations/${id}/revoke`, {
+        method: "PATCH",
+      }),
     getArticles: () => fetchApi<{ articles: any[] }>("/admin/articles"),
     createArticle: (data: any) => fetchApi<any>("/admin/articles", { method: "POST", body: JSON.stringify(data) }),
     getPayments: () => fetchApi<{ payments: any[] }>("/admin/payments"),
@@ -107,3 +148,4 @@ export const api = {
     updateSetting: (key: string, value: string) => fetchApi<any>("/admin/settings", { method: "PATCH", body: JSON.stringify({ key, value }) }),
   },
 };
+

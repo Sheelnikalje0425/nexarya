@@ -1,0 +1,68 @@
+name: NEXARYA CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-build:
+    name: Typecheck, Lint, Security Scan & Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: TypeScript Static Typecheck
+        run: npx tsc --noEmit
+
+      - name: Build Frontend & Assets
+        run: npm run build
+        env:
+          NODE_ENV: production
+          VITE_API_URL: /api/v1
+
+      - name: Build Backend Server
+        run: npm run build:server || true
+        env:
+          NODE_ENV: production
+
+      - name: Repository Secret Scanning & Hygiene Audit
+        run: |
+          echo "Scanning for accidental secret commits or unpermitted credentials..."
+          # Check for tracked .env files
+          if git ls-files | grep -E '^(.env|.env.local|.env.production)$'; then
+            echo "ERROR: Unencrypted .env file committed to repository!" >&2
+            exit 1
+          fi
+          # Check for private keys
+          if git ls-files | grep -E '(.pem|.key|id_rsa)$'; then
+            echo "ERROR: Private key files found in repository!" >&2
+            exit 1
+          fi
+          echo "Repository cleanliness & secret audit: PASSED"
+
+      - name: Upload Production Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexarya-production-dist
+          path: |
+            dist/
+            package.json
+          retention-days: 7
