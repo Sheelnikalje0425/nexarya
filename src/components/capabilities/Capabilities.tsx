@@ -106,13 +106,13 @@ export default function Capabilities() {
     <section
       id="capabilities"
       aria-labelledby="capabilities-heading"
-      className="py-20 sm:py-24 lg:py-28 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
+      className="py-18 sm:py-22 lg:py-26 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <RevealOnScroll>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10 sm:pb-12 border-b border-[#DCD6CA] mb-12 sm:mb-16">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-9 sm:pb-11 border-b border-[#DCD6CA] mb-11 sm:mb-14">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
@@ -122,7 +122,7 @@ export default function Capabilities() {
               </div>
               <h2
                 id="capabilities-heading"
-                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
+                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[3.8rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
               >
                 Systems engineered around{" "}
                 <span className="italic font-normal">the work.</span>
@@ -140,7 +140,7 @@ export default function Capabilities() {
         <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Index Column (5 cols) */}
-          <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_8px_30px_rgba(14,23,32,0.04)] overflow-hidden">
+          <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_6px_24px_rgba(14,23,32,0.03)] overflow-hidden">
             <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex items-center justify-between font-mono text-xs text-[#5C6975]">
               <span className="font-semibold text-[#0E1720]">ENGINEERING DISCIPLINES</span>
               <span>INDEX 01–08</span>
@@ -154,7 +154,7 @@ export default function Capabilities() {
                     key={cap.num}
                     type="button"
                     onClick={() => setActiveIndex(idx)}
-                    className={`w-full text-left px-6 py-4 transition-all duration-150 flex items-center justify-between group cursor-pointer focus-visible:outline-none focus-visible:bg-[#FAF8F5] ${
+                    className={`w-full text-left px-6 py-3.5 transition-all duration-150 flex items-center justify-between group cursor-pointer focus-visible:outline-none focus-visible:bg-[#FAF8F5] ${
                       isActive ? "bg-[#0E1720] text-[#FAF7F2]" : "bg-[#FFFFFF] text-[#0E1720] hover:bg-[#FAF8F5]"
                     }`}
                   >
@@ -199,7 +199,7 @@ export default function Capabilities() {
           </div>
 
           {/* Right Detail Panel (7 cols) */}
-          <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_8px_30px_rgba(14,23,32,0.04)] overflow-hidden">
+          <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_6px_24px_rgba(14,23,32,0.03)] overflow-hidden">
             {/* Top Bar */}
             <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex items-center justify-between font-mono text-xs">
               <div className="flex items-center gap-2 text-[#5C6975]">
@@ -218,7 +218,7 @@ export default function Capabilities() {
             </div>
 
             {/* Panel Content */}
-            <div className="p-8 lg:p-10 space-y-8">
+            <div className="p-7 lg:p-9 space-y-7">
               
               {/* Title */}
               <div>
@@ -228,8 +228,8 @@ export default function Capabilities() {
               </div>
 
               {/* 1. WHAT PROBLEM DOES THIS SOLVE? */}
-              <div className="p-5 bg-[#FAF8F5] border border-[#DCD6CA]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C6D1F] block mb-1.5 font-bold">
+              <div className="p-4.5 bg-[#FAF8F5] border border-[#DCD6CA]">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C6D1F] block mb-1 font-bold">
                   WHAT PROBLEM DOES THIS SOLVE?
                 </span>
                 <p className="font-sans text-base text-[#0E1720] font-normal leading-snug">
@@ -239,7 +239,7 @@ export default function Capabilities() {
 
               {/* 2. HOW WE APPROACH IT */}
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] block mb-2 font-semibold">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] block mb-1.5 font-semibold">
                   HOW WE APPROACH IT
                 </span>
                 <p className="font-sans text-sm text-[#3A4753] font-light leading-relaxed">
@@ -249,14 +249,14 @@ export default function Capabilities() {
 
               {/* 3. SUPPORTING CONCEPTS */}
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] block mb-2.5 font-semibold">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] block mb-2 font-semibold">
                   ENGINEERING CONCEPTS
                 </span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {activeCap.concepts.map((concept) => (
                     <span
                       key={concept}
-                      className="font-mono text-[11px] px-3 py-1 bg-[#FAF8F5] border border-[#DCD6CA] text-[#0E1720] tracking-wider uppercase"
+                      className="font-mono text-[11px] px-2.5 py-1 bg-[#FAF8F5] border border-[#DCD6CA] text-[#0E1720] tracking-wider uppercase"
                     >
                       {concept}
                     </span>
@@ -265,7 +265,7 @@ export default function Capabilities() {
               </div>
 
               {/* 4. FOOTER / VERIFIED PROJECT & CTA */}
-              <div className="pt-6 border-t border-[#EAE5DB] flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-5 border-t border-[#EAE5DB] flex flex-wrap items-center justify-between gap-4">
                 {activeCap.verifiedReference ? (
                   <div className="text-xs font-sans text-[#5C6975]">
                     <span>VERIFIED IN: </span>
@@ -299,7 +299,7 @@ export default function Capabilities() {
         {/* ========================================================================= */}
         {/* MOBILE VIEW: Clean Stacked Accordion                                      */}
         {/* ========================================================================= */}
-        <div className="lg:hidden space-y-3">
+        <div className="lg:hidden space-y-2.5">
           {CAPABILITIES.map((cap, idx) => {
             const isExpanded = mobileExpanded === idx;
             return (
@@ -311,7 +311,7 @@ export default function Capabilities() {
                 <button
                   type="button"
                   onClick={() => toggleMobile(idx)}
-                  className="w-full text-left p-5 flex items-center justify-between cursor-pointer"
+                  className="w-full text-left p-4.5 flex items-center justify-between cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-xs font-bold text-[#8C6D1F]">
@@ -337,8 +337,8 @@ export default function Capabilities() {
 
                 {/* Expanded Content */}
                 {isExpanded && (
-                  <div className="px-5 pb-6 pt-2 border-t border-[#EAE5DB] space-y-4">
-                    <div className="p-4 bg-[#FAF8F5] border border-[#DCD6CA]">
+                  <div className="px-4.5 pb-5 pt-2 border-t border-[#EAE5DB] space-y-3.5">
+                    <div className="p-3.5 bg-[#FAF8F5] border border-[#DCD6CA]">
                       <span className="font-mono text-[9px] uppercase tracking-widest text-[#8C6D1F] block mb-1 font-bold">
                         PROBLEM SOLVED
                       </span>
@@ -356,11 +356,11 @@ export default function Capabilities() {
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-1.5 pt-2">
+                    <div className="flex flex-wrap gap-1.5 pt-1">
                       {cap.concepts.map((c) => (
                         <span
                           key={c}
-                          className="font-mono text-[10px] px-2.5 py-1 bg-[#FAF8F5] border border-[#DCD6CA] text-[#0E1720] uppercase"
+                          className="font-mono text-[10px] px-2 py-0.5 bg-[#FAF8F5] border border-[#DCD6CA] text-[#0E1720] uppercase"
                         >
                           {c}
                         </span>
@@ -389,7 +389,7 @@ export default function Capabilities() {
         </div>
 
         {/* Section Footer Bar */}
-        <div className="mt-12 pt-6 border-t border-[#DCD6CA] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="mt-10 pt-5 border-t border-[#DCD6CA] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="font-mono text-xs text-[#5C6975]">
             <span className="font-bold text-[#0E1720]">ALL 8 CAPABILITIES SPECIFIED</span> — Explore individual capability briefs, workflows, and deliverables.
           </div>

@@ -80,13 +80,13 @@ export default function SelectedWork() {
     <section
       id="work"
       aria-labelledby="selected-work-heading"
-      className="py-20 sm:py-24 lg:py-28 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
+      className="py-18 sm:py-22 lg:py-26 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <RevealOnScroll>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10 sm:pb-12 border-b border-[#DCD6CA] mb-12 sm:mb-16">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-9 sm:pb-11 border-b border-[#DCD6CA] mb-11 sm:mb-14">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
@@ -96,7 +96,7 @@ export default function SelectedWork() {
               </div>
               <h2
                 id="selected-work-heading"
-                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
+                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[3.8rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
               >
                 Software built around{" "}
                 <span className="italic font-normal">real operational needs.</span>
@@ -109,21 +109,19 @@ export default function SelectedWork() {
         </RevealOnScroll>
 
         {/* Case Files Stream */}
-        <div className="space-y-14 sm:space-y-16">
+        <div className="space-y-12 sm:space-y-14">
 
           {/* ========================================================================= */}
           {/* PROJECT 01: STEMFUSION (Dominant Visual Presentation + Live Evidence)     */}
           {/* ========================================================================= */}
           <article
             aria-labelledby="project-stemfusion-title"
-            className="group relative bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_8px_30px_rgba(14,23,32,0.04)] hover:border-[#0E1720]/40 transition-colors duration-200 overflow-hidden"
+            className="group relative bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_6px_24px_rgba(14,23,32,0.03)] hover:border-[#0E1720]/40 transition-colors duration-200 overflow-hidden"
           >
             {/* Top Bar */}
-            <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex flex-wrap items-center justify-between gap-4">
+            <div className="px-6 py-3 bg-[#FAF8F5] border-b border-[#DCD6CA] flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-xs font-bold text-[#8C6D1F] tracking-widest">
-                  01
-                </span>
+                <span className="font-mono text-xs font-bold text-[#8C6D1F]">01</span>
                 <span className="text-[#DCD6CA]">/</span>
                 <span className="font-mono text-xs text-[#0E1720] uppercase tracking-wider font-semibold">
                   STEMFUSION
@@ -153,17 +151,14 @@ export default function SelectedWork() {
             </div>
 
             {/* Case File Main Content */}
-            <div className="p-6 sm:p-8 lg:p-10">
+            <div className="p-6 sm:p-8 lg:p-9">
               
               {/* Context & Description Row */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 pb-8 border-b border-[#EAE5DB]">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start mb-7 pb-7 border-b border-[#EAE5DB]">
                 <div className="lg:col-span-7">
-                  <span className="font-mono text-[10px] tracking-[0.18em] text-[#8C6D1F] uppercase font-semibold block mb-1.5">
-                    WEB APPLICATION // EDUCATION & RESOURCE REPOSITORY
-                  </span>
                   <h3
                     id="project-stemfusion-title"
-                    className="font-editorial text-3xl sm:text-4xl text-[#0E1720] font-normal leading-tight mb-3"
+                    className="font-editorial text-3xl sm:text-4xl text-[#0E1720] font-normal leading-tight mb-2.5"
                   >
                     STEMFUSION
                   </h3>
@@ -172,27 +167,22 @@ export default function SelectedWork() {
                   </p>
                 </div>
 
-                <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-5">
-                  <div>
-                    <span className="font-mono text-[10px] text-[#8E9CA8] uppercase tracking-widest block mb-2">
-                      VERIFIED TECHNOLOGY STACK
-                    </span>
-                    <div className="flex flex-wrap items-center gap-2">
-                      {["JavaScript", "Python", "Flask", "MySQL", "Tailwind CSS"].map((tech) => (
-                        <span
-                          key={tech}
-                          className="font-mono text-xs text-[#0E1720] px-3 py-1 bg-[#FAF8F5] border border-[#DCD6CA]"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-4">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {["JavaScript", "Python", "Flask", "MySQL", "Tailwind CSS"].map((tech) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-xs text-[#0E1720] px-2.5 py-1 bg-[#FAF8F5] border border-[#DCD6CA]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
 
                   <div className="flex flex-wrap items-center gap-3 pt-1">
                     <Link
                       to="/work/stemfusion"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E1720] hover:bg-[#1A2530] text-[#FFFFFF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E1720] focus-visible:ring-offset-2"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E1720] hover:bg-[#1A2530] text-[#FFFFFF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E1720]"
                     >
                       <span>VIEW CASE FILE</span>
                       <ArrowRight size={13} className="text-[#D4A72C] transition-transform duration-200 group-hover:translate-x-1" />
@@ -214,7 +204,7 @@ export default function SelectedWork() {
               {/* Dominant Real Product Evidence Showcase */}
               <div>
                 {/* View Selector Tabs */}
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-1">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-3.5 pb-1">
                   <div className="flex flex-wrap items-center gap-2">
                     {STEMFUSION_VIEWS.map((view, idx) => (
                       <button
@@ -263,7 +253,7 @@ export default function SelectedWork() {
                 </div>
 
                 {/* Evidence Caption */}
-                <div className="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-sans text-[#5C6975]">
+                <div className="pt-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-sans text-[#5C6975]">
                   <span>{currentView.caption}</span>
                   <span className="font-mono text-[10px] text-[#0E1720] font-medium uppercase shrink-0">
                     VIEW {activeStemfusionView + 1} OF {STEMFUSION_VIEWS.length}
@@ -279,14 +269,12 @@ export default function SelectedWork() {
           {/* ========================================================================= */}
           <article
             aria-labelledby="project-railway-title"
-            className="group relative bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_8px_30px_rgba(14,23,32,0.04)] hover:border-[#0E1720]/40 transition-colors duration-200 overflow-hidden"
+            className="group relative bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_6px_24px_rgba(14,23,32,0.03)] hover:border-[#0E1720]/40 transition-colors duration-200 overflow-hidden"
           >
             {/* Top Bar */}
-            <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex flex-wrap items-center justify-between gap-4">
+            <div className="px-6 py-3 bg-[#FAF8F5] border-b border-[#DCD6CA] flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-xs font-bold text-[#8C6D1F] tracking-widest">
-                  02
-                </span>
+                <span className="font-mono text-xs font-bold text-[#8C6D1F]">02</span>
                 <span className="text-[#DCD6CA]">/</span>
                 <span className="font-mono text-xs text-[#0E1720] uppercase tracking-wider font-semibold">
                   RAILWAY CONCESSION MANAGEMENT SYSTEM
@@ -302,17 +290,14 @@ export default function SelectedWork() {
             </div>
 
             {/* Case File Main Content */}
-            <div className="p-6 sm:p-8 lg:p-10">
+            <div className="p-6 sm:p-8 lg:p-9">
               
               {/* Context & Description Row */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 pb-8 border-b border-[#EAE5DB]">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start mb-7 pb-7 border-b border-[#EAE5DB]">
                 <div className="lg:col-span-7">
-                  <span className="font-mono text-[10px] tracking-[0.18em] text-[#8C6D1F] uppercase font-semibold block mb-1.5">
-                    OPERATIONAL SOFTWARE // VERIFICATION & APPROVAL WORKFLOW
-                  </span>
                   <h3
                     id="project-railway-title"
-                    className="font-editorial text-3xl sm:text-4xl text-[#0E1720] font-normal leading-tight mb-3"
+                    className="font-editorial text-3xl sm:text-4xl text-[#0E1720] font-normal leading-tight mb-2.5"
                   >
                     Railway Concession Management System
                   </h3>
@@ -321,27 +306,22 @@ export default function SelectedWork() {
                   </p>
                 </div>
 
-                <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-5">
-                  <div>
-                    <span className="font-mono text-[10px] text-[#8E9CA8] uppercase tracking-widest block mb-2">
-                      VERIFIED TECHNOLOGY STACK
-                    </span>
-                    <div className="flex flex-wrap items-center gap-2">
-                      {["Python", "Flask", "MySQL", "Docker", "AWS"].map((tech) => (
-                        <span
-                          key={tech}
-                          className="font-mono text-xs text-[#0E1720] px-3 py-1 bg-[#FAF8F5] border border-[#DCD6CA]"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-4">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {["Python", "Flask", "MySQL", "Docker", "AWS"].map((tech) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-xs text-[#0E1720] px-2.5 py-1 bg-[#FAF8F5] border border-[#DCD6CA]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
 
                   <div className="pt-1">
                     <Link
                       to="/work/railway-concession-management-system"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E1720] hover:bg-[#1A2530] text-[#FFFFFF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E1720] focus-visible:ring-offset-2"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E1720] hover:bg-[#1A2530] text-[#FFFFFF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E1720]"
                     >
                       <span>VIEW CASE FILE</span>
                       <ArrowRight size={13} className="text-[#D4A72C] transition-transform duration-200 group-hover:translate-x-1" />
@@ -352,7 +332,7 @@ export default function SelectedWork() {
 
               {/* Verified 5-Stage Engineering Workflow Diagram */}
               <div>
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3.5">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-bold text-[#0E1720]">WORKFLOW DIAGRAM</span>
                     <span className="text-[#8E9CA8] font-mono text-xs">//</span>
@@ -372,13 +352,13 @@ export default function SelectedWork() {
                       key={wf.step}
                       onMouseEnter={() => setActiveRailwayStep(idx)}
                       onMouseLeave={() => setActiveRailwayStep(null)}
-                      className={`p-5 bg-[#FAF8F5] hover:bg-[#FFFFFF] transition-colors duration-150 flex flex-col justify-between ${
+                      className={`p-4.5 bg-[#FAF8F5] hover:bg-[#FFFFFF] transition-colors duration-150 flex flex-col justify-between ${
                         activeRailwayStep === idx ? "bg-[#FFFFFF] ring-1 ring-[#8C6D1F] z-10" : ""
                       }`}
                     >
                       <div>
                         {/* Step Header */}
-                        <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#EAE5DB]">
+                        <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-[#EAE5DB]">
                           <span className="font-editorial text-2xl sm:text-3xl text-[#0E1720]">
                             {wf.step}
                           </span>
@@ -399,7 +379,7 @@ export default function SelectedWork() {
                       </div>
 
                       {/* Step Output */}
-                      <div className="pt-2.5 border-t border-[#EAE5DB]">
+                      <div className="pt-2 border-t border-[#EAE5DB]">
                         <span className="font-mono text-[9px] text-[#8E9CA8] uppercase tracking-wider block mb-0.5">
                           OUTPUT
                         </span>
@@ -412,7 +392,7 @@ export default function SelectedWork() {
                 </div>
 
                 {/* Process Note */}
-                <div className="mt-4 p-3.5 bg-[#FAF8F5] border border-[#EAE5DB] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-[#5C6975]">
+                <div className="mt-3.5 p-3 bg-[#FAF8F5] border border-[#EAE5DB] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-[#5C6975]">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F] shrink-0" />
                     <span className="text-[#0E1720] font-semibold">WORKFLOW SPECIFICATION:</span>

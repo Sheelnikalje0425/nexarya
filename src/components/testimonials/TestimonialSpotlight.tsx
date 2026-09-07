@@ -24,7 +24,7 @@ export default function TestimonialSpotlight({
     <section
       id="feedback"
       data-section="testimonials"
-      className="py-20 sm:py-24 lg:py-28 bg-[#FAF8F5] border-b border-[#DCD6CA] text-[#0E1720] select-none"
+      className="py-18 sm:py-22 lg:py-26 bg-[#FAF8F5] border-b border-[#DCD6CA] text-[#0E1720] select-none"
       aria-label="Client Feedback and Proof"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
@@ -42,13 +42,13 @@ export default function TestimonialSpotlight({
               </div>
 
               {/* Section Headline */}
-              <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#0E1720] leading-[1.05] tracking-[-0.03em] mb-5 font-normal">
+              <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#0E1720] leading-[1.05] tracking-[-0.03em] mb-4.5 font-normal">
                 Built with clients, <br className="hidden sm:inline" />
                 <span className="italic font-normal">not just for them.</span>
               </h2>
 
               {/* Supporting Copy */}
-              <p className="font-sans text-base text-[#3A4753] font-light leading-relaxed mb-6">
+              <p className="font-sans text-base text-[#3A4753] font-light leading-relaxed mb-5.5">
                 We partner directly with operational stakeholders throughout architecture, engineering, and delivery to ensure software aligns with the work.
               </p>
 
@@ -78,7 +78,7 @@ export default function TestimonialSpotlight({
             <RevealOnScroll delayMs={100}>
               
               {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-5 border-b border-[#EAE5DB]">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4.5 border-b border-[#EAE5DB]">
                 <span className="font-mono text-xs tracking-widest text-[#8C6D1F] uppercase font-semibold">
                   CLIENT PERSPECTIVE
                 </span>
@@ -88,12 +88,12 @@ export default function TestimonialSpotlight({
               </div>
 
               {/* Large Editorial Quote */}
-              <blockquote className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-[#0E1720] leading-[1.28] tracking-[-0.02em] mb-7 font-normal">
+              <blockquote className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-[#0E1720] leading-[1.28] tracking-[-0.02em] mb-6 font-normal">
                 &ldquo;{quote}&rdquo;
               </blockquote>
 
               {/* Client Attribution */}
-              <cite className="not-italic block pt-5 border-t border-[#DCD6CA]">
+              <cite className="not-italic block pt-4.5 border-t border-[#DCD6CA]">
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
                   <div>
                     <div className="font-mono text-sm uppercase tracking-wider text-[#0E1720] font-bold">

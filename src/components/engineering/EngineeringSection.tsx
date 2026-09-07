@@ -15,7 +15,6 @@ interface ApproachStage {
   headline: string;
   description: string;
   nodes: StageNode[];
-  isDark?: boolean;
 }
 
 const STAGES: ApproachStage[] = [
@@ -49,7 +48,6 @@ const STAGES: ApproachStage[] = [
         desc: "Define explicit procedural constraints, validation limits, and business logic.",
       },
     ],
-    isDark: false,
   },
   {
     num: "02",
@@ -63,12 +61,12 @@ const STAGES: ApproachStage[] = [
       {
         num: "01",
         name: "DOMAINS",
-        desc: "Isolate distinct business contexts and establish system boundaries.",
+        desc: "Isolate distinct business contexts and establish clear system boundaries.",
       },
       {
         num: "02",
         name: "ENTITIES",
-        desc: "Model primary database records, attributes, and data structures.",
+        desc: "Model primary database records, attributes, and core schemas.",
       },
       {
         num: "03",
@@ -81,7 +79,6 @@ const STAGES: ApproachStage[] = [
         desc: "Define valid lifecycle statuses, allowed transitions, and audit checkpoints.",
       },
     ],
-    isDark: false,
   },
   {
     num: "03",
@@ -113,7 +110,6 @@ const STAGES: ApproachStage[] = [
         desc: "Containerized environments, reverse proxy routing, and process management.",
       },
     ],
-    isDark: false,
   },
   {
     num: "04",
@@ -145,7 +141,6 @@ const STAGES: ApproachStage[] = [
         desc: "Administrative management consoles, activity logs, and system telemetry.",
       },
     ],
-    isDark: false,
   },
 ];
 
@@ -157,13 +152,13 @@ export default function EngineeringSection() {
     <section
       id="engineering"
       aria-labelledby="engineering-heading"
-      className="py-20 sm:py-24 lg:py-28 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
+      className="py-18 sm:py-22 lg:py-26 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <RevealOnScroll>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10 sm:pb-12 border-b border-[#DCD6CA] mb-12 sm:mb-16">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-9 sm:pb-11 border-b border-[#DCD6CA] mb-11 sm:mb-14">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
@@ -173,7 +168,7 @@ export default function EngineeringSection() {
               </div>
               <h2
                 id="engineering-heading"
-                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
+                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[3.8rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
               >
                 From business complexity to{" "}
                 <span className="italic font-normal">working software.</span>
@@ -189,7 +184,7 @@ export default function EngineeringSection() {
         <div>
           
           {/* Layer 1: 4 Stage Selector Tabs */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-5">
             {STAGES.map((st, idx) => {
               const isActive = activeStage === idx;
               return (
@@ -223,7 +218,7 @@ export default function EngineeringSection() {
           </div>
 
           {/* Layer 2: Deeper Technical Model Card */}
-          <div className="border border-[#DCD6CA] bg-[#FFFFFF] shadow-[0_8px_30px_rgba(14,23,32,0.04)] overflow-hidden transition-all duration-300">
+          <div className="border border-[#DCD6CA] bg-[#FFFFFF] shadow-[0_6px_24px_rgba(14,23,32,0.03)] overflow-hidden transition-all duration-300">
             {/* Top Bar */}
             <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
               <div className="flex items-center gap-3">
@@ -245,10 +240,10 @@ export default function EngineeringSection() {
             </div>
 
             {/* Stage Body */}
-            <div className="p-6 sm:p-8 lg:p-10">
+            <div className="p-6 sm:p-8 lg:p-9">
               
               {/* Context Header */}
-              <div className="max-w-3xl mb-8">
+              <div className="max-w-3xl mb-7">
                 <h3 className="font-editorial text-2xl sm:text-3xl text-[#0E1720] font-normal leading-tight mb-2">
                   {current.headline}
                 </h3>
@@ -265,27 +260,18 @@ export default function EngineeringSection() {
                     className="p-5 bg-[#FAF8F5] hover:bg-[#FFFFFF] transition-colors duration-150 flex flex-col justify-between"
                   >
                     <div>
-                      <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#EAE5DB]">
-                        <span className="font-editorial text-xl sm:text-2xl text-[#0E1720]">
+                      <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-[#EAE5DB]">
+                        <span className="font-editorial text-xl text-[#0E1720]">
                           {node.num}
                         </span>
-                        <span className="font-mono text-[9px] uppercase tracking-widest text-[#8C6D1F] font-semibold">
-                          DIMENSION
+                        <span className="font-mono text-[10px] text-[#8C6D1F] font-semibold uppercase">
+                          {node.name}
                         </span>
                       </div>
-
-                      <h4 className="font-mono text-xs font-bold tracking-wider uppercase text-[#0E1720] mb-2">
-                        {node.name}
-                      </h4>
 
                       <p className="font-sans text-xs text-[#5C6975] font-light leading-relaxed">
                         {node.desc}
                       </p>
-                    </div>
-
-                    <div className="pt-3 mt-4 border-t border-[#EAE5DB] font-mono text-[10px] text-[#8E9CA8] flex items-center justify-between">
-                      <span>SPECIFICATION</span>
-                      <span className="text-[#8C6D1F]">✓</span>
                     </div>
                   </div>
                 ))}
