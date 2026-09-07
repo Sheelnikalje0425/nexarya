@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 
+interface StageNode {
+  num: string;
+  name: string;
+  desc: string;
+}
+
 interface ApproachStage {
   num: string;
   name: string;
   subtitle: string;
   flow: string;
+  headline: string;
   description: string;
-  facets: string[];
-  treeTitle: string;
-  treeNodes: { key: string; val: string }[];
-  diagramTitle: string;
-  diagramSteps: { step: string; label: string; detail: string }[];
+  nodes: StageNode[];
   isDark?: boolean;
 }
 
@@ -21,22 +24,30 @@ const STAGES: ApproachStage[] = [
     name: "UNDERSTAND",
     subtitle: "Business Workflow",
     flow: "Actors → Handoffs → Decisions → Rules",
+    headline: "Mapping the operational reality before writing code.",
     description:
-      "We begin by understanding the operational reality: identifying key actors, mapping sequential handoffs between teams, and clarifying the business rules that govern decisions.",
-    facets: ["ACTORS", "HANDOFFS", "DECISIONS", "RULES"],
-    treeTitle: "WORKFLOW SPECIFICATION",
-    treeNodes: [
-      { key: "ACTORS", val: "Operational roles and stakeholder responsibilities" },
-      { key: "HANDOFFS", val: "Sequential handoffs and information exchanges" },
-      { key: "DECISIONS", val: "Approval criteria and operational branch points" },
-      { key: "RULES", val: "Explicit constraints and procedural requirements" },
-    ],
-    diagramTitle: "WORKFLOW MAPPING DIAGRAM",
-    diagramSteps: [
-      { step: "01", label: "ACTOR INTAKE", detail: "Capture inputs & operational constraints" },
-      { step: "02", label: "HANDOFF FLOW", detail: "Define sequential stage progression" },
-      { step: "03", label: "DECISION GATE", detail: "Apply operational business logic" },
-      { step: "04", label: "OUTCOME STATE", detail: "Confirm verified stage completion" },
+      "We begin by identifying who does the work, where handoffs happen between teams, what decisions get made, and the explicit business rules that govern them.",
+    nodes: [
+      {
+        num: "01",
+        name: "ACTORS",
+        desc: "Identify key stakeholders, operational roles, and team responsibilities.",
+      },
+      {
+        num: "02",
+        name: "HANDOFFS",
+        desc: "Map sequential information exchanges, document passes, and task transitions.",
+      },
+      {
+        num: "03",
+        name: "DECISIONS",
+        desc: "Clarify approval criteria, escalation paths, and operational branch points.",
+      },
+      {
+        num: "04",
+        name: "RULES",
+        desc: "Define explicit procedural constraints, validation limits, and business logic.",
+      },
     ],
     isDark: false,
   },
@@ -45,22 +56,30 @@ const STAGES: ApproachStage[] = [
     name: "STRUCTURE",
     subtitle: "System Model",
     flow: "Domains → Entities → Relationships → States",
+    headline: "Translating business processes into clean system models.",
     description:
-      "We translate operational realities into clear domain models: defining bounded contexts, core entity schemas, relational data structures, and deterministic state transitions.",
-    facets: ["DOMAINS", "ENTITIES", "RELATIONSHIPS", "STATES"],
-    treeTitle: "DOMAIN MODEL SPECIFICATION",
-    treeNodes: [
-      { key: "DOMAINS", val: "Clear domain boundaries and system contexts" },
-      { key: "ENTITIES", val: "Structured records and primary data schemas" },
-      { key: "RELATIONSHIPS", val: "Explicit relational foreign keys and mappings" },
-      { key: "STATES", val: "Deterministic lifecycle transitions and validation" },
-    ],
-    diagramTitle: "DOMAIN STRUCTURE MODEL",
-    diagramSteps: [
-      { step: "01", label: "BOUNDED CONTEXT", detail: "Isolate distinct domain areas" },
-      { step: "02", label: "SCHEMA ENTITIES", detail: "Model relational database tables" },
-      { step: "03", label: "RELATIONSHIPS", detail: "Enforce referential integrity" },
-      { step: "04", label: "STATE MACHINE", detail: "Model valid status progressions" },
+      "We translate operational findings into unambiguous domain boundaries, relational data structures, and deterministic state transitions.",
+    nodes: [
+      {
+        num: "01",
+        name: "DOMAINS",
+        desc: "Isolate distinct business contexts and establish system boundaries.",
+      },
+      {
+        num: "02",
+        name: "ENTITIES",
+        desc: "Model primary database records, attributes, and data structures.",
+      },
+      {
+        num: "03",
+        name: "RELATIONSHIPS",
+        desc: "Enforce referential integrity, ownership hierarchies, and foreign mappings.",
+      },
+      {
+        num: "04",
+        name: "STATES",
+        desc: "Define valid lifecycle statuses, allowed transitions, and audit checkpoints.",
+      },
     ],
     isDark: false,
   },
@@ -69,48 +88,64 @@ const STAGES: ApproachStage[] = [
     name: "ENGINEER",
     subtitle: "Software Architecture",
     flow: "Interface → Application Logic → Data → Runtime",
+    headline: "Constructing reliable, strictly-typed full-stack systems.",
     description:
-      "We design and build clean application logic, relational data layers, secure interfaces, and isolated deployment configurations tailored directly to the workflow.",
-    facets: ["INTERFACE", "APPLICATION LOGIC", "DATA LAYER", "RUNTIME"],
-    treeTitle: "ARCHITECTURE SPECIFICATION",
-    treeNodes: [
-      { key: "INTERFACE", val: "Responsive, accessible frontend presentation layer" },
-      { key: "APPLICATION LOGIC", val: "Typed business logic and transaction handlers" },
-      { key: "DATA LAYER", val: "Relational persistence with parameterized queries" },
-      { key: "RUNTIME", val: "Containerized environments and server configuration" },
+      "We build responsive interfaces, typed application logic, parameterized data access, and isolated server environments tailored to the workflow.",
+    nodes: [
+      {
+        num: "01",
+        name: "INTERFACE",
+        desc: "Responsive, accessible frontend designed for fast daily operational use.",
+      },
+      {
+        num: "02",
+        name: "APPLICATION LOGIC",
+        desc: "Strictly-typed backend business logic, validation, and route handlers.",
+      },
+      {
+        num: "03",
+        name: "DATA LAYER",
+        desc: "Relational persistence, optimized queries, and transaction integrity.",
+      },
+      {
+        num: "04",
+        name: "RUNTIME",
+        desc: "Containerized environments, reverse proxy routing, and process management.",
+      },
     ],
-    diagramTitle: "SYSTEM ARCHITECTURE SCHEMATIC",
-    diagramSteps: [
-      { step: "01", label: "PRESENTATION", detail: "Responsive UI & typed API client" },
-      { step: "02", label: "API & LOGIC", detail: "REST endpoints & route middleware" },
-      { step: "03", label: "DATA PERSISTENCE", detail: "Relational SQL database engine" },
-      { step: "04", label: "SERVER RUNTIME", detail: "Node.js application host process" },
-    ],
-    isDark: true,
+    isDark: false,
   },
   {
     num: "04",
     name: "DELIVER",
     subtitle: "Production System",
     flow: "Application → Infrastructure → Deployment → Production",
+    headline: "Deploying working software with operational visibility.",
     description:
-      "We ship working, production software that staff can actually use, accompanied by administrative tooling, operational documentation, and clean deployment procedures.",
-    facets: ["APPLICATION", "INFRASTRUCTURE", "DEPLOYMENT", "PRODUCTION"],
-    treeTitle: "DELIVERY SPECIFICATION",
-    treeNodes: [
-      { key: "APPLICATION", val: "Deployed web application ready for daily use" },
-      { key: "INFRASTRUCTURE", val: "Production server, proxy routing, and TLS" },
-      { key: "DEPLOYMENT", val: "Predictable release and service reload process" },
-      { key: "PRODUCTION", val: "Operational administration and audit visibility" },
+      "We ship working software to production environments, complete with administrative consoles, automated deployment pipelines, and uptime monitoring.",
+    nodes: [
+      {
+        num: "01",
+        name: "APPLICATION",
+        desc: "Production-ready software deployed and configured for daily use.",
+      },
+      {
+        num: "02",
+        name: "INFRASTRUCTURE",
+        desc: "Secured cloud servers, SSL/TLS certificates, and network firewalls.",
+      },
+      {
+        num: "03",
+        name: "DEPLOYMENT",
+        desc: "Automated build verification, zero-downtime reloads, and CI/CD.",
+      },
+      {
+        num: "04",
+        name: "PRODUCTION",
+        desc: "Administrative management consoles, activity logs, and system telemetry.",
+      },
     ],
-    diagramTitle: "PRODUCTION RUNTIME MODEL",
-    diagramSteps: [
-      { step: "01", label: "BUILD VALIDATION", detail: "Typecheck & optimized compilation" },
-      { step: "02", label: "SERVER HOSTING", detail: "Reverse proxy & static asset delivery" },
-      { step: "03", label: "SERVICE RUNTIME", detail: "Process management & health checking" },
-      { step: "04", label: "OPERATIONS", detail: "Admin management & data oversight" },
-    ],
-    isDark: true,
+    isDark: false,
   },
 ];
 
@@ -122,15 +157,15 @@ export default function EngineeringSection() {
     <section
       id="engineering"
       aria-labelledby="engineering-heading"
-      className="py-24 sm:py-32 lg:py-36 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
+      className="py-20 sm:py-24 lg:py-28 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <RevealOnScroll>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-14 sm:pb-16 border-b border-[#DCD6CA] mb-16 sm:mb-20">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10 sm:pb-12 border-b border-[#DCD6CA] mb-12 sm:mb-16">
             <div className="max-w-3xl">
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
                 <span className="font-mono text-xs tracking-[0.2em] text-[#8C6D1F] uppercase font-semibold">
                   ENGINEERING METHODOLOGY
@@ -138,7 +173,7 @@ export default function EngineeringSection() {
               </div>
               <h2
                 id="engineering-heading"
-                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#0E1720] leading-[1.04] tracking-[-0.03em] font-normal"
+                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
               >
                 From business complexity to{" "}
                 <span className="italic font-normal">working software.</span>
@@ -150,11 +185,11 @@ export default function EngineeringSection() {
           </div>
         </RevealOnScroll>
 
-        {/* Primary Visual: 4-Stage State Transformation Workbench */}
-        <div className="mb-16 sm:mb-20">
+        {/* Primary Visual: 4-Stage Progressive Disclosure Workbench */}
+        <div>
           
-          {/* Transformation Stages Navigation Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-6">
+          {/* Layer 1: 4 Stage Selector Tabs */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-6">
             {STAGES.map((st, idx) => {
               const isActive = activeStage === idx;
               return (
@@ -168,7 +203,7 @@ export default function EngineeringSection() {
                       : "bg-[#FAF8F5] border-[#DCD6CA] hover:border-[#8C6D1F]/50 hover:bg-[#FFFFFF]"
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
                     <span className="font-mono text-xs font-bold text-[#8C6D1F]">
                       {st.num}
                     </span>
@@ -176,7 +211,7 @@ export default function EngineeringSection() {
                       STAGE
                     </span>
                   </div>
-                  <div className="font-mono text-xs sm:text-sm font-semibold text-[#0E1720] tracking-wider uppercase mb-1">
+                  <div className="font-mono text-xs sm:text-sm font-bold text-[#0E1720] tracking-wider uppercase mb-0.5">
                     {st.name}
                   </div>
                   <div className="font-sans text-xs text-[#5C6975] font-light truncate">
@@ -187,202 +222,78 @@ export default function EngineeringSection() {
             })}
           </div>
 
-          {/* Dynamic Transformation Visualization Card */}
-          <div
-            className={`border border-[#DCD6CA] transition-all duration-300 overflow-hidden shadow-[0_12px_40px_rgba(14,23,32,0.06)] ${
-              current.isDark ? "bg-[#0E1720] text-[#F4EFE6]" : "bg-[#FFFFFF] text-[#0E1720]"
-            }`}
-          >
-            {/* Docket Top Bar */}
-            <div
-              className={`px-6 py-4 border-b flex flex-wrap items-center justify-between gap-4 font-mono text-xs ${
-                current.isDark
-                  ? "bg-[#141E28] border-white/10 text-[#A7B4C2]"
-                  : "bg-[#FAF8F5] border-[#DCD6CA] text-[#5C6975]"
-              }`}
-            >
+          {/* Layer 2: Deeper Technical Model Card */}
+          <div className="border border-[#DCD6CA] bg-[#FFFFFF] shadow-[0_8px_30px_rgba(14,23,32,0.04)] overflow-hidden transition-all duration-300">
+            {/* Top Bar */}
+            <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
               <div className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D4A72C]" />
-                <span
-                  className={`font-semibold uppercase tracking-wider ${
-                    current.isDark ? "text-[#FFFFFF]" : "text-[#0E1720]"
-                  }`}
-                >
-                  ENGINEERING APPROACH
-                </span>
-                <span className="text-[#8E9CA8]">/</span>
-                <span className="uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
+                <span className="font-semibold uppercase tracking-wider text-[#0E1720]">
                   STAGE {current.num}: {current.name}
+                </span>
+                <span className="text-[#8E9CA8]">//</span>
+                <span className="text-[#5C6975] uppercase tracking-wider hidden sm:inline">
+                  {current.subtitle}
                 </span>
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="font-mono text-[11px] text-[#8C6D1F] font-semibold">
+                <span className="font-mono text-xs text-[#8C6D1F] font-semibold">
                   {current.flow}
                 </span>
               </div>
             </div>
 
-            {/* Transformation Card Body */}
-            <div className="p-6 sm:p-10 lg:p-12">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-                
-                {/* Left Column: Conceptual Stage Context (6 Cols) */}
-                <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-6">
-                  <div>
-                    <span className="font-mono text-xs text-[#8C6D1F] tracking-[0.2em] uppercase font-semibold block mb-2">
-                      STAGE {current.num} — {current.name}
-                    </span>
-                    <h3
-                      className={`font-editorial text-3xl sm:text-4xl lg:text-[2.6rem] leading-tight mb-4 font-normal ${
-                        current.isDark ? "text-[#FFFFFF]" : "text-[#0E1720]"
-                      }`}
-                    >
-                      {current.subtitle}
-                    </h3>
-                    <p
-                      className={`font-sans text-base font-light leading-relaxed mb-6 ${
-                        current.isDark ? "text-[#A7B4C2]" : "text-[#3A4753]"
-                      }`}
-                    >
-                      {current.description}
-                    </p>
-
-                    {/* Operational Facets */}
-                    <div>
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] block mb-2.5 font-semibold">
-                        PRIMARY DIMENSIONS
-                      </span>
-                      <div className="flex flex-wrap gap-2">
-                        {current.facets.map((facet) => (
-                          <span
-                            key={facet}
-                            className={`font-mono text-[11px] px-3 py-1 border tracking-wider uppercase ${
-                              current.isDark
-                                ? "bg-[#16222E] border-white/15 text-[#D4A72C]"
-                                : "bg-[#FAF8F5] border-[#DCD6CA] text-[#0E1720]"
-                            }`}
-                          >
-                            {facet}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Flow Sequence Breadcrumb */}
-                  <div
-                    className={`pt-5 border-t text-xs font-mono flex items-center gap-2 overflow-x-auto ${
-                      current.isDark ? "border-white/10 text-[#8E9CA8]" : "border-[#EAE5DB] text-[#5C6975]"
-                    }`}
-                  >
-                    <span>WORKFLOW</span>
-                    <span>→</span>
-                    <span>STRUCTURE</span>
-                    <span>→</span>
-                    <span>ARCHITECTURE</span>
-                    <span>→</span>
-                    <span className="font-semibold text-[#8C6D1F]">SOFTWARE</span>
-                  </div>
-                </div>
-
-                {/* Right Column: Explanatory Diagram & Specification Tree (6 Cols) */}
-                <div className="lg:col-span-6 space-y-6">
-                  {/* Visual Process Diagram */}
-                  <div
-                    className={`p-5 border ${
-                      current.isDark
-                        ? "bg-[#0B131C] border-white/15 text-[#F4EFE6]"
-                        : "bg-[#FAF8F5] border-[#DCD6CA] text-[#0E1720]"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between pb-3 mb-4 border-b border-inherit/20 text-xs font-mono">
-                      <span className="font-semibold tracking-wider text-[#8C6D1F]">
-                        {current.diagramTitle}
-                      </span>
-                      <span className="text-[10px] text-[#8E9CA8] uppercase">4-STEP FLOW</span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3">
-                      {current.diagramSteps.map((dStep) => (
-                        <div
-                          key={dStep.step}
-                          className={`p-3 border ${
-                            current.isDark
-                              ? "bg-[#141E28] border-white/10"
-                              : "bg-[#FFFFFF] border-[#EAE5DB]"
-                          }`}
-                        >
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="font-mono text-[10px] font-bold text-[#8C6D1F]">
-                              {dStep.step}
-                            </span>
-                            <span className="font-mono text-[9px] uppercase tracking-wider text-[#8E9CA8]">
-                              NODE
-                            </span>
-                          </div>
-                          <div className="font-mono text-[11px] font-semibold uppercase mb-1">
-                            {dStep.label}
-                          </div>
-                          <div
-                            className={`text-[11px] font-sans leading-snug ${
-                              current.isDark ? "text-[#A7B4C2]" : "text-[#5C6975]"
-                            }`}
-                          >
-                            {dStep.detail}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Specification Tree */}
-                  <div
-                    className={`p-5 border font-mono text-xs ${
-                      current.isDark
-                        ? "bg-[#070D13] border-white/15 text-[#FAF7F2]"
-                        : "bg-[#FAF8F5] border-[#DCD6CA] text-[#0E1720]"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between pb-2 mb-3 border-b border-inherit/20 text-xs">
-                      <span className="font-semibold tracking-wider text-[#8C6D1F]">
-                        {current.treeTitle}
-                      </span>
-                      <span className="text-[10px] text-[#8E9CA8] uppercase">ELEMENTS</span>
-                    </div>
-
-                    <div className="space-y-2.5 text-[12px] leading-relaxed">
-                      {current.treeNodes.map((node, i) => {
-                        const isLast = i === current.treeNodes.length - 1;
-                        return (
-                          <div key={node.key} className="flex items-start gap-2">
-                            <span className="text-[#8C6D1F] select-none font-bold">
-                              {isLast ? "└──" : "├──"}
-                            </span>
-                            <div>
-                              <span
-                                className={`font-semibold tracking-wider uppercase mr-2 ${
-                                  current.isDark ? "text-[#D4A72C]" : "text-[#0E1720]"
-                                }`}
-                              >
-                                {node.key}:
-                              </span>
-                              <span
-                                className={current.isDark ? "text-[#A7B4C2]" : "text-[#5C6975]"}
-                              >
-                                {node.val}
-                              </span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-
+            {/* Stage Body */}
+            <div className="p-6 sm:p-8 lg:p-10">
+              
+              {/* Context Header */}
+              <div className="max-w-3xl mb-8">
+                <h3 className="font-editorial text-2xl sm:text-3xl text-[#0E1720] font-normal leading-tight mb-2">
+                  {current.headline}
+                </h3>
+                <p className="font-sans text-base text-[#3A4753] font-light leading-relaxed">
+                  {current.description}
+                </p>
               </div>
+
+              {/* 4 Node Progression Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-px bg-[#DCD6CA] border border-[#DCD6CA]">
+                {current.nodes.map((node) => (
+                  <div
+                    key={node.name}
+                    className="p-5 bg-[#FAF8F5] hover:bg-[#FFFFFF] transition-colors duration-150 flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#EAE5DB]">
+                        <span className="font-editorial text-xl sm:text-2xl text-[#0E1720]">
+                          {node.num}
+                        </span>
+                        <span className="font-mono text-[9px] uppercase tracking-widest text-[#8C6D1F] font-semibold">
+                          DIMENSION
+                        </span>
+                      </div>
+
+                      <h4 className="font-mono text-xs font-bold tracking-wider uppercase text-[#0E1720] mb-2">
+                        {node.name}
+                      </h4>
+
+                      <p className="font-sans text-xs text-[#5C6975] font-light leading-relaxed">
+                        {node.desc}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 mt-4 border-t border-[#EAE5DB] font-mono text-[10px] text-[#8E9CA8] flex items-center justify-between">
+                      <span>SPECIFICATION</span>
+                      <span className="text-[#8C6D1F]">✓</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
             </div>
           </div>
+
         </div>
 
       </div>

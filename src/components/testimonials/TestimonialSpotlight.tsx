@@ -24,17 +24,17 @@ export default function TestimonialSpotlight({
     <section
       id="feedback"
       data-section="testimonials"
-      className="py-24 sm:py-32 lg:py-36 bg-[#FAF8F5] border-b border-[#DCD6CA] text-[#0E1720] select-none"
+      className="py-20 sm:py-24 lg:py-28 bg-[#FAF8F5] border-b border-[#DCD6CA] text-[#0E1720] select-none"
       aria-label="Client Feedback and Proof"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* LEFT COLUMN: Section Tag, Editorial Header, Proof Structure */}
           <div className="lg:col-span-5">
             <RevealOnScroll>
               {/* Section Tag */}
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
                 <span className="font-mono text-xs tracking-[0.2em] text-[#8C6D1F] uppercase font-semibold">
                   PROOF & FEEDBACK
@@ -42,18 +42,18 @@ export default function TestimonialSpotlight({
               </div>
 
               {/* Section Headline */}
-              <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#0E1720] leading-[1.04] tracking-[-0.03em] mb-6 font-normal">
+              <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#0E1720] leading-[1.05] tracking-[-0.03em] mb-5 font-normal">
                 Built with clients, <br className="hidden sm:inline" />
                 <span className="italic font-normal">not just for them.</span>
               </h2>
 
               {/* Supporting Copy */}
-              <p className="font-sans text-base sm:text-lg text-[#3A4753] font-light leading-relaxed mb-8">
+              <p className="font-sans text-base text-[#3A4753] font-light leading-relaxed mb-6">
                 We partner directly with operational stakeholders throughout architecture, engineering, and delivery to ensure software aligns with the work.
               </p>
 
               {/* Verified Engagement Reference Flow */}
-              <div className="p-5 bg-[#FFFFFF] border border-[#DCD6CA] space-y-3 font-mono text-xs">
+              <div className="p-4 sm:p-5 bg-[#FFFFFF] border border-[#DCD6CA] space-y-2.5 font-mono text-xs shadow-[0_4px_20px_rgba(14,23,32,0.02)]">
                 <div className="text-[10px] text-[#8C6D1F] uppercase tracking-wider font-semibold pb-2 border-b border-[#EAE5DB]">
                   ENGAGEMENT CONTEXT
                 </div>
@@ -74,11 +74,11 @@ export default function TestimonialSpotlight({
           </div>
 
           {/* RIGHT COLUMN: Testimonial Quote & Case File Anchor */}
-          <div className="lg:col-span-7 lg:border-l lg:border-[#DCD6CA] lg:pl-12 xl:pl-16">
+          <div className="lg:col-span-7 lg:border-l lg:border-[#DCD6CA] lg:pl-10 xl:pl-14">
             <RevealOnScroll delayMs={100}>
               
               {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-6 border-b border-[#EAE5DB]">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-5 border-b border-[#EAE5DB]">
                 <span className="font-mono text-xs tracking-widest text-[#8C6D1F] uppercase font-semibold">
                   CLIENT PERSPECTIVE
                 </span>
@@ -88,12 +88,12 @@ export default function TestimonialSpotlight({
               </div>
 
               {/* Large Editorial Quote */}
-              <blockquote className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-[#0E1720] leading-[1.3] tracking-[-0.02em] mb-8 font-normal">
+              <blockquote className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-[#0E1720] leading-[1.28] tracking-[-0.02em] mb-7 font-normal">
                 &ldquo;{quote}&rdquo;
               </blockquote>
 
               {/* Client Attribution */}
-              <cite className="not-italic block pt-6 border-t border-[#DCD6CA]">
+              <cite className="not-italic block pt-5 border-t border-[#DCD6CA]">
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
                   <div>
                     <div className="font-mono text-sm uppercase tracking-wider text-[#0E1720] font-bold">
