@@ -16,8 +16,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Auto-Deploy to AWS EC2
+  build-and-deploy:
+    name: Build on GitHub & Deploy to AWS EC2
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -34,14 +34,17 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Pre-Deployment Static Typecheck & Build Validation
-        if: ${{ !inputs.skip_tests }}
+      - name: Compile Production Bundle on GitHub Runner
         run: |
           npx tsc --noEmit
           npm run build
         env:
           NODE_ENV: production
           VITE_API_URL: /api/v1
+
+      - name: Package Dist Artifact
+        run: |
+          tar -czf dist.tar.gz dist/
 
       - name: Configure SSH Key
         run: |
@@ -50,26 +53,30 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
 
-      - name: Execute Zero-Downtime Deployment on EC2
+      - name: Transfer Pre-Built Bundle & Execute Zero-Downtime Deployment
         env:
           HOST: ${{ secrets.EC2_HOST }}
           USER: ${{ secrets.EC2_USER || 'ubuntu' }}
         run: |
-          echo "Connecting to ${USER}@${HOST} and deploying latest code..."
+          echo "Copying compiled production assets to ${USER}@${HOST}..."
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa dist.tar.gz ${USER}@${HOST}:/tmp/dist.tar.gz
+
+          echo "Executing zero-downtime release on EC2..."
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${USER}@${HOST} "bash -s" << 'EOF'
             set -e
             echo "==> Navigating to /var/www/nexarya"
             cd /var/www/nexarya
 
-            echo "==> Pulling latest changes from GitHub main"
+            echo "==> Syncing code from GitHub main"
             git fetch origin main
             git reset --hard origin/main
 
-            echo "==> Installing Node.js packages"
-            npm install --production=false
+            echo "==> Extracting pre-built production bundle"
+            tar -xzf /tmp/dist.tar.gz -C /var/www/nexarya/
+            rm -f /tmp/dist.tar.gz
 
-            echo "==> Compiling production frontend bundle"
-            npm run build
+            echo "==> Installing backend production dependencies"
+            npm install --omit=dev --no-audit
 
             echo "==> Reloading PM2 backend service (Zero Downtime)"
             pm2 reload nexarya-api || pm2 start "npm run server" --name nexarya-api
@@ -80,7 +87,7 @@ jobs:
             sudo nginx -t
             sudo systemctl reload nginx
 
-            echo "==> Remote server update complete."
+            echo "==> Production deployment executed successfully!"
           EOF
 
       - name: Verify Live Health Endpoint
