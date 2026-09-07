@@ -1,315 +1,433 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "@/components/ui/Icons";
-import Button from "@/components/ui/Button";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 
-interface CapabilityItem {
+interface Capability {
   num: string;
   title: string;
-  description: string;
-  slug: string;
-  whatWeBuild: string;
-  howItFits: string;
   tag: string;
+  slug: string;
+  summary: string;
+  problemSolved: string;
+  concepts: string[];
+  schematicNodes: { label: string; sub: string }[];
+  verifiedReference?: { title: string; href: string };
 }
 
-const CAPABILITIES: CapabilityItem[] = [
+const CAPABILITIES: Capability[] = [
   {
     num: "01",
     title: "CUSTOM SOFTWARE",
-    description: "Purpose-built web applications and business systems designed around specific workflows.",
+    tag: "PURPOSE-BUILT SYSTEMS",
     slug: "custom-software",
-    whatWeBuild: "Purpose-built applications for workflows that don't fit off-the-shelf software.",
-    howItFits: "Workflow → domain model → application logic → deployed system.",
-    tag: "PURPOSE-BUILT SOFTWARE",
+    summary: "Purpose-built web applications and business systems designed directly around specific operational workflows.",
+    problemSolved: "Workflows that don't fit neatly into off-the-shelf software or SaaS templates.",
+    concepts: ["Domain-Driven Modeling", "Custom Application Logic", "Relational Data Models", "Tailored Workflows"],
+    schematicNodes: [
+      { label: "WORKFLOW", sub: "Operational Context" },
+      { label: "DOMAIN MODEL", sub: "Core Entity Schema" },
+      { label: "APPLICATION", sub: "Purpose-Built Logic" },
+      { label: "RUNTIME", sub: "Production System" },
+    ],
+    verifiedReference: { title: "Railway Concession Management System", href: "/work/railway-concession-management-system" },
   },
   {
     num: "02",
     title: "AI & AUTOMATION",
-    description: "AI-assisted workflows and automation integrated where they provide a practical advantage.",
-    slug: "ai-automation",
-    whatWeBuild: "Document extraction, assisted intake pipelines, and automated business routing rules.",
-    howItFits: "Manual bottlenecks → structured models → assisted workflows → verified output.",
     tag: "APPLIED AUTOMATION",
+    slug: "ai-automation",
+    summary: "AI-assisted workflows and practical automation integrated where they provide measurable operational efficiency.",
+    problemSolved: "Manual document extraction bottlenecks, repetitive data entry, and procedural validation.",
+    concepts: ["Document Parsing", "Structured Extraction", "Assisted Workflows", "Human-in-the-Loop Review"],
+    schematicNodes: [
+      { label: "INTAKE", sub: "Unstructured Data" },
+      { label: "EXTRACTION", sub: "Pattern Parsing" },
+      { label: "VALIDATION", sub: "Rule Verification" },
+      { label: "STRUCTURED OUTPUT", sub: "Validated Database Record" },
+    ],
   },
   {
     num: "03",
     title: "WEB APPLICATIONS",
-    description: "Production web applications with responsive interfaces, application logic and backend systems.",
+    tag: "FULL-STACK PLATFORMS",
     slug: "web-applications",
-    whatWeBuild: "Full-stack web applications with responsive interfaces, application logic, and secure APIs.",
-    howItFits: "User context → interface design → application core → reliable hosting.",
-    tag: "FULL-STACK APPLICATIONS",
+    summary: "Full-stack web applications with responsive interfaces, robust backend services, and structured data stores.",
+    problemSolved: "Complex stakeholder portals, interactive digital platforms, and customer-facing software.",
+    concepts: ["React Component Architecture", "TypeScript Type Safety", "REST API Design", "Relational Persistence"],
+    schematicNodes: [
+      { label: "CLIENT UI", sub: "Responsive Web Frontend" },
+      { label: "API GATEWAY", sub: "Typed Request Router" },
+      { label: "CONTROLLER", sub: "Business Rules Engine" },
+      { label: "DATA STORE", sub: "Relational Database" },
+    ],
+    verifiedReference: { title: "STEMFUSION Education Platform", href: "/work/stemfusion" },
   },
   {
     num: "04",
     title: "BUSINESS SYSTEMS",
-    description: "Operational software for workflows, administration, data management and internal processes.",
+    tag: "OPERATIONAL WORKFLOWS",
     slug: "business-systems",
-    whatWeBuild: "Verification platforms, administrative management systems, and role-governed review queues.",
-    howItFits: "Operational rules → state machines → role-gated queues → audit logs.",
-    tag: "OPERATIONAL SYSTEMS",
+    summary: "Operational software for multi-stakeholder workflows, institutional verification, and administrative management.",
+    problemSolved: "Fragmented paper forms, multi-party review queues, and lack of operational audit trails.",
+    concepts: ["Multi-Stage Workflows", "Verification Queues", "State Transitions", "Activity Logging"],
+    schematicNodes: [
+      { label: "SUBMISSION", sub: "Document & Identity Intake" },
+      { label: "VERIFICATION", sub: "Review & Eligibility Check" },
+      { label: "AUTHORIZATION", sub: "Approval & Sign-Off" },
+      { label: "ACTIVITY LOG", sub: "Audit Record" },
+    ],
+    verifiedReference: { title: "Railway Concession Management System", href: "/work/railway-concession-management-system" },
   },
   {
     num: "05",
     title: "CLOUD & DEVOPS",
-    description: "Deployment, cloud infrastructure, containers and operational environments.",
+    tag: "INFRASTRUCTURE & HOSTING",
     slug: "cloud-devops",
-    whatWeBuild: "Containerized environments, automated deployment pipelines, and cloud hosting environments.",
-    howItFits: "Code repository → container build → automated tests → live deployment.",
-    tag: "INFRASTRUCTURE & RUNTIME",
+    summary: "Server provisioning, containerized application environments, reverse proxies, and automated deployment pipelines.",
+    problemSolved: "Unreliable deployments, slow manual releases, and unmonitored infrastructure.",
+    concepts: ["Containerization", "CI/CD Automation", "Reverse Proxy Configuration", "Process Management"],
+    schematicNodes: [
+      { label: "CODEBASE", sub: "Version Control Push" },
+      { label: "BUILD RUNNER", sub: "Typecheck & Bundle" },
+      { label: "SERVER HOST", sub: "Nginx & Node.js" },
+      { label: "HEALTH CHECK", sub: "Uptime Monitoring" },
+    ],
   },
   {
     num: "06",
     title: "QA & TESTING",
-    description: "Functional, responsive and reliability-focused testing for web applications.",
+    tag: "SYSTEM RELIABILITY",
     slug: "qa-testing",
-    whatWeBuild: "Regression test suites, cross-viewport verification, and functional API assertions.",
-    howItFits: "Requirements → test assertions → automated validation → verified quality.",
-    tag: "RELIABILITY TESTING",
+    summary: "Static typechecking, integration test suites, and cross-viewport responsive verification for resilient software.",
+    problemSolved: "Unexpected regressions, broken layouts on mobile viewports, and edge-case application crashes.",
+    concepts: ["Static Type Analysis", "Integration Test Suites", "Viewport QA", "Edge-Case Handling"],
+    schematicNodes: [
+      { label: "TYPECHECK", sub: "Static Analysis" },
+      { label: "INTEGRATION", sub: "API & DB Assertions" },
+      { label: "VIEWPORT QA", sub: "Mobile / Tablet / Desktop" },
+      { label: "VALIDATION", sub: "Zero-Error Release" },
+    ],
   },
   {
     num: "07",
     title: "INTEGRATIONS",
-    description: "Connecting applications, APIs and external systems where the workflow requires it.",
+    tag: "API & DATA CONNECTIVITY",
     slug: "integrations",
-    whatWeBuild: "Custom REST and GraphQL gateways, webhook ingress, and external service connectors.",
-    howItFits: "External systems → schema validation → transactional sync → reliable persistence.",
-    tag: "API & SYSTEM INTEGRATION",
+    summary: "Connecting software systems through secure APIs, webhook handlers, and transactional synchronization pipelines.",
+    problemSolved: "Siloed departmental tools, manual data reconciliation, and disjointed third-party services.",
+    concepts: ["REST Interfaces", "Webhook Ingress", "Payload Validation", "Transactional Integrity"],
+    schematicNodes: [
+      { label: "INGRESS", sub: "Webhook / API Request" },
+      { label: "VERIFICATION", sub: "Signature & Schema" },
+      { label: "TRANSFORM", sub: "Payload Mapping" },
+      { label: "PERSIST", sub: "Database Commit" },
+    ],
   },
   {
     num: "08",
     title: "SAAS",
-    description: "Design and engineering of software products intended to serve multiple users, teams or organizations.",
+    tag: "DIGITAL PRODUCTS",
     slug: "saas",
-    whatWeBuild: "Multi-tenant software products, subscription billing workflows, and client portals.",
-    howItFits: "Product concept → tenant boundaries → billing & auth → scalable release.",
-    tag: "MULTI-TENANT PRODUCTS",
+    summary: "Design and engineering of software products tailored to multi-user organizations and specific operational verticals.",
+    problemSolved: "Monolithic spreadsheets, lack of customer self-service, and scaling operational workflows.",
+    concepts: ["Role-Based Access Control", "Client Dashboards", "Billing Workflows", "Scalable Data Architecture"],
+    schematicNodes: [
+      { label: "ONBOARDING", sub: "User Account & Role" },
+      { label: "WORKSPACE", sub: "Operational Tools" },
+      { label: "MANAGEMENT", sub: "Administrative Oversight" },
+      { label: "ANALYTICS", sub: "Activity Reporting" },
+    ],
+    verifiedReference: { title: "STEMFUSION Education Platform", href: "/work/stemfusion" },
   },
 ];
 
 export default function Capabilities() {
   const [activeIdx, setActiveIdx] = useState(0);
-
   const active = CAPABILITIES[activeIdx];
 
   return (
     <section
       id="capabilities"
       aria-labelledby="capabilities-heading"
-      className="py-24 sm:py-32 lg:py-36 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
+      className="py-24 sm:py-32 lg:py-36 bg-[#FAF8F5] border-b border-[#DCD6CA] select-none"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
-        {/* Editorial Two-Column Structure: Left Sticky Anchor + Right Numbered Index */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* ========================================================================= */}
-          {/* Left Column: Sticky Header, Interactive Inspection Panel & CTA Box */}
-          {/* ========================================================================= */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
-            <RevealOnScroll>
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
-                  <span className="font-mono text-xs tracking-[0.2em] text-[#8C6D1F] uppercase font-semibold">
-                    CAPABILITIES
-                  </span>
-                </div>
-                <h2
-                  id="capabilities-heading"
-                  className="font-editorial text-4xl sm:text-5xl lg:text-[3.8rem] text-[#0E1720] leading-[1.04] tracking-[-0.03em] font-normal mb-5"
-                >
-                  Systems designed <br className="hidden sm:inline" />
-                  <span className="italic font-normal">around the work.</span>
-                </h2>
-                <p className="font-sans text-base sm:text-lg text-[#3A4753] font-light leading-relaxed">
-                  From custom applications to the infrastructure behind them, we build the software systems businesses rely on.
-                </p>
-              </div>
-            </RevealOnScroll>
-
-            {/* Dynamic Workbench Detail Inspection Panel */}
-            <div className="hidden lg:block bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_8px_30px_rgba(14,23,32,0.04)] overflow-hidden transition-all duration-200">
-              {/* Docket Header */}
-              <div className="px-5 py-3 bg-[#FAF8F5] border-b border-[#DCD6CA] flex items-center justify-between font-mono text-[11px] text-[#5C6975]">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
-                  <span className="text-[#0E1720] font-semibold uppercase tracking-wider">
-                    SPECIFICATION // ACTIVE DISCIPLINE
-                  </span>
-                </div>
-                <span className="text-[#8E9CA8] uppercase">
-                  {active.num} OF 08
+        {/* Section Header */}
+        <RevealOnScroll>
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-14 sm:pb-16 border-b border-[#DCD6CA] mb-16 sm:mb-20">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
+                <span className="font-mono text-xs tracking-[0.2em] text-[#8C6D1F] uppercase font-semibold">
+                  CAPABILITIES
                 </span>
               </div>
-
-              {/* Panel Content */}
-              <div className="p-6 space-y-4">
-                <div>
-                  <span className="font-mono text-[10px] text-[#8C6D1F] uppercase tracking-widest block mb-1 font-semibold">
-                    {active.tag}
-                  </span>
-                  <h3 className="font-editorial text-2xl text-[#0E1720] font-normal leading-snug">
-                    {active.title}
-                  </h3>
-                </div>
-
-                <div className="space-y-3 pt-3 border-t border-[#EAE5DB]">
-                  <div>
-                    <span className="font-mono text-[10px] text-[#8E9CA8] uppercase tracking-wider block mb-1">
-                      WHAT WE BUILD
-                    </span>
-                    <p className="font-sans text-xs text-[#3A4753] font-light leading-relaxed">
-                      {active.whatWeBuild}
-                    </p>
-                  </div>
-
-                  <div>
-                    <span className="font-mono text-[10px] text-[#8E9CA8] uppercase tracking-wider block mb-1">
-                      HOW IT FITS
-                    </span>
-                    <p className="font-mono text-xs text-[#0E1720] bg-[#FAF8F5] p-2.5 border border-[#EAE5DB] font-medium leading-relaxed">
-                      {active.howItFits}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-[#EAE5DB] flex items-center justify-between text-xs font-mono">
-                  <span className="text-[#8E9CA8] uppercase text-[10px]">
-                    ENGINEERING SCOPE
-                  </span>
-                  <Link
-                    to={`/solutions/${active.slug}`}
-                    className="inline-flex items-center gap-1 text-[#0E1720] hover:text-[#8C6D1F] font-semibold transition-colors uppercase tracking-wider text-[11px]"
-                  >
-                    <span>SPECIFICATION</span>
-                    <ArrowRight size={11} className="text-[#8C6D1F]" />
-                  </Link>
-                </div>
-              </div>
+              <h2
+                id="capabilities-heading"
+                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#0E1720] leading-[1.04] tracking-[-0.03em] font-normal"
+              >
+                Systems engineered around <span className="italic font-normal">the work.</span>
+              </h2>
             </div>
-
-            {/* Section Ending Project Initiation Trigger Card */}
-            <div className="p-6 bg-[#FAF8F5] border border-[#DCD6CA] space-y-4">
-              <h4 className="font-editorial text-xl sm:text-2xl text-[#0E1720] font-normal leading-snug">
-                Have a workflow that doesn&apos;t fit the software you use today?
-              </h4>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
-                <Button href="/contact" variant="primary" size="md">
-                  START A PROJECT
-                </Button>
-                <Button href="/work" variant="secondary" size="md">
-                  VIEW OUR WORK
-                </Button>
-              </div>
-            </div>
+            <p className="font-sans text-base sm:text-lg text-[#5C6975] max-w-md font-light leading-relaxed">
+              We design and build across eight core software engineering disciplines.
+            </p>
           </div>
+        </RevealOnScroll>
 
-          {/* ========================================================================= */}
-          {/* Right Column: Numbered Editorial Capability Index */}
-          {/* ========================================================================= */}
-          <div className="lg:col-span-7 bg-[#FAF8F5] border border-[#DCD6CA] shadow-[0_12px_40px_rgba(14,23,32,0.04)] overflow-hidden">
-            
-            {/* Index Header Strip */}
-            <div className="px-6 py-3.5 bg-[#EAE5DB] border-b border-[#DCD6CA] flex items-center justify-between font-mono text-[11px] text-[#5C6975]">
-              <span className="text-[#0E1720] uppercase font-semibold tracking-wider">
-                ENGINEERING DISCIPLINES INDEX
-              </span>
-              <span className="text-[#8E9CA8] uppercase text-[10px]">
-                8 CAPABILITIES
-              </span>
-            </div>
+        {/* Desktop Split-Index (Hidden on Mobile/Tablet < 1024px) */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-start mb-16">
+          
+          {/* Left Column: Capability Index List (5 Cols) */}
+          <div className="lg:col-span-5 border border-[#DCD6CA] bg-[#FFFFFF] divide-y divide-[#EAE5DB]">
+            {CAPABILITIES.map((cap, idx) => {
+              const isActive = activeIdx === idx;
+              return (
+                <button
+                  key={cap.slug}
+                  type="button"
+                  onClick={() => setActiveIdx(idx)}
+                  className={`w-full p-4.5 text-left transition-all duration-150 flex items-center justify-between cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0E1720] ${
+                    isActive
+                      ? "bg-[#0E1720] text-[#FAF7F2] font-semibold"
+                      : "bg-[#FFFFFF] text-[#0E1720] hover:bg-[#FAF8F5]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3.5">
+                    <span
+                      className={`font-mono text-xs font-bold ${
+                        isActive ? "text-[#D4A72C]" : "text-[#8C6D1F]"
+                      }`}
+                    >
+                      {cap.num}
+                    </span>
+                    <span className="font-mono text-xs uppercase tracking-wider font-semibold">
+                      {cap.title}
+                    </span>
+                  </div>
 
-            {/* Capability Items Stream */}
-            <div className="divide-y divide-[#DCD6CA]">
-              {CAPABILITIES.map((cap, idx) => {
-                const isSelected = activeIdx === idx;
-                return (
-                  <button
-                    key={cap.num}
-                    type="button"
-                    onClick={() => setActiveIdx(idx)}
-                    onMouseEnter={() => setActiveIdx(idx)}
-                    onFocus={() => setActiveIdx(idx)}
-                    className={`w-full text-left p-6 sm:p-7 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0E1720] group block ${
-                      isSelected
-                        ? "bg-[#FFFFFF] ring-1 ring-[#8C6D1F]/50 z-10"
-                        : "hover:bg-[#FFFFFF]/80"
+                  <span
+                    className={`font-mono text-[10px] uppercase tracking-wider ${
+                      isActive ? "text-[#D4A72C]" : "text-[#8E9CA8]"
                     }`}
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      
-                      {/* Left: Number + Title + Description */}
-                      <div className="space-y-2 max-w-xl">
-                        <div className="flex items-center gap-3">
-                          <span className={`font-mono text-xs font-bold tracking-widest ${
-                            isSelected ? "text-[#8C6D1F]" : "text-[#5C6975]"
-                          }`}>
-                            {cap.num}
-                          </span>
-                          <span className="text-[#DCD6CA] font-mono text-xs">//</span>
-                          <h3 className={`font-mono text-sm sm:text-base font-semibold tracking-wider uppercase transition-colors ${
-                            isSelected ? "text-[#0E1720]" : "text-[#0E1720] group-hover:text-[#8C6D1F]"
-                          }`}>
-                            {cap.title}
-                          </h3>
-                        </div>
-
-                        <p className="font-sans text-xs sm:text-sm text-[#5C6975] font-light leading-relaxed pl-8">
-                          {cap.description}
-                        </p>
-
-                        {/* Inline Detail Excerpt on Mobile */}
-                        <div className="lg:hidden pl-8 pt-2">
-                          <div className="p-3 bg-[#FAF8F5] border border-[#EAE5DB] text-[11px] font-mono text-[#3A4753] space-y-1">
-                            <span className="text-[#8C6D1F] font-semibold block">{cap.whatWeBuild}</span>
-                            <span className="text-[#5C6975] block">{cap.howItFits}</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Right: Subtle Interactive Indicator Arrow */}
-                      <div className="shrink-0 pt-1">
-                        <div className={`w-7 h-7 rounded-xs border flex items-center justify-center transition-all duration-200 ${
-                          isSelected
-                            ? "bg-[#0E1720] text-[#FFFFFF] border-[#0E1720]"
-                            : "bg-[#FFFFFF] text-[#5C6975] border-[#DCD6CA] group-hover:border-[#0E1720] group-hover:text-[#0E1720]"
-                        }`}>
-                          <ArrowRight
-                            size={12}
-                            className={`transition-transform duration-200 ${
-                              isSelected ? "translate-x-0.5 text-[#D4A72C]" : "group-hover:translate-x-0.5"
-                            }`}
-                          />
-                        </div>
-                      </div>
-
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Index Footer Strip */}
-            <div className="p-4 bg-[#FAF8F5] border-t border-[#DCD6CA] flex items-center justify-between text-xs font-mono text-[#5C6975]">
-              <span className="text-[#8E9CA8] text-[10px] uppercase">NEXARYA ENGINEERING DISCIPLINES</span>
-              <Link
-                to="/solutions"
-                className="inline-flex items-center gap-1.5 text-[#0E1720] hover:text-[#8C6D1F] font-semibold uppercase tracking-wider text-[11px] transition-colors"
-              >
-                <span>VIEW ALL CAPABILITY SPECIFICATIONS</span>
-                <ArrowRight size={11} className="text-[#8C6D1F]" />
-              </Link>
-            </div>
-
+                    {cap.tag}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
+          {/* Right Column: Visual & Conceptual Detail Panel (7 Cols) */}
+          <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#DCD6CA] p-8 lg:p-10 shadow-[0_12px_40px_rgba(14,23,32,0.04)] flex flex-col justify-between min-h-[560px]">
+            <div>
+              {/* Header */}
+              <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#EAE5DB]">
+                <div className="flex items-center gap-2.5">
+                  <span className="font-mono text-xs font-bold text-[#8C6D1F]">
+                    {active.num}
+                  </span>
+                  <span className="text-[#DCD6CA]">/</span>
+                  <span className="font-mono text-xs text-[#5C6975] uppercase tracking-wider">
+                    {active.tag}
+                  </span>
+                </div>
+
+                <Link
+                  to={`/solutions/${active.slug}`}
+                  className="font-mono text-xs text-[#0E1720] hover:text-[#8C6D1F] uppercase font-semibold underline underline-offset-4 inline-flex items-center gap-1 transition-colors"
+                >
+                  <span>FULL SPECIFICATION</span>
+                  <ArrowRight size={11} />
+                </Link>
+              </div>
+
+              {/* Title & Concise Summary */}
+              <h3 className="font-editorial text-3xl sm:text-4xl text-[#0E1720] font-normal leading-tight mb-3">
+                {active.title}
+              </h3>
+              <p className="font-sans text-base text-[#3A4753] font-light leading-relaxed mb-6">
+                {active.summary}
+              </p>
+
+              {/* Problem Solved */}
+              <div className="p-4 bg-[#FAF8F5] border border-[#EAE5DB] mb-6">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[#8C6D1F] font-bold block mb-1">
+                  OPERATIONAL FOCUS
+                </span>
+                <p className="font-sans text-xs text-[#3A4753] font-light leading-relaxed">
+                  {active.problemSolved}
+                </p>
+              </div>
+
+              {/* Architectural Concepts */}
+              <div className="mb-6">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] font-semibold block mb-2.5">
+                  ENGINEERING CONCEPTS
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {active.concepts.map((concept) => (
+                    <span
+                      key={concept}
+                      className="px-3 py-1 bg-[#FAF8F5] border border-[#DCD6CA] font-mono text-[11px] text-[#0E1720] uppercase"
+                    >
+                      {concept}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Restrained Technical Schematic */}
+              <div className="mb-6">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] font-semibold block mb-2.5">
+                  SYSTEM FLOW SCHEMATIC
+                </span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {active.schematicNodes.map((node, i) => (
+                    <div
+                      key={node.label}
+                      className="p-3 bg-[#FAF8F5] border border-[#EAE5DB] flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="font-mono text-[9px] text-[#8C6D1F] font-bold block mb-0.5">
+                          0{i + 1}
+                        </span>
+                        <div className="font-mono text-[11px] font-semibold uppercase text-[#0E1720] mb-0.5">
+                          {node.label}
+                        </div>
+                      </div>
+                      <div className="text-[10px] font-sans text-[#5C6975] font-light truncate">
+                        {node.sub}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Footer Row */}
+            <div className="pt-5 border-t border-[#EAE5DB] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+              {active.verifiedReference ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-[#8E9CA8]">VERIFIED IN:</span>
+                  <Link
+                    to={active.verifiedReference.href}
+                    className="text-[#0E1720] hover:text-[#8C6D1F] font-semibold underline underline-offset-2"
+                  >
+                    {active.verifiedReference.title}
+                  </Link>
+                </div>
+              ) : (
+                <span className="text-[#8E9CA8]">CUSTOM ENGINEERING DISCIPLINE</span>
+              )}
+
+              <Link
+                to="/contact"
+                className="font-semibold text-[#0E1720] hover:text-[#8C6D1F] inline-flex items-center gap-1 uppercase"
+              >
+                <span>DISCUSS A PROJECT</span>
+                <ArrowRight size={11} />
+              </Link>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Mobile / Tablet Accordion (Visible on < 1024px) */}
+        <div className="lg:hidden space-y-4 mb-16">
+          {CAPABILITIES.map((cap, idx) => {
+            const isExpanded = activeIdx === idx;
+            return (
+              <div
+                key={cap.slug}
+                className="border border-[#DCD6CA] bg-[#FFFFFF] overflow-hidden"
+              >
+                <button
+                  type="button"
+                  onClick={() => setActiveIdx(isExpanded ? -1 : idx)}
+                  className="w-full p-5 text-left flex items-center justify-between bg-[#FFFFFF] hover:bg-[#FAF8F5] transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-xs font-bold text-[#8C6D1F]">
+                      {cap.num}
+                    </span>
+                    <span className="font-mono text-xs uppercase tracking-wider font-semibold text-[#0E1720]">
+                      {cap.title}
+                    </span>
+                  </div>
+                  <span className="font-mono text-xs text-[#8C6D1F]">
+                    {isExpanded ? "−" : "+"}
+                  </span>
+                </button>
+
+                {isExpanded && (
+                  <div className="p-5 pt-0 border-t border-[#EAE5DB] bg-[#FAF8F5] space-y-4">
+                    <p className="font-sans text-xs sm:text-sm text-[#3A4753] font-light leading-relaxed pt-3">
+                      {cap.summary}
+                    </p>
+
+                    <div className="p-3 bg-[#FFFFFF] border border-[#EAE5DB] text-xs font-sans text-[#5C6975]">
+                      <strong className="text-[#0E1720] font-mono text-[10px] uppercase block mb-1">
+                        Operational Focus:
+                      </strong>
+                      {cap.problemSolved}
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5">
+                      {cap.concepts.map((concept) => (
+                        <span
+                          key={concept}
+                          className="px-2.5 py-1 bg-[#FFFFFF] border border-[#DCD6CA] font-mono text-[10px] text-[#0E1720] uppercase"
+                        >
+                          {concept}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="pt-3 border-t border-[#EAE5DB] flex items-center justify-between text-xs font-mono">
+                      <Link
+                        to={`/solutions/${cap.slug}`}
+                        className="text-[#0E1720] font-semibold underline underline-offset-2 uppercase text-[11px]"
+                      >
+                        Explore Details →
+                      </Link>
+                      <Link
+                        to="/contact"
+                        className="text-[#8C6D1F] font-semibold uppercase text-[11px]"
+                      >
+                        Inquire →
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Capabilities Link Bar */}
+        <div className="p-6 bg-[#FFFFFF] border border-[#DCD6CA] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1720] mb-0.5">
+              ALL 8 CAPABILITIES SPECIFIED
+            </div>
+            <div className="font-sans text-xs text-[#5C6975] font-light">
+              Explore individual capability briefs, workflows, and deliverables.
+            </div>
+          </div>
+
+          <Link
+            to="/solutions"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E1720] hover:bg-[#1A2530] text-[#FFFFFF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors shrink-0"
+          >
+            <span>VIEW SOLUTIONS CATALOG</span>
+            <ArrowRight size={12} className="text-[#D4A72C]" />
+          </Link>
         </div>
 
       </div>
     </section>
   );
 }
-
