@@ -21,7 +21,9 @@
     "jsonwebtoken": "^9.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.18.3"
+    "react-router-dom": "^7.18.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.0"
   },
   "devDependencies": {
     "@ngrok/ngrok": "^1.7.0",
@@ -37,8 +39,6 @@
     "@vitejs/plugin-react": "^4.3.4",
     "puppeteer-core": "^25.10.0",
     "tailwindcss": "^4.0.0",
-    "tsx": "^4.19.3",
-    "typescript": "^5.7.0",
     "vite": "^6.0.0"
   }
 }
