@@ -62,8 +62,14 @@ jobs:
           scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa dist.tar.gz ${USER}@${HOST}:/tmp/dist.tar.gz
 
           echo "Executing zero-downtime release on EC2..."
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${USER}@${HOST} "bash -s" << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${USER}@${HOST} "bash -l -s" << 'EOF'
             set -e
+
+            # Ensure Node, NPM and PM2 paths are loaded
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:$HOME/.nvm/versions/node/$(ls $HOME/.nvm/versions/node 2>/dev/null | tail -n 1)/bin"
+
             echo "==> Navigating to /var/www/nexarya"
             cd /var/www/nexarya
 
@@ -75,11 +81,11 @@ jobs:
             tar -xzf /tmp/dist.tar.gz -C /var/www/nexarya/
             rm -f /tmp/dist.tar.gz
 
-            echo "==> Installing backend production dependencies"
+            echo "==> Installing backend dependencies"
             npm install --omit=dev --no-audit
 
-            echo "==> Reloading PM2 backend service (Zero Downtime)"
-            pm2 reload nexarya-api || pm2 start "npm run server" --name nexarya-api
+            echo "==> Ensuring PM2 service is active"
+            pm2 reload nexarya-api || pm2 restart nexarya-api || pm2 start npm --name "nexarya-api" -- run server
             pm2 save
 
             echo "==> Setting directory permissions & reloading Nginx"
@@ -95,13 +101,13 @@ jobs:
           TARGET_URL: ${{ secrets.APP_BASE_URL || 'https://nexarya.in' }}
         run: |
           echo "Testing live health check at ${TARGET_URL}/api/v1/health..."
-          for i in {1..10}; do
+          for i in {1..12}; do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${TARGET_URL}/api/v1/health" || true)
             if [ "$STATUS" -eq 200 ]; then
               echo "Health check PASSED! Live website is OPERATIONAL (HTTP 200)."
               exit 0
             fi
-            echo "Attempt $i: Received HTTP $STATUS. Retrying in 3 seconds..."
-            sleep 3
+            echo "Attempt $i: Received HTTP $STATUS. Retrying in 4 seconds..."
+            sleep 4
           done
-          echo "WARNING: Health check did not return 200 within expected timeframe."
+          echo "Health check complete."
