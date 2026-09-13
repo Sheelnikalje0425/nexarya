@@ -134,12 +134,12 @@ export default function AdminLayout() {
       {/* Desktop Navigation Sidebar / Mobile Slide-down Drawer */}
       <aside
         className={`${
-          mobileMenuOpen ? "flex" : "hidden"
-        } md:flex w-full md:w-64 bg-[#0E1720] text-[#F4EFE6] border-r border-[#0E1720]/15 flex-col justify-between p-6 shrink-0 z-30`}
+          mobileMenuOpen ? "flex fixed inset-x-0 top-[57px] bottom-0 z-50 overflow-y-auto" : "hidden"
+        } md:flex md:sticky md:top-0 md:h-screen md:max-h-screen w-full md:w-64 bg-[#0E1720] text-[#F4EFE6] border-r border-[#0E1720]/15 md:border-white/10 flex-col justify-between p-6 shrink-0 z-30`}
       >
-        <div className="space-y-6">
+        <div className="flex flex-col flex-1 min-h-0">
           {/* Header Branding */}
-          <div className="hidden md:block pb-5 border-b border-white/10">
+          <div className="hidden md:block pb-5 border-b border-white/10 shrink-0">
             <div className="flex items-center gap-3">
               <BrandLogo size="sm" />
               <div className="flex flex-col">
@@ -150,7 +150,7 @@ export default function AdminLayout() {
           </div>
 
           {/* Active Operator Session Card */}
-          <div className="p-3.5 bg-white/[0.04] border border-white/10 rounded-sm">
+          <div className="mt-4 shrink-0 p-3 bg-white/[0.04] border border-white/10 rounded-sm">
             <div className="font-mono text-[9px] text-[#A7A9A8] uppercase tracking-wider">Active Operator</div>
             <div className="font-sans text-xs font-medium text-[#FAF7F2] mt-0.5 truncate">{user.name}</div>
             <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/5">
@@ -165,7 +165,7 @@ export default function AdminLayout() {
           </div>
 
           {/* Navigation Groups */}
-          <nav className="space-y-5">
+          <nav className="mt-5 flex-1 overflow-y-auto space-y-5 pr-1 min-h-0 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.1)_transparent]">
             {navGroups.map((group) => {
               const allowedInGroup = group.items.filter((item) => item.roles.includes(user.role));
               if (allowedInGroup.length === 0) return null;
@@ -205,7 +205,7 @@ export default function AdminLayout() {
         </div>
 
         {/* Sidebar Footer */}
-        <div className="pt-6 mt-6 border-t border-white/10 space-y-3">
+        <div className="shrink-0 pt-4 mt-4 border-t border-white/10 space-y-2">
           <Link
             to="/"
             target="_blank"
@@ -226,7 +226,7 @@ export default function AdminLayout() {
       </aside>
 
       {/* Main Workbench Canvas Area */}
-      <main className="flex-1 overflow-y-auto p-6 md:p-10 lg:p-12 bg-[#F4EFE6] max-w-full">
+      <main className="flex-1 min-w-0 p-6 md:p-10 lg:p-12 bg-[#F4EFE6] overflow-y-auto">
         <div className="max-w-7xl mx-auto">
           <Outlet context={{ user }} />
         </div>
