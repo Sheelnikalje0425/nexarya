@@ -5,6 +5,7 @@ import SelectedWork from "@/components/work/SelectedWork";
 import EngineeringSection from "@/components/engineering/EngineeringSection";
 import InTheWorkMedia from "@/components/media/InTheWorkMedia";
 import Capabilities from "@/components/capabilities/Capabilities";
+import StudioAtmosphere from "@/components/studio/StudioAtmosphere";
 import LeadershipTeam from "@/components/team/LeadershipTeam";
 import TestimonialSpotlight from "@/components/testimonials/TestimonialSpotlight";
 import StartSomething from "@/components/cta/StartSomething";
@@ -32,7 +33,10 @@ export default function HomePage() {
       {/* 04. LOCKED: Section 4: Capabilities (Systems designed around the work) */}
       <Capabilities />
 
-      {/* 05. LOCKED: Section 5: People & Co-Founders (Built by people who understand the work) */}
+      {/* 05. Studio Atmosphere (Visual pause & engineering environment anchor) */}
+      <StudioAtmosphere />
+
+      {/* 06. LOCKED: Section 5: People & Co-Founders (Built by people who understand the work) */}
       <LeadershipTeam />
 
       {/* 06. LOCKED: Section 6: Proof & Client Feedback (Built with clients, not just for them) */}

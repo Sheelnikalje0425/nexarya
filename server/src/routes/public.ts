@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { db } from "../db/index";
 import { EmailService } from "../services/email";
 import { PaymentService } from "../services/payments";
+import { inquiryRateLimiter, feedbackRateLimiter } from "../middleware/rateLimit";
 
 const router = Router();
 
@@ -105,7 +106,7 @@ router.get("/testimonials", (req: Request, res: Response) => {
 });
 
 // 6. Client Feedback Submission (Standard Public Route)
-router.post("/feedback", async (req: Request, res: Response) => {
+router.post("/feedback", feedbackRateLimiter, async (req: Request, res: Response) => {
   const {
     name,
     company,
@@ -261,7 +262,7 @@ router.get("/feedback/invite/:token", async (req: Request, res: Response) => {
 });
 
 // 8. Secure Client Feedback Submission via Invitation (Atomic Single-Use)
-router.post("/feedback/invite/:token", async (req: Request, res: Response) => {
+router.post("/feedback/invite/:token", feedbackRateLimiter, async (req: Request, res: Response) => {
   const { token } = req.params;
   const rawBody = req.body || {};
   const name = rawBody.name || rawBody.client_name;
@@ -405,8 +406,8 @@ router.post("/feedback/invite/:token", async (req: Request, res: Response) => {
 });
 
 
-// 7. Project Inquiries Submission (with honeypot anti-spam)
-router.post("/inquiries", async (req: Request, res: Response) => {
+// 7. Project Inquiries Submission (with honeypot anti-spam and rate limiting)
+router.post("/inquiries", inquiryRateLimiter, async (req: Request, res: Response) => {
   const { name, company, email, phone, projectType, budget, timeline, description, hp_field } = req.body;
 
   // Honeypot anti-bot check

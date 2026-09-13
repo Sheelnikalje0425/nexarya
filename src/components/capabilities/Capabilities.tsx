@@ -23,7 +23,7 @@ const CAPABILITIES: Capability[] = [
     problemSolved: "Workflows that don't fit neatly into off-the-shelf software or rigid SaaS templates.",
     approach: "We design domain models, database schemas, and tailored application logic directly around your operational constraints, ensuring full IP ownership and zero technical debt.",
     concepts: ["Domain-Driven Modeling", "Relational Data Architecture", "Typed APIs", "Custom Logic"],
-    verifiedReference: { title: "Railway Concession Management System", href: "/work/railway-concession-management-system" },
+    verifiedReference: { title: "Railway Concession Management System", href: "/work/railway-concession-management" },
   },
   {
     num: "02",
@@ -52,7 +52,7 @@ const CAPABILITIES: Capability[] = [
     problemSolved: "Fragmented paper forms, multi-party verification queues, and lack of operational audit trails.",
     approach: "We engineer centralized operations platforms with structured verification workflows, role-based authorization gates, and immutable activity logs.",
     concepts: ["Sequential Verification", "Role Boundaries", "State Transitions", "Audit Logging"],
-    verifiedReference: { title: "Railway Concession Management System", href: "/work/railway-concession-management-system" },
+    verifiedReference: { title: "Railway Concession Management System", href: "/work/railway-concession-management" },
   },
   {
     num: "05",
@@ -106,31 +106,71 @@ export default function Capabilities() {
     <section
       id="capabilities"
       aria-labelledby="capabilities-heading"
-      className="py-18 sm:py-22 lg:py-26 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
+      className="py-18 sm:py-22 lg:py-26 bg-[#F1EDE3] border-b border-[#DED7C9] select-none"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <RevealOnScroll>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-9 sm:pb-11 border-b border-[#DCD6CA] mb-11 sm:mb-14">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-9 sm:pb-11 border-b border-[#DED7C9] mb-10 sm:mb-12">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
-                <span className="font-mono text-xs tracking-[0.2em] text-[#8C6D1F] uppercase font-semibold">
-                  CAPABILITIES
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+                <span className="font-mono text-xs tracking-[0.2em] text-[#C59A3D] uppercase font-semibold">
+                  05 // ENGINEERING DISCIPLINES
                 </span>
               </div>
               <h2
                 id="capabilities-heading"
-                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[3.8rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
+                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[3.8rem] text-[#17202B] leading-[1.05] tracking-[-0.03em] font-normal"
               >
-                Systems engineered around{" "}
-                <span className="italic font-normal">the work.</span>
+                Disciplines behind <br className="hidden sm:inline" />
+                <span className="italic font-normal">the solutions.</span>
               </h2>
             </div>
-            <p className="font-sans text-base sm:text-lg text-[#5C6975] max-w-md font-light leading-relaxed">
-              We design and build across eight core software engineering disciplines.
+            <p className="font-sans text-base sm:text-lg text-[#394352] max-w-md font-light leading-relaxed">
+              We design and construct software platforms across eight core engineering disciplines.
             </p>
+          </div>
+        </RevealOnScroll>
+
+        {/* Visual Anchor: Product Engineering & Built Systems (Asset 03 - Desktop) */}
+        <RevealOnScroll delayMs={40}>
+          <div className="hidden lg:block mb-10 sm:mb-12 bg-[#F8F5EE] border border-[#DED7C9] shadow-[0_6px_24px_rgba(15,23,37,0.03)] overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+              <div className="lg:col-span-7 bg-[#08101B] overflow-hidden aspect-[16/9] sm:aspect-[21/9] lg:aspect-[16/9]">
+                <picture className="w-full h-full block">
+                  <source srcSet="/engineering/engineering-studio-design.webp" type="image/webp" />
+                  <img
+                    src="/engineering/engineering-studio-design.jpg"
+                    alt="Product engineering and technical system design environment showing interactive interfaces and component specifications"
+                    loading="eager"
+                    decoding="async"
+                    width="1024"
+                    height="576"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.01]"
+                  />
+                </picture>
+              </div>
+              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[#DED7C9]">
+                <div>
+                  <div className="flex items-center gap-2 mb-2 font-mono text-[10px] text-[#C59A3D] uppercase tracking-widest font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+                    <span>PRODUCT ENGINEERING // 08 DISCIPLINES</span>
+                  </div>
+                  <h3 className="font-editorial text-2xl sm:text-3xl text-[#17202B] font-normal leading-tight mb-3">
+                    Disciplined software execution from schema to interface.
+                  </h3>
+                  <p className="font-sans text-xs sm:text-sm text-[#394352] font-light leading-relaxed">
+                    Every capability is backed by typed architecture, rigorous state validation, and clean domain boundaries tailored to operational demands.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-[#DED7C9] flex items-center justify-between text-xs font-mono text-[#394352]">
+                  <span>CAPABILITY SPECIFICATION</span>
+                  <span className="text-[#17202B] font-semibold">INDEX 01 &mdash; 08</span>
+                </div>
+              </div>
+            </div>
           </div>
         </RevealOnScroll>
 
@@ -140,13 +180,13 @@ export default function Capabilities() {
         <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Index Column (5 cols) */}
-          <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_6px_24px_rgba(14,23,32,0.03)] overflow-hidden">
-            <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex items-center justify-between font-mono text-xs text-[#5C6975]">
-              <span className="font-semibold text-[#0E1720]">ENGINEERING DISCIPLINES</span>
+          <div className="lg:col-span-5 bg-[#F8F5EE] border border-[#DED7C9] shadow-[0_6px_24px_rgba(15,23,37,0.03)] overflow-hidden">
+            <div className="px-6 py-3.5 bg-[#E8E3D8]/70 border-b border-[#DED7C9] flex items-center justify-between font-mono text-xs text-[#394352]">
+              <span className="font-semibold text-[#17202B]">ENGINEERING DISCIPLINES</span>
               <span>INDEX 01–08</span>
             </div>
 
-            <div className="divide-y divide-[#EAE5DB]">
+            <div className="divide-y divide-[#DED7C9]">
               {CAPABILITIES.map((cap, idx) => {
                 const isActive = activeIndex === idx;
                 return (
@@ -154,21 +194,21 @@ export default function Capabilities() {
                     key={cap.num}
                     type="button"
                     onClick={() => setActiveIndex(idx)}
-                    className={`w-full text-left px-6 py-3.5 transition-all duration-150 flex items-center justify-between group cursor-pointer focus-visible:outline-none focus-visible:bg-[#FAF8F5] ${
-                      isActive ? "bg-[#0E1720] text-[#FAF7F2]" : "bg-[#FFFFFF] text-[#0E1720] hover:bg-[#FAF8F5]"
+                    className={`w-full text-left px-6 py-3.5 transition-all duration-150 flex items-center justify-between group cursor-pointer focus-visible:outline-none focus-visible:bg-[#E8E3D8] ${
+                      isActive ? "bg-[#0F1725] text-[#F7F5EF]" : "bg-[#FFFFFF] text-[#17202B] hover:bg-[#F8F5EE]"
                     }`}
                   >
                     <div className="flex items-center gap-4">
                       <span
                         className={`font-mono text-xs font-bold ${
-                          isActive ? "text-[#8C6D1F]" : "text-[#8E9CA8] group-hover:text-[#0E1720]"
+                          isActive ? "text-[#C59A3D]" : "text-[#68717B] group-hover:text-[#17202B]"
                         }`}
                       >
                         {cap.num}
                       </span>
                       <span
                         className={`font-mono text-xs font-bold uppercase tracking-wider ${
-                          isActive ? "text-[#FFFFFF]" : "text-[#0E1720]"
+                          isActive ? "text-[#F7F5EF]" : "text-[#17202B]"
                         }`}
                       >
                         {cap.title}
@@ -178,7 +218,7 @@ export default function Capabilities() {
                     <div className="flex items-center gap-3">
                       <span
                         className={`font-mono text-[9px] uppercase tracking-wider hidden xl:inline ${
-                          isActive ? "text-[#8C6D1F]" : "text-[#8E9CA8]"
+                          isActive ? "text-[#E0BD68]" : "text-[#68717B]"
                         }`}
                       >
                         {cap.tag}
@@ -187,8 +227,8 @@ export default function Capabilities() {
                         size={12}
                         className={`transition-transform duration-200 ${
                           isActive
-                            ? "text-[#8C6D1F] translate-x-1"
-                            : "text-[#8E9CA8] group-hover:text-[#0E1720] group-hover:translate-x-1"
+                            ? "text-[#C59A3D] translate-x-1"
+                            : "text-[#68717B] group-hover:text-[#17202B] group-hover:translate-x-1"
                         }`}
                       />
                     </div>
@@ -199,18 +239,18 @@ export default function Capabilities() {
           </div>
 
           {/* Right Detail Panel (7 cols) */}
-          <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_6px_24px_rgba(14,23,32,0.03)] overflow-hidden">
+          <div className="lg:col-span-7 bg-[#F8F5EE] border border-[#DED7C9] shadow-[0_6px_24px_rgba(15,23,37,0.03)] overflow-hidden">
             {/* Top Bar */}
-            <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex items-center justify-between font-mono text-xs">
-              <div className="flex items-center gap-2 text-[#5C6975]">
-                <span className="font-bold text-[#0E1720]">{activeCap.num}</span>
+            <div className="px-6 py-3.5 bg-[#E8E3D8]/70 border-b border-[#DED7C9] flex items-center justify-between font-mono text-xs">
+              <div className="flex items-center gap-2 text-[#394352]">
+                <span className="font-bold text-[#17202B]">{activeCap.num}</span>
                 <span>/</span>
-                <span className="uppercase text-[#8C6D1F] font-semibold">{activeCap.tag}</span>
+                <span className="uppercase text-[#C59A3D] font-semibold">{activeCap.tag}</span>
               </div>
 
               <Link
                 to={`/solutions/${activeCap.slug}`}
-                className="text-[#0E1720] hover:text-[#8C6D1F] uppercase font-semibold text-[11px] underline underline-offset-4 flex items-center gap-1"
+                className="text-[#17202B] hover:text-[#C59A3D] uppercase font-semibold text-[11px] underline underline-offset-4 flex items-center gap-1"
               >
                 <span>FULL SPECIFICATION</span>
                 <ArrowRight size={11} />
@@ -218,45 +258,35 @@ export default function Capabilities() {
             </div>
 
             {/* Panel Content */}
-            <div className="p-7 lg:p-9 space-y-7">
+            <div className="p-8 lg:p-9 space-y-5">
               
-              {/* Title */}
+              {/* Title & Problem Statement */}
               <div>
-                <h3 className="font-editorial text-3xl sm:text-4xl text-[#0E1720] font-normal leading-tight mb-2">
+                <h3 className="font-editorial text-3xl sm:text-4xl text-[#17202B] font-normal leading-tight mb-2">
                   {activeCap.title}
                 </h3>
-              </div>
-
-              {/* 1. WHAT PROBLEM DOES THIS SOLVE? */}
-              <div className="p-4.5 bg-[#FAF8F5] border border-[#DCD6CA]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C6D1F] block mb-1 font-bold">
-                  WHAT PROBLEM DOES THIS SOLVE?
-                </span>
-                <p className="font-sans text-base text-[#0E1720] font-normal leading-snug">
-                  {activeCap.problemSolved}
+                <p className="font-editorial text-xl text-[#17202B] italic font-normal leading-relaxed">
+                  &ldquo;{activeCap.problemSolved}&rdquo;
                 </p>
               </div>
 
-              {/* 2. HOW WE APPROACH IT */}
+              {/* Engineering Approach */}
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] block mb-1.5 font-semibold">
-                  HOW WE APPROACH IT
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#C59A3D] block mb-1.5 font-semibold">
+                  ENGINEERING APPROACH
                 </span>
-                <p className="font-sans text-sm text-[#3A4753] font-light leading-relaxed">
+                <p className="font-sans text-sm sm:text-base text-[#394352] font-light leading-relaxed">
                   {activeCap.approach}
                 </p>
               </div>
 
-              {/* 3. SUPPORTING CONCEPTS */}
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8E9CA8] block mb-2 font-semibold">
-                  ENGINEERING CONCEPTS
-                </span>
-                <div className="flex flex-wrap gap-1.5">
+              {/* Core Principles & Concepts */}
+              <div className="pt-1">
+                <div className="flex flex-wrap gap-2">
                   {activeCap.concepts.map((concept) => (
                     <span
                       key={concept}
-                      className="font-mono text-[11px] px-2.5 py-1 bg-[#FAF8F5] border border-[#DCD6CA] text-[#0E1720] tracking-wider uppercase"
+                      className="font-mono text-xs px-2.5 py-1 bg-[#FFFFFF] border border-[#DED7C9] text-[#17202B] tracking-wider uppercase"
                     >
                       {concept}
                     </span>
@@ -264,30 +294,30 @@ export default function Capabilities() {
                 </div>
               </div>
 
-              {/* 4. FOOTER / VERIFIED PROJECT & CTA */}
-              <div className="pt-5 border-t border-[#EAE5DB] flex flex-wrap items-center justify-between gap-4">
+              {/* Footer / Case Reference & Direct Scoping */}
+              <div className="pt-5 border-t border-[#DED7C9] flex flex-wrap items-center justify-between gap-4">
                 {activeCap.verifiedReference ? (
-                  <div className="text-xs font-sans text-[#5C6975]">
-                    <span>VERIFIED IN: </span>
+                  <div className="text-xs font-sans text-[#394352]">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#68717B] mr-1">VERIFIED IN:</span>
                     <Link
                       to={activeCap.verifiedReference.href}
-                      className="text-[#0E1720] font-semibold underline underline-offset-2 hover:text-[#8C6D1F]"
+                      className="text-[#17202B] font-semibold underline underline-offset-2 hover:text-[#C59A3D]"
                     >
                       {activeCap.verifiedReference.title}
                     </Link>
                   </div>
                 ) : (
-                  <div className="text-xs font-mono text-[#8E9CA8] uppercase">
+                  <div className="text-xs font-mono text-[#68717B] uppercase">
                     MODULAR DISCIPLINES
                   </div>
                 )}
 
                 <Link
                   to="/contact"
-                  className="font-mono text-xs uppercase tracking-wider text-[#0E1720] hover:text-[#8C6D1F] font-bold flex items-center gap-1.5"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#0F1725] hover:bg-[#1A273A] text-[#F7F5EF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors"
                 >
-                  <span>DISCUSS A PROJECT</span>
-                  <ArrowRight size={12} />
+                  <span>START A PROJECT</span>
+                  <ArrowRight size={11} className="text-[#C59A3D]" />
                 </Link>
               </div>
 
@@ -297,108 +327,42 @@ export default function Capabilities() {
         </div>
 
         {/* ========================================================================= */}
-        {/* MOBILE VIEW: Clean Stacked Accordion                                      */}
+        {/* MOBILE VIEW: Compact Editorial Directory List (lg:hidden)                 */}
         {/* ========================================================================= */}
-        <div className="lg:hidden space-y-2.5">
-          {CAPABILITIES.map((cap, idx) => {
-            const isExpanded = mobileExpanded === idx;
-            return (
-              <div
-                key={cap.num}
-                className="bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_4px_16px_rgba(14,23,32,0.03)] overflow-hidden"
-              >
-                {/* Header Toggle */}
-                <button
-                  type="button"
-                  onClick={() => toggleMobile(idx)}
-                  className="w-full text-left p-4.5 flex items-center justify-between cursor-pointer"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-bold text-[#8C6D1F]">
-                      {cap.num}
-                    </span>
-                    <span className="font-mono text-xs font-bold text-[#0E1720] uppercase tracking-wider">
-                      {cap.title}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-[#8E9CA8]">
-                      {cap.tag}
-                    </span>
-                    <ChevronDown
-                      size={14}
-                      className={`text-[#0E1720] transition-transform duration-200 ${
-                        isExpanded ? "rotate-180" : ""
-                      }`}
-                    />
-                  </div>
-                </button>
-
-                {/* Expanded Content */}
-                {isExpanded && (
-                  <div className="px-4.5 pb-5 pt-2 border-t border-[#EAE5DB] space-y-3.5">
-                    <div className="p-3.5 bg-[#FAF8F5] border border-[#DCD6CA]">
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#8C6D1F] block mb-1 font-bold">
-                        PROBLEM SOLVED
-                      </span>
-                      <p className="font-sans text-sm text-[#0E1720] font-normal leading-snug">
-                        {cap.problemSolved}
-                      </p>
-                    </div>
-
-                    <div>
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#8E9CA8] block mb-1 font-semibold">
-                        OUR APPROACH
-                      </span>
-                      <p className="font-sans text-xs text-[#3A4753] font-light leading-relaxed">
-                        {cap.approach}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {cap.concepts.map((c) => (
-                        <span
-                          key={c}
-                          className="font-mono text-[10px] px-2 py-0.5 bg-[#FAF8F5] border border-[#DCD6CA] text-[#0E1720] uppercase"
-                        >
-                          {c}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="pt-3 border-t border-[#EAE5DB] flex items-center justify-between">
-                      <Link
-                        to={`/solutions/${cap.slug}`}
-                        className="font-mono text-xs text-[#0E1720] font-semibold underline underline-offset-2 uppercase"
-                      >
-                        FULL SPECIFICATION
-                      </Link>
-                      <Link
-                        to="/contact"
-                        className="font-mono text-xs text-[#8C6D1F] font-bold uppercase"
-                      >
-                        INQUIRE →
-                      </Link>
-                    </div>
-                  </div>
-                )}
+        <div className="lg:hidden bg-[#F8F5EE] border border-[#DED7C9] divide-y divide-[#DED7C9] shadow-[0_4px_16px_rgba(15,23,37,0.03)]">
+          {CAPABILITIES.map((cap) => (
+            <Link
+              key={cap.num}
+              to={`/solutions/${cap.slug}`}
+              className="p-4 flex items-start justify-between gap-3 hover:bg-[#F1EDE3] transition-colors group"
+            >
+              <div className="space-y-1 flex-1">
+                <div className="flex items-center gap-2.5">
+                  <span className="font-mono text-xs font-bold text-[#C59A3D]">{cap.num}</span>
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#17202B] group-hover:text-[#C59A3D] transition-colors">
+                    {cap.title}
+                  </span>
+                </div>
+                <p className="font-sans text-xs text-[#394352] font-light leading-relaxed pl-6">
+                  {cap.problemSolved}
+                </p>
               </div>
-            );
-          })}
+              <ArrowRight size={13} className="text-[#68717B] group-hover:text-[#C59A3D] transition-transform group-hover:translate-x-1 shrink-0 mt-1" />
+            </Link>
+          ))}
         </div>
 
         {/* Section Footer Bar */}
-        <div className="mt-10 pt-5 border-t border-[#DCD6CA] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="font-mono text-xs text-[#5C6975]">
-            <span className="font-bold text-[#0E1720]">ALL 8 CAPABILITIES SPECIFIED</span> — Explore individual capability briefs, workflows, and deliverables.
+        <div className="mt-10 pt-5 border-t border-[#DED7C9] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="font-mono text-xs text-[#394352]">
+            <span className="font-bold text-[#17202B]">ALL 8 DISCIPLINES SPECIFIED</span> &mdash; Supporting tailored systems from architecture to production release.
           </div>
           <Link
             to="/solutions"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E1720] hover:bg-[#1A2530] text-[#FFFFFF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors shrink-0"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0F1725] hover:bg-[#1A273A] text-[#F7F5EF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors shrink-0"
           >
-            <span>VIEW SOLUTIONS CATALOG</span>
-            <ArrowRight size={12} className="text-[#D4A72C]" />
+            <span>VIEW ALL SOLUTIONS</span>
+            <ArrowRight size={12} className="text-[#C59A3D]" />
           </Link>
         </div>
 

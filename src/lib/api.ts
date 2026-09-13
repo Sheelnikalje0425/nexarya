@@ -18,11 +18,18 @@ export async function fetchApi<T>(endpoint: string, options?: RequestInit): Prom
     headers,
   });
 
-  const data = await res.json();
   if (!res.ok) {
-    throw new Error(data.error || "An unexpected error occurred");
+    let errorMsg = `API request failed with status ${res.status}`;
+    try {
+      const errData = await res.json();
+      if (errData?.error) errorMsg = errData.error;
+    } catch {
+      // Non-JSON response (e.g. 404/500 proxy HTML or connection drop)
+    }
+    throw new Error(errorMsg);
   }
 
+  const data = await res.json();
   return data;
 }
 

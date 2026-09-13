@@ -36,22 +36,22 @@ const TIERS = [
 
 export default function ArchitectureDiagram() {
   return (
-    <section className="relative py-24 sm:py-32 bg-[#03070B] border-b border-white/10 select-none">
+    <section className="relative py-24 sm:py-32 bg-[#08101B] border-b border-[#243247] select-none">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <RevealOnScroll>
           <div className="max-w-3xl mb-14 sm:mb-18">
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D4A72C]" />
-              <span className="font-tech text-xs tracking-[0.24em] text-[#D4A72C] uppercase font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+              <span className="font-tech text-xs tracking-[0.24em] text-[#C59A3D] uppercase font-medium">
                 SYSTEM TOPOLOGY
               </span>
             </div>
-            <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#F2EFE7] leading-[1.08] tracking-[-0.02em] mb-4">
+            <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#F8F5EE] leading-[1.08] tracking-[-0.02em] mb-4">
               5-tier architecture.
             </h2>
-            <p className="font-sans text-sm sm:text-base text-[#A7A9A8] font-light leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-[#89929B] font-light leading-relaxed">
               Every platform we build follows a clean separation of concerns, ensuring resilience, testability, and low maintenance overhead.
             </p>
           </div>
@@ -61,37 +61,37 @@ export default function ArchitectureDiagram() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
           {TIERS.map((item, idx) => (
             <RevealOnScroll key={item.tier} delayMs={idx * 60}>
-              <div className="group relative p-6 bg-[#070D12] border border-white/10 hover:border-[#D4A72C]/40 transition-colors h-full flex flex-col justify-between">
+              <div className="group relative p-6 bg-[#0F1725] border border-[#243247] hover:border-[#C59A3D]/40 transition-colors h-full flex flex-col justify-between">
                 <div>
                   {/* Top Tier Label */}
                   <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/5">
-                    <span className="font-tech text-xs text-[#D4A72C] font-semibold">
+                    <span className="font-tech text-xs text-[#C59A3D] font-semibold">
                       TIER {item.tier}
                     </span>
-                    <span className="font-tech text-[9px] text-[#6F7475] uppercase">
+                    <span className="font-tech text-[9px] text-[#68717B] uppercase">
                       {idx < 4 ? "↓" : "ROOT"}
                     </span>
                   </div>
 
                   {/* Tier Name */}
-                  <h3 className="font-editorial text-xl sm:text-2xl text-[#F2EFE7] group-hover:text-[#F0C75E] transition-colors mb-1.5">
+                  <h3 className="font-editorial text-xl sm:text-2xl text-[#F8F5EE] group-hover:text-[#E0BD68] transition-colors mb-1.5">
                     {item.name}
                   </h3>
 
                   {/* Tech Stack */}
-                  <div className="font-tech text-[10px] text-[#D4A72C] tracking-wide mb-3">
+                  <div className="font-tech text-[10px] text-[#C59A3D] tracking-wide mb-3">
                     {item.tech}
                   </div>
 
                   {/* Description */}
-                  <p className="font-sans text-xs text-[#A7A9A8] font-light leading-relaxed">
+                  <p className="font-sans text-xs text-[#89929B] font-light leading-relaxed">
                     {item.description}
                   </p>
                 </div>
 
                 {/* Bottom Status Dot */}
-                <div className="pt-4 mt-4 border-t border-white/5 flex items-center gap-2 text-[10px] font-tech text-[#6F7475]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4A72C]/60" />
+                <div className="pt-4 mt-4 border-t border-white/5 flex items-center gap-2 text-[10px] font-tech text-[#68717B]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]/60" />
                   <span>Verified Domain</span>
                 </div>
               </div>

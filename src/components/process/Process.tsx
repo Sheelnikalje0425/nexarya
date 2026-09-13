@@ -42,7 +42,7 @@ const CLIENT_ENGAGEMENT_PHASES = [
 
 export default function Process() {
   return (
-    <section id="process" className="relative py-24 sm:py-36 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none">
+    <section id="process" className="relative py-24 sm:py-36 bg-[#F8F5EE] border-b border-[#DED7C9] select-none">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
@@ -50,49 +50,49 @@ export default function Process() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 sm:mb-20">
             <div className="max-w-2xl">
               <div className="flex items-center gap-2 mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0E1720]" />
-                <span className="font-tech text-xs tracking-[0.22em] text-[#5C6975] uppercase font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#17202B]" />
+                <span className="font-mono text-xs tracking-[0.22em] text-[#394352] uppercase font-medium">
                   CLIENT DELIVERY // ENGAGEMENT PROGRESSION
                 </span>
               </div>
-              <h2 className="font-editorial text-5xl sm:text-6xl md:text-7xl lg:text-[4.6rem] text-[#0E1720] leading-[1.02] tracking-[-0.03em]">
+              <h2 className="font-editorial text-5xl sm:text-6xl md:text-7xl lg:text-[4.6rem] text-[#17202B] leading-[1.02] tracking-[-0.03em]">
                 How we build.
               </h2>
             </div>
-            <p className="font-sans text-base sm:text-lg text-[#5C6975] max-w-md font-light leading-relaxed">
+            <p className="font-sans text-base sm:text-lg text-[#394352] max-w-md font-light leading-relaxed">
               Every client engagement progresses through five predictable milestones with transparent source code access and concrete deliverables.
             </p>
           </div>
         </RevealOnScroll>
 
         {/* Compact Process Index */}
-        <div className="border border-[#DCD6CA] bg-[#FFFFFF] shadow-[0_12px_40px_rgba(14,23,32,0.05)] overflow-hidden">
+        <div className="border border-[#DED7C9] bg-[#FFFFFF] shadow-[0_12px_40px_rgba(14,23,32,0.05)] overflow-hidden">
           
           {/* Index Docket Header */}
-          <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex items-center justify-between text-xs font-tech text-[#5C6975]">
-            <span className="font-bold text-[#0E1720] tracking-wider uppercase">
+          <div className="px-6 py-3.5 bg-[#F1EDE3] border-b border-[#DED7C9] flex items-center justify-between text-xs font-mono text-[#394352]">
+            <span className="font-bold text-[#17202B] tracking-wider uppercase">
               ENGAGEMENT DELIVERY PROTOCOL
             </span>
-            <span className="text-[#8E9CA8]">5 LINEAR PHASES // DIRECT SENIOR ENGINEERS</span>
+            <span className="text-[#68717B]">5 LINEAR PHASES // DIRECT SENIOR ENGINEERS</span>
           </div>
 
           {/* 5 Stacked Compact Rows */}
-          <div className="divide-y divide-[#DCD6CA]">
+          <div className="divide-y divide-[#DED7C9]">
             {CLIENT_ENGAGEMENT_PHASES.map((phase, idx) => (
               <RevealOnScroll key={phase.step} delayMs={idx * 35}>
-                <div className="p-6 sm:p-8 bg-[#FFFFFF] hover:bg-[#FAF8F5] transition-colors">
+                <div className="p-6 sm:p-8 bg-[#FFFFFF] hover:bg-[#F1EDE3] transition-colors">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
                     
                     {/* Step Num & Phase Name (3 Cols) */}
                     <div className="lg:col-span-3 flex items-center gap-4">
-                      <span className="font-editorial text-3xl text-[#0E1720] tabular-nums font-normal">
+                      <span className="font-editorial text-3xl text-[#17202B] tabular-nums font-normal">
                         {phase.step}
                       </span>
                       <div>
-                        <div className="font-tech text-[10px] tracking-[0.16em] text-[#8E9CA8] uppercase">
+                        <div className="font-mono text-[10px] tracking-[0.16em] text-[#68717B] uppercase">
                           {phase.timeline}
                         </div>
-                        <h3 className="font-tech text-sm tracking-[0.16em] uppercase text-[#0E1720] font-bold">
+                        <h3 className="font-mono text-sm tracking-[0.16em] uppercase text-[#17202B] font-bold">
                           {phase.phase}
                         </h3>
                       </div>
@@ -100,14 +100,14 @@ export default function Process() {
 
                     {/* Objective Description (6 Cols) */}
                     <div className="lg:col-span-6">
-                      <p className="font-sans text-xs sm:text-sm text-[#5C6975] leading-relaxed">
+                      <p className="font-sans text-xs sm:text-sm text-[#394352] leading-relaxed">
                         {phase.objective}
                       </p>
                     </div>
 
                     {/* Concrete Deliverable Tag (3 Cols) */}
                     <div className="lg:col-span-3 flex lg:justify-end">
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FAF8F5] border border-[#DCD6CA] text-xs font-tech text-[#0E1720]">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#F1EDE3] border border-[#DED7C9] text-xs font-mono text-[#17202B]">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
                         <span className="truncate">{phase.deliverable}</span>
                       </div>

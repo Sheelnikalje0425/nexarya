@@ -38,7 +38,7 @@ const RAILWAY_WORKFLOW_STATES = [
 
 export default function RailwayProof() {
   return (
-    <section className="py-24 sm:py-36 bg-[#FAF8F5] border-b border-[#DCD6CA] select-none">
+    <section className="py-24 sm:py-36 bg-[#F8F5EE] border-b border-[#DED7C9] select-none">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header: Editorial Scale */}
@@ -46,17 +46,17 @@ export default function RailwayProof() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 sm:mb-20">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0E1720]" />
-                <span className="font-tech text-xs tracking-[0.22em] text-[#5C6975] uppercase font-medium">
-                  CASE 02 // INSTITUTIONAL PROJECT RECORD
+                <span className="w-1.5 h-1.5 rounded-full bg-[#17202B]" />
+                <span className="font-mono text-xs tracking-[0.22em] text-[#394352] uppercase font-medium">
+                  CASE 02 // CASE STUDY
                 </span>
               </div>
-              <h2 className="font-editorial text-5xl sm:text-6xl md:text-7xl lg:text-[4.6rem] xl:text-[5.2rem] text-[#0E1720] leading-[1.02] tracking-[-0.03em]">
+              <h2 className="font-editorial text-5xl sm:text-6xl md:text-7xl lg:text-[4.6rem] xl:text-[5.2rem] text-[#17202B] leading-[1.02] tracking-[-0.03em]">
                 Software for <br className="hidden sm:inline" />
                 <span className="italic font-normal">accountability.</span>
               </h2>
             </div>
-            <p className="font-sans text-base sm:text-lg text-[#5C6975] max-w-md font-light leading-relaxed">
+            <p className="font-sans text-base sm:text-lg text-[#394352] max-w-md font-light leading-relaxed">
               An enterprise operations platform engineered to digitize student verification workflows, institutional authorization, and concession record tracking.
             </p>
           </div>
@@ -64,55 +64,55 @@ export default function RailwayProof() {
 
         {/* Editorial Case-File Container */}
         <RevealOnScroll delayMs={60}>
-          <div className="bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_16px_50px_rgba(14,23,32,0.07)] overflow-hidden">
+          <div className="bg-[#FFFFFF] border border-[#DED7C9] shadow-[0_16px_50px_rgba(14,23,32,0.07)] overflow-hidden">
             
             {/* Header Docket Bar */}
-            <div className="px-6 py-4 bg-[#EAE5DB] border-b border-[#DCD6CA] flex flex-wrap items-center justify-between gap-4">
+            <div className="px-6 py-4 bg-[#F1EDE3] border-b border-[#DED7C9] flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="font-tech text-xs text-[#0E1720] font-bold uppercase tracking-wider">
+                <span className="font-mono text-xs text-[#17202B] font-bold uppercase tracking-wider">
                   CASE FILE: RAILWAY CONCESSION MANAGEMENT
                 </span>
-                <span className="text-[#8E9CA8]">/</span>
-                <span className="font-tech text-xs text-[#5C6975]">
+                <span className="text-[#68717B]">/</span>
+                <span className="font-mono text-xs text-[#394352]">
                   Western Transit & Education Consortium
                 </span>
               </div>
 
               <div className="flex items-center gap-3">
-                <span className="font-tech text-[10px] text-[#0E1720] uppercase px-2.5 py-1 bg-[#FFFFFF] border border-[#DCD6CA] font-semibold">
-                  INSTITUTIONAL PROJECT RECORD
+                <span className="font-mono text-[10px] text-[#17202B] uppercase px-2.5 py-1 bg-[#FFFFFF] border border-[#DED7C9] font-semibold">
+                  CASE SPECIFICATION
                 </span>
               </div>
             </div>
 
             {/* 5-Stage Verified Workflow Sequence */}
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-px bg-[#DCD6CA]">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-px bg-[#DED7C9]">
               {RAILWAY_WORKFLOW_STATES.map((st) => (
-                <div key={st.state} className="p-7 sm:p-8 bg-[#FFFFFF] flex flex-col justify-between hover:bg-[#FAF8F5] transition-colors">
+                <div key={st.state} className="p-7 sm:p-8 bg-[#FFFFFF] flex flex-col justify-between hover:bg-[#F1EDE3] transition-colors">
                   <div>
-                    <div className="flex items-center justify-between pb-3 mb-5 border-b border-[#EAE5DB]">
-                      <span className="font-editorial text-3xl text-[#0E1720] font-normal">
+                    <div className="flex items-center justify-between pb-3 mb-5 border-b border-[#DED7C9]">
+                      <span className="font-editorial text-3xl text-[#17202B] font-normal">
                         {st.state}
                       </span>
-                      <span className="font-tech text-[9px] tracking-widest text-[#8E9CA8] uppercase">
+                      <span className="font-mono text-[9px] tracking-widest text-[#68717B] uppercase">
                         STAGE
                       </span>
                     </div>
 
-                    <h3 className="font-tech text-xs tracking-[0.16em] uppercase text-[#0E1720] font-bold mb-2">
+                    <h3 className="font-mono text-xs tracking-[0.16em] uppercase text-[#17202B] font-bold mb-2">
                       {st.name}
                     </h3>
 
-                    <p className="font-sans text-xs text-[#5C6975] leading-relaxed mb-6">
+                    <p className="font-sans text-xs text-[#394352] leading-relaxed mb-6">
                       {st.summary}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-[#EAE5DB]">
-                    <span className="font-tech text-[9px] text-[#8E9CA8] uppercase tracking-wider block mb-1">
+                  <div className="pt-4 border-t border-[#DED7C9]">
+                    <span className="font-mono text-[9px] text-[#68717B] uppercase tracking-wider block mb-1">
                       DELIVERABLE
                     </span>
-                    <span className="font-sans text-xs text-[#0E1720] font-medium">
+                    <span className="font-sans text-xs text-[#17202B] font-medium">
                       {st.deliverable}
                     </span>
                   </div>
@@ -121,15 +121,15 @@ export default function RailwayProof() {
             </div>
 
             {/* Bottom Details Bar */}
-            <div className="p-6 sm:p-8 bg-[#FAF8F5] border-t border-[#DCD6CA] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className="p-6 sm:p-8 bg-[#F1EDE3] border-t border-[#DED7C9] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-tech text-[10px] text-[#8E9CA8] uppercase tracking-wider mr-2 font-semibold">
+                <span className="font-mono text-[10px] text-[#68717B] uppercase tracking-wider mr-2 font-semibold">
                   CORE TECH:
                 </span>
                 {["Python", "Flask", "MySQL (Relational Core)", "Docker", "AWS"].map((tech) => (
                   <span
                     key={tech}
-                    className="font-tech text-[11px] text-[#0E1720] px-3 py-1 bg-[#FFFFFF] border border-[#DCD6CA]"
+                    className="font-mono text-[11px] text-[#17202B] px-3 py-1 bg-[#FFFFFF] border border-[#DED7C9]"
                   >
                     {tech}
                   </span>
@@ -138,7 +138,7 @@ export default function RailwayProof() {
 
               <Link
                 to="/work/railway-concession-management"
-                className="inline-flex items-center gap-2 font-tech text-xs tracking-[0.14em] uppercase text-[#0E1720] hover:text-[#B58B1E] font-semibold transition-colors"
+                className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.14em] uppercase text-[#17202B] hover:text-[#C59A3D] font-semibold transition-colors"
               >
                 <span>READ COMPLETE CASE SPECIFICATION</span>
                 <ArrowRight size={14} />

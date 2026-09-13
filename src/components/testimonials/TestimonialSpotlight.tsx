@@ -18,99 +18,119 @@ export default function TestimonialSpotlight({
   designation = "Head of Digital Infrastructure",
   company = "Western Transit & Education Consortium",
   project = "Railway Concession Management System",
-  projectSlug = "railway-concession-management-system",
+  projectSlug = "railway-concession-management",
 }: TestimonialSpotlightProps) {
   return (
     <section
       id="feedback"
       data-section="testimonials"
-      className="py-18 sm:py-22 lg:py-26 bg-[#FAF8F5] border-b border-[#DCD6CA] text-[#0E1720] select-none"
+      className="py-18 sm:py-22 lg:py-26 bg-[#F8F5EE] border-b border-[#DED7C9] text-[#17202B] select-none"
       aria-label="Client Feedback and Proof"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        {/* ========================================================================= */}
+        {/* MOBILE VIEW: Focused Editorial Testimonial (lg:hidden)                    */}
+        {/* ========================================================================= */}
+        <div className="lg:hidden space-y-5">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+            <span className="font-mono text-xs tracking-[0.2em] text-[#C59A3D] uppercase font-semibold">
+              07 // CLIENT PROOF
+            </span>
+          </div>
+
+          <blockquote className="font-editorial text-2xl sm:text-3xl text-[#17202B] leading-[1.3] font-normal">
+            &ldquo;{quote}&rdquo;
+          </blockquote>
+
+          <cite className="not-italic block pt-4 border-t border-[#DED7C9]">
+            <div className="font-mono text-sm uppercase tracking-wider text-[#17202B] font-bold">
+              {clientName}
+            </div>
+            <div className="font-sans text-xs text-[#394352] font-light mt-0.5">
+              {designation}
+            </div>
+            <div className="font-sans text-xs text-[#17202B] font-medium mt-0.5">
+              {company}
+            </div>
+
+            {projectSlug && (
+              <div className="pt-3 mt-3 border-t border-[#DED7C9]/60">
+                <Link
+                  to={`/work/${projectSlug}`}
+                  className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[#17202B] hover:text-[#C59A3D] font-semibold underline underline-offset-4 transition-colors"
+                >
+                  <span>EXPLORE CASE STUDY</span>
+                  <ArrowRight size={11} className="text-[#C59A3D]" />
+                </Link>
+              </div>
+            )}
+          </cite>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* DESKTOP VIEW: Split Editorial & Quote Layout (hidden lg:grid)             */}
+        {/* ========================================================================= */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* LEFT COLUMN: Section Tag, Editorial Header, Proof Structure */}
-          <div className="lg:col-span-5">
+          {/* LEFT COLUMN: Section Tag & Editorial Context */}
+          <div className="lg:col-span-4">
             <RevealOnScroll>
               {/* Section Tag */}
               <div className="flex items-center gap-2 mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
-                <span className="font-mono text-xs tracking-[0.2em] text-[#8C6D1F] uppercase font-semibold">
-                  PROOF & FEEDBACK
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+                <span className="font-mono text-xs tracking-[0.2em] text-[#C59A3D] uppercase font-semibold">
+                  07 // PROOF
                 </span>
               </div>
 
               {/* Section Headline */}
-              <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#0E1720] leading-[1.05] tracking-[-0.03em] mb-4.5 font-normal">
-                Built with clients, <br className="hidden sm:inline" />
+              <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#17202B] leading-[1.05] tracking-[-0.03em] mb-4 font-normal">
+                Built with clients, <br />
                 <span className="italic font-normal">not just for them.</span>
               </h2>
 
-              {/* Supporting Copy */}
-              <p className="font-sans text-base text-[#3A4753] font-light leading-relaxed mb-5.5">
-                We partner directly with operational stakeholders throughout architecture, engineering, and delivery to ensure software aligns with the work.
+              <p className="font-sans text-base text-[#394352] font-light leading-relaxed mb-6">
+                Direct partnership throughout architecture, engineering, and delivery ensures software fits the operational reality.
               </p>
 
-              {/* Verified Engagement Reference Flow */}
-              <div className="p-4 sm:p-5 bg-[#FFFFFF] border border-[#DCD6CA] space-y-2.5 font-mono text-xs shadow-[0_4px_20px_rgba(14,23,32,0.02)]">
-                <div className="text-[10px] text-[#8C6D1F] uppercase tracking-wider font-semibold pb-2 border-b border-[#EAE5DB]">
-                  ENGAGEMENT CONTEXT
-                </div>
-                <div className="flex items-start justify-between gap-4">
-                  <span className="text-[#8E9CA8] uppercase text-[11px]">PROJECT:</span>
-                  <span className="text-[#0E1720] font-medium text-right text-[11px]">{project}</span>
-                </div>
-                <div className="flex items-start justify-between gap-4">
-                  <span className="text-[#8E9CA8] uppercase text-[11px]">ORGANIZATION:</span>
-                  <span className="text-[#0E1720] font-medium text-right text-[11px]">{company}</span>
-                </div>
-                <div className="flex items-start justify-between gap-4">
-                  <span className="text-[#8E9CA8] uppercase text-[11px]">STAKEHOLDER:</span>
-                  <span className="text-[#0E1720] font-medium text-right text-[11px]">{clientName} ({designation})</span>
-                </div>
+              {/* Verified Engagement Reference */}
+              <div className="pt-4 border-t border-[#DED7C9] text-xs font-mono">
+                <span className="text-[#68717B] uppercase block text-[10px] mb-1">VERIFIED ENGAGEMENT:</span>
+                <div className="text-[#17202B] font-semibold">{project}</div>
+                <div className="text-[#68717B] text-[11px]">{company}</div>
               </div>
             </RevealOnScroll>
           </div>
 
-          {/* RIGHT COLUMN: Testimonial Quote & Case File Anchor */}
-          <div className="lg:col-span-7 lg:border-l lg:border-[#DCD6CA] lg:pl-10 xl:pl-14">
+          {/* RIGHT COLUMN: Strong Editorial Pull Quote */}
+          <div className="lg:col-span-8 lg:border-l lg:border-[#DED7C9] lg:pl-10 xl:pl-14">
             <RevealOnScroll delayMs={100}>
               
-              {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4.5 border-b border-[#EAE5DB]">
-                <span className="font-mono text-xs tracking-widest text-[#8C6D1F] uppercase font-semibold">
-                  CLIENT PERSPECTIVE
-                </span>
-                <span className="font-mono text-[10px] text-[#8E9CA8] uppercase">
-                  VERIFIED ENGAGEMENT
-                </span>
-              </div>
-
               {/* Large Editorial Quote */}
-              <blockquote className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-[#0E1720] leading-[1.28] tracking-[-0.02em] mb-6 font-normal">
+              <blockquote className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-[#17202B] leading-[1.28] tracking-[-0.02em] mb-7 font-normal">
                 &ldquo;{quote}&rdquo;
               </blockquote>
 
               {/* Client Attribution */}
-              <cite className="not-italic block pt-4.5 border-t border-[#DCD6CA]">
+              <cite className="not-italic block pt-5 border-t border-[#DED7C9]">
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
                   <div>
-                    <div className="font-mono text-sm uppercase tracking-wider text-[#0E1720] font-bold">
+                    <div className="font-mono text-sm uppercase tracking-wider text-[#17202B] font-bold">
                       {clientName}
                     </div>
-                    <div className="font-sans text-xs text-[#5C6975] font-light mt-0.5">
-                      {designation}, <span className="text-[#0E1720] font-medium">{company}</span>
+                    <div className="font-sans text-xs text-[#394352] font-light mt-0.5">
+                      {designation}, <span className="text-[#17202B] font-medium">{company}</span>
                     </div>
                   </div>
 
                   {projectSlug && (
                     <Link
                       to={`/work/${projectSlug}`}
-                      className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[#0E1720] hover:text-[#8C6D1F] font-semibold underline underline-offset-4 transition-colors shrink-0"
+                      className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[#17202B] hover:text-[#C59A3D] font-semibold underline underline-offset-4 transition-colors shrink-0"
                     >
-                      <span>EXPLORE CASE FILE</span>
-                      <ArrowRight size={11} />
+                      <span>EXPLORE CASE STUDY</span>
+                      <ArrowRight size={11} className="text-[#C59A3D]" />
                     </Link>
                   )}
                 </div>

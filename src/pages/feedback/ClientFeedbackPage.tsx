@@ -64,7 +64,7 @@ export default function ClientFeedbackPage() {
   };
 
   return (
-    <div className="pt-28 sm:pt-36 pb-24 bg-[#F4EFE6] min-h-screen select-none">
+    <div className="pt-28 sm:pt-36 pb-24 bg-[#F8F5EE] min-h-screen select-none">
       <SEOHead
         title="Client Feedback & Partnership Reviews | NEXARYA"
         description="Share your feedback on software engineering engagements with NEXARYA. Authentic client reviews and testimonials."
@@ -75,41 +75,41 @@ export default function ClientFeedbackPage() {
         <RevealOnScroll>
           <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
             <div className="flex items-center justify-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0E1720]" />
-              <span className="font-tech text-[10px] sm:text-xs tracking-[0.2em] text-[#5C6975] uppercase font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#17202B]" />
+              <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-[#394352] uppercase font-semibold">
                 PARTNERSHIP REVIEW
               </span>
             </div>
-            <h1 className="font-editorial text-2xl sm:text-4xl lg:text-5xl text-[#0E1720] mb-3 leading-snug break-words">
+            <h1 className="font-editorial text-2xl sm:text-4xl lg:text-5xl text-[#17202B] mb-3 leading-snug break-words">
               Client Feedback & Experience
             </h1>
-            <p className="font-sans text-xs sm:text-sm text-[#5C6975] font-light leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-[#394352] font-light leading-relaxed">
               We value direct engineering feedback. Your perspective helps us maintain architectural excellence and informs future partners about our delivery standards.
             </p>
           </div>
         </RevealOnScroll>
 
         {/* Feedback Form Card */}
-        <div className="w-full bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_12px_40px_rgba(14,23,32,0.06)] p-5 sm:p-10 relative">
+        <div className="w-full bg-[#FFFFFF] border border-[#DED7C9] shadow-[0_12px_40px_rgba(14,23,32,0.06)] p-5 sm:p-10 relative">
           {submittedRef ? (
             <div className="text-center py-10 space-y-6">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#FAF8F5] border border-[#0E1720] flex items-center justify-center mx-auto text-[#0E1720] text-2xl font-bold">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#F1EDE3] border border-[#17202B] flex items-center justify-center mx-auto text-[#17202B] text-2xl font-bold">
                 ✓
               </div>
 
-              <h2 className="font-editorial text-2xl sm:text-4xl text-[#0E1720] leading-tight">
+              <h2 className="font-editorial text-2xl sm:text-4xl text-[#17202B] leading-tight">
                 Thank you. Your feedback has been received.
               </h2>
 
-              <p className="font-sans text-xs sm:text-sm text-[#5C6975] max-w-md mx-auto leading-relaxed font-light">
+              <p className="font-sans text-xs sm:text-sm text-[#394352] max-w-md mx-auto leading-relaxed font-light">
                 Your partnership review has been queued for editorial review and verification. We deeply appreciate your collaboration with NEXARYA.
               </p>
 
-              <div className="p-5 sm:p-6 bg-[#FAF8F5] border border-[#DCD6CA] max-w-md mx-auto">
-                <div className="font-tech text-[10px] tracking-[0.2em] text-[#5C6975] uppercase font-semibold">
+              <div className="p-5 sm:p-6 bg-[#F1EDE3] border border-[#DED7C9] max-w-md mx-auto">
+                <div className="font-mono text-[10px] tracking-[0.2em] text-[#394352] uppercase font-semibold">
                   SUBMISSION REFERENCE
                 </div>
-                <div className="font-tech text-xl sm:text-2xl font-bold text-[#0E1720] mt-1 tracking-wider">
+                <div className="font-mono text-xl sm:text-2xl font-bold text-[#17202B] mt-1 tracking-wider">
                   {submittedRef}
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function ClientFeedbackPage() {
               {/* Name & Company */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="w-full">
-                  <label className="block font-tech text-[10px] tracking-[0.16em] text-[#5C6975] uppercase mb-2 font-semibold">
+                  <label className="block font-mono text-[10px] tracking-[0.16em] text-[#68717B] uppercase mb-2 font-semibold">
                     Your Full Name *
                   </label>
                   <input
@@ -150,12 +150,12 @@ export default function ClientFeedbackPage() {
                     value={formData.name}
                     onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
                     placeholder="Rajesh Sharma"
-                    className="w-full p-3 bg-[#FAF8F5] border border-[#DCD6CA] text-xs sm:text-sm text-[#0E1720] placeholder-[#8E9CA8] focus:outline-none focus:border-[#0E1720] box-border"
+                    className="w-full p-3 bg-[#F1EDE3] border border-[#DED7C9] text-xs sm:text-sm text-[#17202B] placeholder-[#68717B] focus:outline-none focus:border-[#17202B] box-border"
                   />
                 </div>
 
                 <div className="w-full">
-                  <label className="block font-tech text-[10px] tracking-[0.16em] text-[#5C6975] uppercase mb-2 font-semibold">
+                  <label className="block font-mono text-[10px] tracking-[0.16em] text-[#68717B] uppercase mb-2 font-semibold">
                     Company / Organization *
                   </label>
                   <input
@@ -164,7 +164,7 @@ export default function ClientFeedbackPage() {
                     value={formData.company}
                     onChange={(e) => setFormData((prev) => ({ ...prev, company: e.target.value }))}
                     placeholder="Western Transit Consortium"
-                    className="w-full p-3 bg-[#FAF8F5] border border-[#DCD6CA] text-xs sm:text-sm text-[#0E1720] placeholder-[#8E9CA8] focus:outline-none focus:border-[#0E1720] box-border"
+                    className="w-full p-3 bg-[#F1EDE3] border border-[#DED7C9] text-xs sm:text-sm text-[#17202B] placeholder-[#68717B] focus:outline-none focus:border-[#17202B] box-border"
                   />
                 </div>
               </div>
@@ -172,7 +172,7 @@ export default function ClientFeedbackPage() {
               {/* Role & Project */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="w-full">
-                  <label className="block font-tech text-[10px] tracking-[0.16em] text-[#5C6975] uppercase mb-2 font-semibold">
+                  <label className="block font-mono text-[10px] tracking-[0.16em] text-[#68717B] uppercase mb-2 font-semibold">
                     Your Role / Title
                   </label>
                   <input
@@ -180,12 +180,12 @@ export default function ClientFeedbackPage() {
                     value={formData.role}
                     onChange={(e) => setFormData((prev) => ({ ...prev, role: e.target.value }))}
                     placeholder="Head of Digital Infrastructure"
-                    className="w-full p-3 bg-[#FAF8F5] border border-[#DCD6CA] text-xs sm:text-sm text-[#0E1720] placeholder-[#8E9CA8] focus:outline-none focus:border-[#0E1720] box-border"
+                    className="w-full p-3 bg-[#F1EDE3] border border-[#DED7C9] text-xs sm:text-sm text-[#17202B] placeholder-[#68717B] focus:outline-none focus:border-[#17202B] box-border"
                   />
                 </div>
 
                 <div className="w-full">
-                  <label className="block font-tech text-[10px] tracking-[0.16em] text-[#5C6975] uppercase mb-2 font-semibold">
+                  <label className="block font-mono text-[10px] tracking-[0.16em] text-[#68717B] uppercase mb-2 font-semibold">
                     Project / Engagement Name
                   </label>
                   <input
@@ -193,14 +193,14 @@ export default function ClientFeedbackPage() {
                     value={formData.project}
                     onChange={(e) => setFormData((prev) => ({ ...prev, project: e.target.value }))}
                     placeholder="Railway Concession Management System"
-                    className="w-full p-3 bg-[#FAF8F5] border border-[#DCD6CA] text-xs sm:text-sm text-[#0E1720] placeholder-[#8E9CA8] focus:outline-none focus:border-[#0E1720] box-border"
+                    className="w-full p-3 bg-[#F1EDE3] border border-[#DED7C9] text-xs sm:text-sm text-[#17202B] placeholder-[#68717B] focus:outline-none focus:border-[#17202B] box-border"
                   />
                 </div>
               </div>
 
               {/* Star Rating */}
               <div className="w-full">
-                <label className="block font-tech text-[10px] tracking-[0.16em] text-[#5C6975] uppercase mb-2 font-semibold">
+                <label className="block font-mono text-[10px] tracking-[0.16em] text-[#68717B] uppercase mb-2 font-semibold">
                   Overall Rating
                 </label>
                 <div className="flex items-center gap-1.5 sm:gap-2">
@@ -211,14 +211,14 @@ export default function ClientFeedbackPage() {
                       onClick={() => setFormData((prev) => ({ ...prev, rating: star }))}
                       className={`p-1.5 sm:p-2 border transition-colors cursor-pointer ${
                         formData.rating >= star
-                          ? "border-[#0E1720] bg-[#FAF8F5] text-[#0E1720]"
-                          : "border-[#DCD6CA] bg-[#FFFFFF] text-[#8E9CA8]"
+                          ? "border-[#17202B] bg-[#F1EDE3] text-[#17202B]"
+                          : "border-[#DED7C9] bg-[#FFFFFF] text-[#68717B]"
                       }`}
                     >
-                      <StarIcon size={16} fill={formData.rating >= star ? "#0E1720" : "none"} />
+                      <StarIcon size={16} fill={formData.rating >= star ? "#17202B" : "none"} />
                     </button>
                   ))}
-                  <span className="font-tech text-[11px] sm:text-xs text-[#5C6975] ml-2 font-semibold">
+                  <span className="font-mono text-[11px] sm:text-xs text-[#394352] ml-2 font-semibold">
                     {formData.rating} / 5 Stars
                   </span>
                 </div>
@@ -226,7 +226,7 @@ export default function ClientFeedbackPage() {
 
               {/* Feedback Statement / Quote */}
               <div className="w-full">
-                <label className="block font-tech text-[10px] tracking-[0.16em] text-[#5C6975] uppercase mb-2 font-semibold">
+                <label className="block font-mono text-[10px] tracking-[0.16em] text-[#68717B] uppercase mb-2 font-semibold">
                   Feedback & Engineering Experience *
                 </label>
                 <textarea
@@ -235,13 +235,13 @@ export default function ClientFeedbackPage() {
                   value={formData.quote}
                   onChange={(e) => setFormData((prev) => ({ ...prev, quote: e.target.value }))}
                   placeholder="Share details about the system engineered, technical delivery, reliability, and team communication..."
-                  className="w-full p-3.5 sm:p-4 bg-[#FAF8F5] border border-[#DCD6CA] text-xs sm:text-sm text-[#0E1720] placeholder-[#8E9CA8] focus:outline-none focus:border-[#0E1720] box-border"
+                  className="w-full p-3.5 sm:p-4 bg-[#F1EDE3] border border-[#DED7C9] text-xs sm:text-sm text-[#17202B] placeholder-[#68717B] focus:outline-none focus:border-[#17202B] box-border"
                 />
               </div>
 
               {/* Optional Recommendation */}
               <div className="w-full">
-                <label className="block font-tech text-[10px] tracking-[0.16em] text-[#5C6975] uppercase mb-2 font-semibold">
+                <label className="block font-mono text-[10px] tracking-[0.16em] text-[#68717B] uppercase mb-2 font-semibold">
                   Recommendation Note (Optional)
                 </label>
                 <input
@@ -249,13 +249,13 @@ export default function ClientFeedbackPage() {
                   value={formData.recommendation}
                   onChange={(e) => setFormData((prev) => ({ ...prev, recommendation: e.target.value }))}
                   placeholder="e.g. Highly recommended for enterprise platforms."
-                  className="w-full p-3 bg-[#FAF8F5] border border-[#DCD6CA] text-xs sm:text-sm text-[#0E1720] placeholder-[#8E9CA8] focus:outline-none focus:border-[#0E1720] box-border"
+                  className="w-full p-3 bg-[#F1EDE3] border border-[#DED7C9] text-xs sm:text-sm text-[#17202B] placeholder-[#68717B] focus:outline-none focus:border-[#17202B] box-border"
                 />
               </div>
 
               {/* Explicit Consents */}
-              <div className="w-full p-4 bg-[#FAF8F5] border border-[#DCD6CA] space-y-3 box-border">
-                <div className="font-tech text-[10px] tracking-[0.18em] text-[#0E1720] uppercase font-bold">
+              <div className="w-full p-4 bg-[#F1EDE3] border border-[#DED7C9] space-y-3 box-border">
+                <div className="font-mono text-[10px] tracking-[0.18em] text-[#17202B] uppercase font-bold">
                   PUBLICATION PERMISSIONS
                 </div>
 
@@ -264,9 +264,9 @@ export default function ClientFeedbackPage() {
                     type="checkbox"
                     checked={formData.consent_website}
                     onChange={(e) => setFormData((prev) => ({ ...prev, consent_website: e.target.checked }))}
-                    className="mt-0.5 accent-[#0E1720] shrink-0"
+                    className="mt-0.5 accent-[#17202B] shrink-0"
                   />
-                  <span className="font-sans text-[11px] sm:text-xs text-[#5C6975] leading-relaxed">
+                  <span className="font-sans text-[11px] sm:text-xs text-[#394352] leading-relaxed">
                     I agree to publish my feedback on the NEXARYA website.
                   </span>
                 </label>
@@ -276,9 +276,9 @@ export default function ClientFeedbackPage() {
                     type="checkbox"
                     checked={formData.consent_social}
                     onChange={(e) => setFormData((prev) => ({ ...prev, consent_social: e.target.checked }))}
-                    className="mt-0.5 accent-[#0E1720] shrink-0"
+                    className="mt-0.5 accent-[#17202B] shrink-0"
                   />
-                  <span className="font-sans text-[11px] sm:text-xs text-[#5C6975] leading-relaxed">
+                  <span className="font-sans text-[11px] sm:text-xs text-[#394352] leading-relaxed">
                     I agree to use my feedback for NEXARYA social media.
                   </span>
                 </label>
@@ -289,7 +289,7 @@ export default function ClientFeedbackPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#0E1720] hover:bg-[#1A2530] text-[#FFFFFF] font-tech text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-200 cursor-pointer disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#0F1725] hover:bg-[#141F30] text-[#F7F5EF] font-mono text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-200 cursor-pointer disabled:opacity-50"
                 >
                   <span>{loading ? "Submitting Review..." : "Submit Client Feedback"}</span>
                   <ArrowRight size={14} />

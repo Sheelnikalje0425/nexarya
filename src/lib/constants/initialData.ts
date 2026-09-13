@@ -50,7 +50,7 @@ export const INITIAL_SERVICES = [
     ],
     tech_stack: ["Python", "LangChain", "OpenAI", "PyTorch", "FastAPI", "Redis"],
     faq: [
-      { q: "How do you protect proprietary corporate data?", a: "All pipelines use enterprise API agreements with zero model training retention or on-premise open weights." }
+      { q: "How do you protect proprietary corporate data?", a: "All pipelines use private APIs with strict data privacy terms or self-hosted open-weight models." }
     ],
     sort_order: 2,
   },
@@ -360,12 +360,12 @@ Artificial intelligence creates immense leverage when applied to specific, high-
 Always validate inputs with deterministic schemas before invoking probabilistic model inference. Use structured output constraints and enforce strict fallback handlers.
 
 ### 2. Privacy & Data Boundaries
-Enterprise applications must ensure zero third-party model training on user payloads and maintain auditable logs of all AI-assisted actions.
+Enterprise applications must enforce strict data boundaries and maintain auditable logs of all AI-assisted actions.
 
 ### 3. Measurable Impact
 If an automated workflow doesn't demonstrably reduce cycle time or error rates, simpler code is usually the superior engineering choice.`,
     cover_image: "/hero/hero-orbital-clean.png",
-    author: "Nexarya AI Research Group",
+    author: "Nexarya Engineering Team",
     category: "AI & Automation",
     tags: ["AI", "Automation", "Enterprise", "Machine Learning"],
     status: "PUBLISHED",

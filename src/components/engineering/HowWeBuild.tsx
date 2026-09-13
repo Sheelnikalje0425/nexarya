@@ -119,22 +119,22 @@ export default function HowWeBuild() {
   const [activeTab, setActiveTab] = useState<CodeTab>("rbac");
 
   return (
-    <section id="engineering" className="py-24 sm:py-32 bg-[#0B131B] text-[#F2EFE7] select-none border-b border-white/10">
+    <section id="engineering" className="py-24 sm:py-32 bg-[#08101B] text-[#F8F5EE] select-none border-b border-[#243247]">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <RevealOnScroll>
           <div className="max-w-3xl mb-14 sm:mb-18">
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D4A72C]" />
-              <span className="font-tech text-xs tracking-[0.2em] text-[#D4A72C] uppercase font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+              <span className="font-tech text-xs tracking-[0.2em] text-[#C59A3D] uppercase font-medium">
                 ENGINEERING EVIDENCE
               </span>
             </div>
-            <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#F2EFE7] leading-[1.06] tracking-[-0.025em] mb-4">
+            <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#F8F5EE] leading-[1.06] tracking-[-0.025em] mb-4">
               The details matter.
             </h2>
-            <p className="font-sans text-sm sm:text-base text-[#8E9CA8] font-light leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-[#89929B] font-light leading-relaxed">
               Real software is defined by what happens beneath the interface: deterministic validation, cryptographic verification, and transactional consistency.
             </p>
           </div>
@@ -153,22 +153,22 @@ export default function HowWeBuild() {
                   onClick={() => setActiveTab(pt.tab)}
                   className={`w-full text-left p-5 transition-all cursor-pointer border ${
                     isSelected
-                      ? "bg-[#16222E] border-[#D4A72C]/50 shadow-md"
-                      : "bg-[#0F1A24] border-white/5 hover:border-white/15"
+                      ? "bg-[#141F30] border-[#C59A3D]/50 shadow-md"
+                      : "bg-[#0F1725] border-[#243247] hover:border-white/15"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="font-tech text-[10px] tracking-[0.16em] uppercase text-[#D4A72C] font-semibold">
+                    <span className="font-tech text-[10px] tracking-[0.16em] uppercase text-[#C59A3D] font-semibold">
                       {pt.tag}
                     </span>
                     {isSelected && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4A72C]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
                     )}
                   </div>
-                  <h3 className="font-sans text-sm font-semibold text-[#F2EFE7] mb-1">
+                  <h3 className="font-sans text-sm font-semibold text-[#F8F5EE] mb-1">
                     {pt.title}
                   </h3>
-                  <p className="font-sans text-xs text-[#8E9CA8] leading-relaxed">
+                  <p className="font-sans text-xs text-[#89929B] leading-relaxed">
                     {pt.desc}
                   </p>
                 </button>
@@ -179,15 +179,15 @@ export default function HowWeBuild() {
           {/* Right Column: Code Terminal */}
           <div className="lg:col-span-7">
             <RevealOnScroll delayMs={60}>
-              <div className="bg-[#070D13] border border-white/15 rounded-xs overflow-hidden shadow-2xl">
+              <div className="bg-[#08101B] border border-[#243247] rounded-xs overflow-hidden shadow-2xl">
                 
                 {/* Code Header Bar */}
-                <div className="flex items-center justify-between px-4 py-3 bg-[#0F1A24] border-b border-white/10">
+                <div className="flex items-center justify-between px-4 py-3 bg-[#0F1725] border-b border-[#243247]">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
                     <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
                     <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-                    <span className="font-tech text-xs text-[#8E9CA8] ml-2">
+                    <span className="font-tech text-xs text-[#89929B] ml-2">
                       {activeTab === "rbac"
                         ? "auth.ts"
                         : activeTab === "hmac"
@@ -198,7 +198,7 @@ export default function HowWeBuild() {
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 font-tech text-[10px] text-[#8E9CA8]">
+                  <div className="flex items-center gap-2 font-tech text-[10px] text-[#89929B]">
                     <span>TypeScript 5.7</span>
                     <span>•</span>
                     <span>Node.js / Express</span>
@@ -206,14 +206,14 @@ export default function HowWeBuild() {
                 </div>
 
                 {/* Actual Code Display */}
-                <div className="p-5 sm:p-6 overflow-x-auto bg-[#03070B]">
-                  <pre className="font-tech text-xs sm:text-[12.5px] text-[#D4A72C] leading-relaxed">
+                <div className="p-5 sm:p-6 overflow-x-auto bg-[#08101B]">
+                  <pre className="font-tech text-xs sm:text-[12.5px] text-[#C59A3D] leading-relaxed">
                     <code>{CODE_EXCERPTS[activeTab]}</code>
                   </pre>
                 </div>
 
                 {/* Footer Status */}
-                <div className="px-4 py-2.5 bg-[#0F1A24] border-t border-white/10 flex items-center justify-between text-[10px] font-tech text-[#8E9CA8]">
+                <div className="px-4 py-2.5 bg-[#0F1725] border-t border-[#243247] flex items-center justify-between text-[10px] font-tech text-[#89929B]">
                   <span>SOURCE: server/src/</span>
                   <span className="text-emerald-400">PRODUCTION CODE VERIFIED ✔</span>
                 </div>

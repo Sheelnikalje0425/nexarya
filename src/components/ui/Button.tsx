@@ -20,7 +20,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "group inline-flex items-center justify-center font-tech transition-all duration-200 select-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#0E1720]/40";
+    "group inline-flex items-center justify-center font-mono transition-all duration-200 select-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#C59A3D]/40";
 
   const sizeStyles = {
     sm: "text-[11px] px-3.5 py-1.5 gap-2 tracking-[0.08em]",
@@ -30,17 +30,17 @@ export default function Button({
 
   const variantStyles = {
     primary:
-      "bg-[#0E1720] hover:bg-[#1A2530] text-[#FFFFFF] font-medium border border-[#0E1720] shadow-sm",
+      "bg-[#C59A3D] hover:bg-[#E0BD68] text-[#08101B] font-semibold border border-[#C59A3D] shadow-sm",
     secondary:
-      "bg-[#FFFFFF] hover:bg-[#F4EFE6] text-[#0E1720] hover:text-[#0E1720] border border-[#DCD6CA] hover:border-[#0E1720] shadow-2xs",
+      "bg-transparent hover:bg-[#0F1725] text-[#F7F5EF] border border-[#243247] hover:border-[#34445B] shadow-2xs",
     gold:
-      "bg-[#D4A72C] hover:bg-[#C09420] text-[#0E1720] font-semibold border border-[#D4A72C] shadow-sm",
+      "bg-[#C59A3D] hover:bg-[#E0BD68] text-[#08101B] font-semibold border border-[#C59A3D] shadow-sm",
     outline:
-      "bg-transparent text-[#0E1720] hover:text-[#0E1720] border border-[#DCD6CA] hover:border-[#0E1720] hover:bg-[#FFFFFF]/60",
+      "bg-[#FFFFFF] hover:bg-[#F1EDE3] text-[#17202B] border border-[#DED7C9] hover:border-[#17202B] shadow-xs",
     ghost:
-      "bg-transparent hover:bg-[#0E1720]/5 text-[#3A4753] hover:text-[#0E1720] border border-transparent",
+      "bg-transparent hover:bg-black/5 text-[#68717B] hover:text-[#17202B] border border-transparent",
     dark:
-      "bg-[#16222E] hover:bg-[#1E2E3E] text-[#F2EFE7] border border-white/10 hover:border-white/25",
+      "bg-[#0F1725] hover:bg-[#141F30] text-[#F7F5EF] border border-[#243247] hover:border-[#C59A3D]/50",
   };
 
   const combinedStyles = cn(
@@ -58,7 +58,7 @@ export default function Button({
           size={13}
           className={cn(
             "transition-transform duration-200 group-hover:translate-x-1 shrink-0",
-            variant === "primary" ? "text-[#D4A72C]" : variant === "gold" ? "text-[#0E1720]" : "text-[#5C6975]"
+            variant === "primary" || variant === "gold" ? "text-[#08101B]" : "text-[#C59A3D]"
           )}
         />
       )}

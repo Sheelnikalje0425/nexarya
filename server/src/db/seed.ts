@@ -6,16 +6,7 @@ export function seedDatabase() {
 
   const now = new Date().toISOString();
 
-  // 1. Seed 4 Admin Users with RBAC
-  const defaultPassword = process.env.ADMIN_DEFAULT_PASSWORD;
-  if (!defaultPassword) {
-    if (process.env.NODE_ENV === "production") {
-      throw new Error("FATAL: ADMIN_DEFAULT_PASSWORD environment variable is required to initialize administrative accounts in production.");
-    }
-  }
-  const passwordToHash = defaultPassword || "dev_admin_local_only_password";
-  const passwordHash = bcrypt.hashSync(passwordToHash, 10);
-
+  // 1. Seed 4 Admin Users with RBAC (Guarded: Never overwrite existing users/passwords)
   const adminUsers = [
     {
       id: "usr_superadmin",
@@ -43,16 +34,33 @@ export function seedDatabase() {
     },
   ];
 
+  const checkUserExists = db.prepare(`SELECT id FROM users WHERE id = ? OR email = ?`);
   const insertUser = db.prepare(`
-    INSERT OR REPLACE INTO users (id, email, password_hash, name, role, is_active, created_at, updated_at)
+    INSERT INTO users (id, email, password_hash, name, role, is_active, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, 1, ?, ?)
   `);
 
+  const userCount = (db.prepare("SELECT COUNT(*) as count FROM users").get() as any)?.count || 0;
+  
+  // Only calculate hash if at least one admin needs to be created
+  let passwordHash: string | null = null;
+
   for (const u of adminUsers) {
-    insertUser.run(u.id, u.email, passwordHash, u.name, u.role, now, now);
+    const existing = checkUserExists.get(u.id, u.email);
+    if (!existing) {
+      if (!passwordHash) {
+        const defaultPassword = process.env.ADMIN_DEFAULT_PASSWORD;
+        if (!defaultPassword && process.env.NODE_ENV === "production" && userCount === 0) {
+          throw new Error("FATAL: ADMIN_DEFAULT_PASSWORD environment variable is required to initialize administrative accounts in production.");
+        }
+        const passwordToHash = defaultPassword || "dev_admin_local_only_password";
+        passwordHash = bcrypt.hashSync(passwordToHash, 10);
+      }
+      insertUser.run(u.id, u.email, passwordHash, u.name, u.role, now, now);
+    }
   }
 
-  // 2. Seed 8 Solutions / Services
+  // 2. Seed 8 Solutions / Services (Safe Insert: Preserves admin updates)
   const services = [
     {
       id: "srv_01",
@@ -266,7 +274,7 @@ export function seedDatabase() {
   ];
 
   const insertService = db.prepare(`
-    INSERT OR REPLACE INTO services (id, slug, number, title, short_desc, full_desc, capabilities, workflow, tech_stack, faq, sort_order, published, created_at, updated_at)
+    INSERT OR IGNORE INTO services (id, slug, number, title, short_desc, full_desc, capabilities, workflow, tech_stack, faq, sort_order, published, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
   `);
 
@@ -288,7 +296,7 @@ export function seedDatabase() {
     );
   }
 
-  // 3. Seed 2 Genuine Case Studies
+  // 3. Seed 2 Genuine Case Studies (Safe Insert)
   const caseStudies = [
     {
       id: "cs_railway",
@@ -335,7 +343,7 @@ export function seedDatabase() {
   ];
 
   const insertCaseStudy = db.prepare(`
-    INSERT OR REPLACE INTO case_studies (id, slug, title, category, client_type, overview, challenge, solution, architecture, features, technologies, image, sort_order, published, created_at, updated_at)
+    INSERT OR IGNORE INTO case_studies (id, slug, title, category, client_type, overview, challenge, solution, architecture, features, technologies, image, sort_order, published, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
   `);
 
@@ -359,7 +367,7 @@ export function seedDatabase() {
     );
   }
 
-  // 4. Seed 3 Pricing / Engagement Models
+  // 4. Seed 3 Pricing / Engagement Models (Safe Insert)
   const pricingPlans = [
     {
       id: "plan_fixed_scope",
@@ -421,7 +429,7 @@ export function seedDatabase() {
   ];
 
   const insertPricing = db.prepare(`
-    INSERT OR REPLACE INTO pricing_plans (id, name, slug, description, price, currency, billing_type, features, featured, published, sort_order, created_at, updated_at)
+    INSERT OR IGNORE INTO pricing_plans (id, name, slug, description, price, currency, billing_type, features, featured, published, sort_order, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)
   `);
 
@@ -442,7 +450,7 @@ export function seedDatabase() {
     );
   }
 
-  // 5. Seed 2 Real Insights Articles
+  // 5. Seed 2 Real Insights Articles (Safe Insert)
   const articles = [
     {
       id: "art_01",
@@ -486,12 +494,12 @@ Artificial intelligence creates immense leverage when applied to specific, high-
 Always validate inputs with deterministic schemas before invoking probabilistic model inference. Use structured output constraints and enforce strict fallback handlers.
 
 ### 2. Privacy & Data Boundaries
-Enterprise applications must ensure zero third-party model training on user payloads and maintain auditable logs of all AI-assisted actions.
+Enterprise applications must enforce private APIs with strict data privacy terms or self-hosted models, and maintain auditable logs of all AI-assisted actions.
 
 ### 3. Measurable Impact
 If an automated workflow doesn't demonstrably reduce cycle time or error rates, simpler code is usually the superior engineering choice.`,
       cover_image: "/hero/hero-orbital-clean.png",
-      author: "Nexarya AI Research Group",
+      author: "Nexarya Engineering Team",
       category: "AI & Automation",
       tags: JSON.stringify(["AI", "Automation", "Enterprise", "Machine Learning"]),
       status: "PUBLISHED",
@@ -502,7 +510,7 @@ If an automated workflow doesn't demonstrably reduce cycle time or error rates, 
   ];
 
   const insertArticle = db.prepare(`
-    INSERT OR REPLACE INTO articles (id, slug, title, excerpt, content, cover_image, author, category, tags, status, published_at, seo_title, seo_description, created_at, updated_at)
+    INSERT OR IGNORE INTO articles (id, slug, title, excerpt, content, cover_image, author, category, tags, status, published_at, seo_title, seo_description, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
@@ -526,9 +534,9 @@ If an automated workflow doesn't demonstrably reduce cycle time or error rates, 
     );
   }
 
-  // 6. Seed ONE Authentic Client Testimonial
+  // 6. Seed ONE Authentic Client Testimonial (Safe Insert)
   const insertTestimonial = db.prepare(`
-    INSERT OR REPLACE INTO testimonials (id, reference_id, client_name, designation, company, project, rating, quote, recommendation, consent_website, consent_social, status, published, featured, sort_order, published_at, created_at, updated_at)
+    INSERT OR IGNORE INTO testimonials (id, reference_id, client_name, designation, company, project, rating, quote, recommendation, consent_website, consent_social, status, published, featured, sort_order, published_at, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1, 'APPROVED', 1, 1, 1, ?, ?, ?)
   `);
 
@@ -540,14 +548,14 @@ If an automated workflow doesn't demonstrably reduce cycle time or error rates, 
     "Western Transit & Education Consortium",
     "Railway Concession Management System",
     5,
-    "Nexarya took our fragmented, manual concession approval processes and engineered a reliable, role-governed platform. Their architectural discipline and clear milestone delivery made a complex institutional rollout seamless.",
+    "Nexarya took our fragmented, manual concession approval processes and engineered a reliable, role-governed platform. Their architectural discipline and milestone delivery made a complex institutional rollout predictable and verifiable.",
     "Highly recommended for enterprises that need rock-solid, purpose-built software.",
     now,
     now,
     now
   );
 
-  // 7. Seed Platform Settings
+  // 7. Seed Platform Settings (Safe Insert)
   const settings = [
     { key: "SITE_NAME", value: "NEXARYA", description: "Official Platform Brand" },
     { key: "TAGLINE", value: "BEYOND BUILD", description: "Brand Tagline" },
@@ -558,7 +566,7 @@ If an automated workflow doesn't demonstrably reduce cycle time or error rates, 
   ];
 
   const insertSetting = db.prepare(`
-    INSERT OR REPLACE INTO settings (key, value, description, updated_at)
+    INSERT OR IGNORE INTO settings (key, value, description, updated_at)
     VALUES (?, ?, ?, ?)
   `);
 
@@ -566,7 +574,7 @@ If an automated workflow doesn't demonstrably reduce cycle time or error rates, 
     insertSetting.run(s.key, s.value, s.description, now);
   }
 
-  console.log("Database seeded successfully with 4 Admin Roles, 8 Services, 2 Case Studies, 3 Pricing Plans, 1 Authentic Testimonial, and Settings.");
+  console.log("Database initialized safely (existing users and records preserved).");
 }
 
 // Execute seed if run directly

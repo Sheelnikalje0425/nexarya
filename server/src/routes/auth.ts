@@ -3,13 +3,14 @@ import bcrypt from "bcryptjs";
 import { db } from "../db/index";
 import { generateToken, requireAuth } from "../middleware/auth";
 import { recordAuditLog } from "../services/audit";
+import { authRateLimiter } from "../middleware/rateLimit";
 
 const router = Router();
 
-// Rate limiting state for brute force protection
+// Rate limiting state for brute force protection (per-email lockout)
 const loginAttempts = new Map<string, { count: number; lockedUntil: number }>();
 
-router.post("/login", (req: Request, res: Response) => {
+router.post("/login", authRateLimiter, (req: Request, res: Response) => {
   const { email, password } = req.body;
   const ip = req.ip || req.socket.remoteAddress || "unknown";
 

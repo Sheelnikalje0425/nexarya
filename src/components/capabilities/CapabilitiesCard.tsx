@@ -21,21 +21,21 @@ export default function CapabilitiesCard({ capability }: CapabilitiesCardProps) 
   const renderIcon = (icon: string) => {
     switch (icon) {
       case "code":
-        return <CodeIcon size={18} className="text-[#D4A72C] group-hover:text-[#F0C75E] transition-colors duration-300" />;
+        return <CodeIcon size={18} className="text-[#C59A3D] group-hover:text-[#E0BD68] transition-colors duration-300" />;
       case "ai":
-        return <AiBurstIcon size={18} className="text-[#D4A72C] group-hover:text-[#F0C75E] transition-colors duration-300" />;
+        return <AiBurstIcon size={18} className="text-[#C59A3D] group-hover:text-[#E0BD68] transition-colors duration-300" />;
       case "cube":
-        return <CubeIcon size={18} className="text-[#D4A72C] group-hover:text-[#F0C75E] transition-colors duration-300" />;
+        return <CubeIcon size={18} className="text-[#C59A3D] group-hover:text-[#E0BD68] transition-colors duration-300" />;
       case "globe":
-        return <GlobeIcon size={18} className="text-[#D4A72C] group-hover:text-[#F0C75E] transition-colors duration-300" />;
+        return <GlobeIcon size={18} className="text-[#C59A3D] group-hover:text-[#E0BD68] transition-colors duration-300" />;
       case "grid":
-        return <GridIcon size={18} className="text-[#D4A72C] group-hover:text-[#F0C75E] transition-colors duration-300" />;
+        return <GridIcon size={18} className="text-[#C59A3D] group-hover:text-[#E0BD68] transition-colors duration-300" />;
       case "cloud":
-        return <CloudIcon size={18} className="text-[#D4A72C] group-hover:text-[#F0C75E] transition-colors duration-300" />;
+        return <CloudIcon size={18} className="text-[#C59A3D] group-hover:text-[#E0BD68] transition-colors duration-300" />;
       case "shield":
-        return <ShieldIcon size={18} className="text-[#D4A72C] group-hover:text-[#F0C75E] transition-colors duration-300" />;
+        return <ShieldIcon size={18} className="text-[#C59A3D] group-hover:text-[#E0BD68] transition-colors duration-300" />;
       case "link":
-        return <LinkIcon size={18} className="text-[#D4A72C] group-hover:text-[#F0C75E] transition-colors duration-300" />;
+        return <LinkIcon size={18} className="text-[#C59A3D] group-hover:text-[#E0BD68] transition-colors duration-300" />;
       default:
         return null;
     }
@@ -44,34 +44,34 @@ export default function CapabilitiesCard({ capability }: CapabilitiesCardProps) 
   return (
     <Link
       to={`/solutions/${capability.slug}`}
-      className="group relative flex flex-col justify-between p-6 sm:p-7 bg-[#070D12]/95 hover:bg-[#0A1117] transition-all duration-300 select-none w-full block border-transparent hover:border-[#D4A72C]/30 focus:outline-none"
+      className="group relative flex flex-col justify-between p-6 sm:p-7 bg-[#0F1725] hover:bg-[#141F30] border border-[#243247] hover:border-[#C59A3D]/40 transition-all duration-300 select-none w-full block focus:outline-none"
     >
       {/* Top Header: Number and Icon */}
       <div>
         <div className="flex items-center justify-between mb-5 sm:mb-6 w-full">
-          <span className="font-tech text-xs tracking-[0.2em] text-[#D4A72C] font-medium group-hover:translate-x-0.5 transition-transform duration-200">
+          <span className="font-mono text-xs tracking-[0.2em] text-[#C59A3D] font-medium group-hover:translate-x-0.5 transition-transform duration-200">
             {capability.number}
           </span>
-          <div className="p-1.5 rounded bg-white/[0.04] border border-white/10 group-hover:border-[#D4A72C]/40 group-hover:bg-[#D4A72C]/10 transition-colors duration-300 flex items-center justify-center shrink-0">
+          <div className="p-1.5 rounded bg-white/[0.04] border border-white/10 group-hover:border-[#C59A3D]/40 group-hover:bg-[#C59A3D]/10 transition-colors duration-300 flex items-center justify-center shrink-0">
             {renderIcon(capability.icon)}
           </div>
         </div>
 
         {/* Capability Title */}
-        <h3 className="font-editorial text-xl sm:text-2xl text-[#F2EFE7] group-hover:text-[#F0C75E] transition-colors duration-300 leading-snug mb-2 sm:mb-3">
+        <h3 className="font-editorial text-xl sm:text-2xl text-[#F7F5EF] group-hover:text-[#E0BD68] transition-colors duration-300 leading-snug mb-2 sm:mb-3">
           {capability.title}
         </h3>
       </div>
 
       {/* Description & Footer Arrow */}
       <div>
-        <p className="font-sans text-xs sm:text-[13px] text-[#A7A9A8] group-hover:text-[#d0d3d2] leading-relaxed font-light mt-2 mb-4">
+        <p className="font-sans text-xs sm:text-[13px] text-[#B9C0C9] group-hover:text-[#F7F5EF] leading-relaxed font-light mt-2 mb-4">
           {capability.description}
         </p>
 
-        <div className="flex items-center gap-1.5 font-tech text-[10px] text-[#6F7475] group-hover:text-[#D4A72C] transition-colors duration-200 uppercase tracking-wider pt-2 border-t border-white/5">
+        <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#7F8A99] group-hover:text-[#C59A3D] transition-colors duration-200 uppercase tracking-wider pt-2 border-t border-[#243247]">
           <span>Explore Spec</span>
-          <ArrowRight size={12} className="text-[#D4A72C] transition-transform duration-200 group-hover:translate-x-1" />
+          <ArrowRight size={12} className="text-[#C59A3D] transition-transform duration-200 group-hover:translate-x-1" />
         </div>
       </div>
     </Link>

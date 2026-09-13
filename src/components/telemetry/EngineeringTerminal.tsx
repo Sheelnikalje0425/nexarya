@@ -81,15 +81,15 @@ export default function EngineeringTerminal() {
   }, [activeTabId]);
 
   return (
-    <div className="w-full bg-[#070D12] border border-white/10 select-none overflow-hidden shadow-2xl">
+    <div className="w-full bg-[#08101B] border border-[#243247] select-none overflow-hidden shadow-2xl">
       {/* Terminal Title Bar & Tab Navigation */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 bg-[#03070B] px-4 py-2.5 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#243247] bg-[#0F1725] px-4 py-2.5 gap-3">
         {/* Left Telemetry indicator dots */}
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D4A72C]/80"></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-[#C59A3D]/80"></span>
           <span className="w-2.5 h-2.5 rounded-full bg-white/20"></span>
-          <span className="font-tech text-[10px] text-[#6F7475] tracking-widest uppercase ml-2 hidden md:inline-block">
+          <span className="font-tech text-[10px] text-[#68717B] tracking-widest uppercase ml-2 hidden md:inline-block">
             RUNTIME INSTRUMENTATION // LOGIC FLOW
           </span>
         </div>
@@ -105,8 +105,8 @@ export default function EngineeringTerminal() {
               }}
               className={`px-3 py-1 font-tech text-[10px] uppercase tracking-wider transition-colors cursor-pointer whitespace-nowrap ${
                 activeTabId === tab.id
-                  ? "bg-[#D4A72C] text-[#03070B] font-bold"
-                  : "bg-white/[0.03] text-[#A7A9A8] hover:text-[#F2EFE7] hover:bg-white/[0.06] border border-white/5"
+                  ? "bg-[#C59A3D] text-[#08101B] font-bold"
+                  : "bg-white/[0.03] text-[#89929B] hover:text-[#F8F5EE] hover:bg-white/[0.06] border border-white/5"
               }`}
             >
               {tab.label}
@@ -116,34 +116,34 @@ export default function EngineeringTerminal() {
       </div>
 
       {/* Terminal Body with horizontal scroll container */}
-      <div className="p-4 sm:p-7 font-mono text-xs sm:text-sm bg-[#04080D] min-h-[260px] flex flex-col justify-between overflow-x-auto relative">
+      <div className="p-4 sm:p-7 font-mono text-xs sm:text-sm bg-[#08101B] min-h-[260px] flex flex-col justify-between overflow-x-auto relative">
         {/* Subtle scanline effect */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.015] to-transparent pointer-events-none animate-scanline" />
 
         <div className="space-y-2 min-w-[340px] relative z-10">
           {activeTab.lines.map((line, idx) => {
             const isActive = idx === activeLineIdx;
-            let textColor = "text-[#A7A9A8]";
-            if (line.highlight === "gold") textColor = "text-[#F0C75E] font-medium";
+            let textColor = "text-[#89929B]";
+            if (line.highlight === "gold") textColor = "text-[#E0BD68] font-medium";
             if (line.highlight === "green") textColor = "text-emerald-400";
             if (line.highlight === "cyan") textColor = "text-sky-300";
-            if (line.highlight === "muted") textColor = "text-[#6F7475]";
+            if (line.highlight === "muted") textColor = "text-[#68717B]";
 
             return (
               <div
                 key={line.num}
                 className={`flex items-start gap-3 sm:gap-4 leading-relaxed font-tech px-2 py-0.5 rounded-xs transition-colors duration-300 ${
-                  isActive ? "bg-white/[0.04] border-l-2 border-[#D4A72C]" : "border-l-2 border-transparent"
+                  isActive ? "bg-white/[0.04] border-l-2 border-[#C59A3D]" : "border-l-2 border-transparent"
                 }`}
               >
-                <span className="text-[#6F7475] select-none text-[11px] w-6 shrink-0 text-right font-light">
+                <span className="text-[#68717B] select-none text-[11px] w-6 shrink-0 text-right font-light">
                   {line.num}
                 </span>
                 <span className={`${textColor} text-[11px] sm:text-xs whitespace-nowrap sm:whitespace-normal`}>
                   {line.text}
                 </span>
                 {isActive && (
-                  <span className="ml-auto font-tech text-[9px] text-[#D4A72C] uppercase tracking-wider hidden sm:inline-block">
+                  <span className="ml-auto font-tech text-[9px] text-[#C59A3D] uppercase tracking-wider hidden sm:inline-block">
                     ● ACTIVE
                   </span>
                 )}
@@ -153,14 +153,14 @@ export default function EngineeringTerminal() {
         </div>
 
         {/* Status Telemetry Footer */}
-        <div className="pt-4 mt-6 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-tech text-[10px] text-[#6F7475] relative z-10">
+        <div className="pt-4 mt-6 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-tech text-[10px] text-[#68717B] relative z-10">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="text-[#F2EFE7] font-semibold">{activeTab.status}</span>
+            <span className="text-[#F8F5EE] font-semibold">{activeTab.status}</span>
             <span>•</span>
             <span>DATABASE: SQLITE/WAL</span>
           </div>
-          <div className="text-[#D4A72C]">
+          <div className="text-[#C59A3D]">
             {activeTab.metadata}
           </div>
         </div>

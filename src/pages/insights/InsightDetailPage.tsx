@@ -19,17 +19,17 @@ export default function InsightDetailPage() {
           setArticle(data.article);
         }
       })
-      .catch((err) => {
-        console.error("Failed to load article detail:", err);
+      .catch(() => {
+        // API offline or static operation — smoothly preserve bundled static article
       });
   }, [slug]);
 
   if (!article) {
     return (
-      <div className="min-h-screen pt-36 pb-20 bg-[#F4EFE6] flex flex-col items-center justify-center text-center px-6">
-        <h1 className="font-editorial text-4xl text-[#0E1720] mb-4">Article Not Found</h1>
-        <p className="font-sans text-[#5C6975] mb-8">The requested technical publication could not be located.</p>
-        <Link to="/insights" className="font-tech text-xs text-[#0E1720] tracking-[0.14em] uppercase font-bold underline">
+      <div className="min-h-screen pt-36 pb-20 bg-[#F8F5EE] flex flex-col items-center justify-center text-center px-6">
+        <h1 className="font-editorial text-4xl text-[#17202B] mb-4">Article Not Found</h1>
+        <p className="font-sans text-[#394352] mb-8">The requested technical publication could not be located.</p>
+        <Link to="/insights" className="font-mono text-xs text-[#17202B] tracking-[0.14em] uppercase font-bold underline">
           ← Back to Insights
         </Link>
       </div>
@@ -37,7 +37,7 @@ export default function InsightDetailPage() {
   }
 
   return (
-    <div className="pt-28 sm:pt-36 pb-24 bg-[#F4EFE6] min-h-screen select-none">
+    <div className="pt-28 sm:pt-36 pb-24 bg-[#F8F5EE] min-h-screen select-none">
       <SEOHead
         title={article.seo_title || `${article.title} | NEXARYA Insights`}
         description={article.seo_description || article.excerpt}
@@ -48,7 +48,7 @@ export default function InsightDetailPage() {
         <div className="mb-8">
           <Link
             to="/insights"
-            className="inline-flex items-center gap-2 font-tech text-xs tracking-[0.16em] uppercase text-[#5C6975] hover:text-[#0E1720] transition-colors duration-200"
+            className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.16em] uppercase text-[#394352] hover:text-[#17202B] transition-colors duration-200"
           >
             <ArrowLeft size={14} />
             <span>All Insights</span>
@@ -56,35 +56,35 @@ export default function InsightDetailPage() {
         </div>
 
         {/* Header */}
-        <div className="mb-12 bg-[#FFFFFF] border border-[#DCD6CA] p-8 sm:p-12 shadow-[0_12px_40px_rgba(14,23,32,0.06)]">
-          <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#EAE5DB]">
-            <span className="font-tech text-[10px] tracking-[0.16em] text-[#0E1720] uppercase px-2.5 py-0.5 border border-[#DCD6CA] bg-[#FAF8F5] font-semibold">
+        <div className="mb-12 bg-[#FFFFFF] border border-[#DED7C9] p-8 sm:p-12 shadow-[0_12px_40px_rgba(14,23,32,0.06)]">
+          <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#DED7C9]">
+            <span className="font-mono text-[10px] tracking-[0.16em] text-[#17202B] uppercase px-2.5 py-0.5 border border-[#DED7C9] bg-[#F1EDE3] font-semibold">
               {article.category}
             </span>
-            <span className="font-tech text-xs text-[#8E9CA8]">
+            <span className="font-mono text-xs text-[#68717B]">
               {article.author} • {new Date(article.published_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
             </span>
           </div>
 
-          <h1 className="font-editorial text-3xl sm:text-5xl lg:text-6xl text-[#0E1720] leading-[1.08] mb-6">
+          <h1 className="font-editorial text-3xl sm:text-5xl lg:text-6xl text-[#17202B] leading-[1.08] mb-6">
             {article.title}
           </h1>
 
-          <p className="font-sans text-base sm:text-lg text-[#5C6975] font-light leading-relaxed">
+          <p className="font-sans text-base sm:text-lg text-[#394352] font-light leading-relaxed">
             {article.excerpt}
           </p>
         </div>
 
         {/* Content Body */}
-        <div className="p-8 sm:p-12 bg-[#FFFFFF] border border-[#DCD6CA] shadow-[0_12px_40px_rgba(14,23,32,0.06)] font-sans text-sm sm:text-base text-[#0E1720] font-light leading-relaxed space-y-6 mb-12 whitespace-pre-line">
+        <div className="p-8 sm:p-12 bg-[#FFFFFF] border border-[#DED7C9] shadow-[0_12px_40px_rgba(14,23,32,0.06)] font-sans text-sm sm:text-base text-[#17202B] font-light leading-relaxed space-y-6 mb-12 whitespace-pre-line">
           {article.content}
         </div>
 
         {/* Tags & Share */}
-        <div className="p-6 bg-[#FAF8F5] border border-[#DCD6CA] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-6 bg-[#F1EDE3] border border-[#DED7C9] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex flex-wrap gap-2">
             {article.tags?.map((tag: string) => (
-              <span key={tag} className="font-tech text-[10px] text-[#5C6975] px-2.5 py-1 bg-[#FFFFFF] border border-[#DCD6CA]">
+              <span key={tag} className="font-mono text-[10px] text-[#394352] px-2.5 py-1 bg-[#FFFFFF] border border-[#DED7C9]">
                 #{tag}
               </span>
             ))}
@@ -92,7 +92,7 @@ export default function InsightDetailPage() {
 
           <Link
             to="/insights"
-            className="font-tech text-xs text-[#0E1720] hover:text-[#B58B1E] tracking-[0.14em] uppercase font-semibold underline underline-offset-4"
+            className="font-mono text-xs text-[#17202B] hover:text-[#C59A3D] tracking-[0.14em] uppercase font-semibold underline underline-offset-4"
           >
             Explore More Publications →
           </Link>

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "@/components/ui/Icons";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 
 interface StageNode {
@@ -152,132 +154,213 @@ export default function EngineeringSection() {
     <section
       id="engineering"
       aria-labelledby="engineering-heading"
-      className="py-18 sm:py-22 lg:py-26 bg-[#F4EFE6] border-b border-[#DCD6CA] select-none"
+      className="py-18 sm:py-22 lg:py-26 bg-[#E8E3D8] border-b border-[#DED7C9] select-none"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <RevealOnScroll>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-9 sm:pb-11 border-b border-[#DCD6CA] mb-11 sm:mb-14">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-9 sm:pb-11 border-b border-[#DED7C9] mb-11 sm:mb-14">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
-                <span className="font-mono text-xs tracking-[0.2em] text-[#8C6D1F] uppercase font-semibold">
-                  ENGINEERING METHODOLOGY
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+                <span className="font-mono text-xs tracking-[0.2em] text-[#C59A3D] uppercase font-semibold">
+                  03 // ENGINEERING METHODOLOGY
                 </span>
               </div>
               <h2
                 id="engineering-heading"
-                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[3.8rem] text-[#0E1720] leading-[1.05] tracking-[-0.03em] font-normal"
+                className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[3.8rem] text-[#17202B] leading-[1.05] tracking-[-0.03em] font-normal"
               >
                 From business complexity to{" "}
                 <span className="italic font-normal">working software.</span>
               </h2>
             </div>
-            <p className="font-sans text-base sm:text-lg text-[#3A4753] max-w-md font-light leading-relaxed">
+            <p className="font-sans text-base sm:text-lg text-[#394352] max-w-md font-light leading-relaxed">
               We start with the way the work actually happens, then shape the structure, architecture and software around it.
             </p>
           </div>
         </RevealOnScroll>
 
-        {/* Primary Visual: 4-Stage Progressive Disclosure Workbench */}
-        <div>
-          
-          {/* Layer 1: 4 Stage Selector Tabs */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-5">
-            {STAGES.map((st, idx) => {
-              const isActive = activeStage === idx;
-              return (
-                <button
-                  key={st.num}
-                  type="button"
-                  onClick={() => setActiveStage(idx)}
-                  className={`p-4 sm:p-5 text-left transition-all duration-200 border cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0E1720] ${
-                    isActive
-                      ? "bg-[#FFFFFF] border-[#8C6D1F] shadow-sm ring-1 ring-[#8C6D1F]/40"
-                      : "bg-[#FAF8F5] border-[#DCD6CA] hover:border-[#8C6D1F]/50 hover:bg-[#FFFFFF]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="font-mono text-xs font-bold text-[#8C6D1F]">
-                      {st.num}
-                    </span>
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-[#8E9CA8]">
-                      STAGE
-                    </span>
-                  </div>
-                  <div className="font-mono text-xs sm:text-sm font-bold text-[#0E1720] tracking-wider uppercase mb-0.5">
-                    {st.name}
-                  </div>
-                  <div className="font-sans text-xs text-[#5C6975] font-light truncate">
-                    {st.subtitle}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+        {/* ========================================================================= */}
+        {/* MOBILE VIEW: Visual-Led Single Concept Layout (lg:hidden)                 */}
+        {/* ========================================================================= */}
+        <div className="lg:hidden space-y-5">
+          {/* Large Engineering/Workstation Visual */}
+          <div className="bg-[#F8F5EE] border border-[#DED7C9] shadow-[0_6px_24px_rgba(15,23,37,0.03)] overflow-hidden">
+            <div className="relative bg-[#08101B] overflow-hidden aspect-[16/10]">
+              <picture>
+                <source srcSet="/engineering/engineering-studio-workstation.webp" type="image/webp" />
+                <img
+                  src="/engineering/engineering-studio-workstation.jpg"
+                  alt="Engineering workstation environment showing dual monitors with code architecture and open technical notebooks"
+                  loading="lazy"
+                  decoding="async"
+                  width="1024"
+                  height="576"
+                  className="w-full h-full object-cover object-center"
+                />
+              </picture>
+            </div>
 
-          {/* Layer 2: Deeper Technical Model Card */}
-          <div className="border border-[#DCD6CA] bg-[#FFFFFF] shadow-[0_6px_24px_rgba(14,23,32,0.03)] overflow-hidden transition-all duration-300">
-            {/* Top Bar */}
-            <div className="px-6 py-3.5 bg-[#FAF8F5] border-b border-[#DCD6CA] flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
-              <div className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D1F]" />
-                <span className="font-semibold uppercase tracking-wider text-[#0E1720]">
-                  STAGE {current.num}: {current.name}
-                </span>
-                <span className="text-[#8E9CA8]">//</span>
-                <span className="text-[#5C6975] uppercase tracking-wider hidden sm:inline">
-                  {current.subtitle}
+            <div className="px-4 py-2.5 bg-[#E8E3D8]/70 border-t border-[#DED7C9] flex items-center justify-between text-xs font-mono text-[#394352]">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+                <span className="text-[#17202B] font-semibold text-[11px] uppercase tracking-wider">
+                  STUDIO WORKBENCH
                 </span>
               </div>
+              <span className="text-[#68717B] text-[10px] uppercase tracking-wider">
+                ACTIVE ENVIRONMENT
+              </span>
+            </div>
+          </div>
 
+          {/* Compact Process Line & Scoping CTA */}
+          <div className="p-4 bg-[#F8F5EE] border border-[#DED7C9] space-y-4">
+            <div className="flex items-center justify-between gap-2 pb-3 border-b border-[#DED7C9] font-mono text-xs text-[#17202B]">
+              <span className="text-[10px] uppercase tracking-widest text-[#C59A3D] font-semibold">
+                METHODOLOGY
+              </span>
+              <span className="text-[11px] font-semibold tracking-wider text-[#17202B]">
+                WORKFLOW &rarr; SYSTEM &rarr; SOFTWARE
+              </span>
+            </div>
+
+            <Link
+              to="/process"
+              className="flex items-center justify-between w-full px-5 py-3 bg-[#0F1725] hover:bg-[#141F30] text-[#F7F5EF] font-mono text-xs uppercase tracking-wider font-semibold transition-colors min-h-[44px]"
+            >
+              <span>EXPLORE HOW WE BUILD</span>
+              <ArrowRight size={12} className="text-[#C59A3D]" />
+            </Link>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* DESKTOP VIEW: Side-by-Side Workbench & Interactive Layout (hidden lg:grid) */}
+        {/* ========================================================================= */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+          
+          {/* Left Column: Dominant Engineering Studio Workbench Photo (7 cols) */}
+          <div className="lg:col-span-7 bg-[#F8F5EE] border border-[#DED7C9] shadow-[0_6px_24px_rgba(15,23,37,0.03)] overflow-hidden flex flex-col justify-between">
+            {/* Editorial Image Frame */}
+            <div className="relative bg-[#08101B] overflow-hidden flex-1 min-h-[320px] sm:min-h-[420px]">
+              <picture>
+                <source srcSet="/engineering/engineering-studio-workstation.webp" type="image/webp" />
+                <img
+                  src="/engineering/engineering-studio-workstation.jpg"
+                  alt="Engineering workstation environment showing dual monitors with code architecture and open technical notebooks with workflow sketches"
+                  loading="eager"
+                  decoding="async"
+                  width="1024"
+                  height="576"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
+                />
+              </picture>
+            </div>
+
+            {/* Restrained Caption Strip */}
+            <div className="px-5 py-3 bg-[#E8E3D8]/70 border-t border-[#DED7C9] flex items-center justify-between text-xs font-mono text-[#394352]">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-[#8C6D1F] font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+                <span className="text-[#17202B] font-semibold text-[11px] uppercase tracking-wider">
+                  STUDIO WORKBENCH
+                </span>
+              </div>
+              <span className="text-[#68717B] text-[10px] uppercase tracking-wider">
+                ACTIVE ENVIRONMENT
+              </span>
+            </div>
+          </div>
+
+          {/* Right Column: 4-Stage Progressive Disclosure Workbench (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between gap-4">
+            
+            {/* Layer 1: 4 Stage Selector Tabs */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2">
+              {STAGES.map((st, idx) => {
+                const isActive = activeStage === idx;
+                return (
+                  <button
+                    key={st.num}
+                    type="button"
+                    onClick={() => setActiveStage(idx)}
+                    className={`p-3 text-left transition-all duration-150 border cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#17202B] ${
+                      isActive
+                        ? "bg-[#0F1725] text-[#F7F5EF] border-[#0F1725] shadow-sm"
+                        : "bg-[#FFFFFF] text-[#17202B] border-[#DED7C9] hover:border-[#C59A3D]/50 hover:bg-[#F8F5EE]"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-0.5">
+                      <span className={`font-mono text-xs font-bold ${isActive ? "text-[#C59A3D]" : "text-[#C59A3D]"}`}>
+                        {st.num}
+                      </span>
+                      <span className={`font-mono text-[9px] uppercase tracking-wider ${isActive ? "text-[#B9C0C9]" : "text-[#68717B]"}`}>
+                        STAGE
+                      </span>
+                    </div>
+                    <div className="font-mono text-xs font-bold tracking-wider uppercase mb-0.5">
+                      {st.name}
+                    </div>
+                    <div className={`font-sans text-[11px] font-light truncate ${isActive ? "text-[#B9C0C9]" : "text-[#394352]"}`}>
+                      {st.subtitle}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Layer 2: Progressive Disclosure Engineering Panel */}
+            <div className="border border-[#DED7C9] bg-[#F8F5EE] shadow-[0_6px_24px_rgba(15,23,37,0.03)] overflow-hidden flex-1 flex flex-col justify-between">
+              
+              {/* Top Bar */}
+              <div className="px-5 py-3 bg-[#E8E3D8]/70 border-b border-[#DED7C9] flex items-center justify-between gap-2 font-mono text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C59A3D]" />
+                  <span className="font-semibold uppercase tracking-wider text-[#17202B] text-[11px]">
+                    STAGE {current.num}: {current.name}
+                  </span>
+                </div>
+
+                <span className="font-mono text-[10px] text-[#C59A3D] font-semibold tracking-wider">
                   {current.flow}
                 </span>
               </div>
-            </div>
 
-            {/* Stage Body */}
-            <div className="p-6 sm:p-8 lg:p-9">
-              
-              {/* Context Header */}
-              <div className="max-w-3xl mb-7">
-                <h3 className="font-editorial text-2xl sm:text-3xl text-[#0E1720] font-normal leading-tight mb-2">
-                  {current.headline}
-                </h3>
-                <p className="font-sans text-base text-[#3A4753] font-light leading-relaxed">
-                  {current.description}
-                </p>
-              </div>
+              {/* Stage Body */}
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                
+                {/* Headline & Context */}
+                <div className="mb-4">
+                  <h3 className="font-editorial text-2xl sm:text-[1.65rem] text-[#17202B] font-normal leading-tight mb-2">
+                    {current.headline}
+                  </h3>
+                  <p className="font-sans text-xs sm:text-sm text-[#394352] font-light leading-relaxed">
+                    {current.description}
+                  </p>
+                </div>
 
-              {/* 4 Node Progression Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-px bg-[#DCD6CA] border border-[#DCD6CA]">
-                {current.nodes.map((node) => (
-                  <div
-                    key={node.name}
-                    className="p-5 bg-[#FAF8F5] hover:bg-[#FFFFFF] transition-colors duration-150 flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-[#EAE5DB]">
-                        <span className="font-editorial text-xl text-[#0E1720]">
-                          {node.num}
-                        </span>
-                        <span className="font-mono text-[10px] text-[#8C6D1F] font-semibold uppercase">
-                          {node.name}
-                        </span>
-                      </div>
-
-                      <p className="font-sans text-xs text-[#5C6975] font-light leading-relaxed">
+                {/* 4 Node Sequential Steps */}
+                <div className="space-y-2 pt-3 border-t border-[#DED7C9]">
+                  {current.nodes.map((node) => (
+                    <div
+                      key={node.name}
+                      className="p-2.5 bg-[#FFFFFF] border border-[#DED7C9] flex items-start gap-2.5 text-xs"
+                    >
+                      <span className="font-mono text-[10px] text-[#C59A3D] font-semibold uppercase shrink-0 mt-0.5">
+                        {node.num} // {node.name}:
+                      </span>
+                      <span className="font-sans text-[11px] text-[#394352] font-light leading-relaxed">
                         {node.desc}
-                      </p>
+                      </span>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
 
+              </div>
             </div>
+
           </div>
 
         </div>

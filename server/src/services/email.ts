@@ -43,7 +43,7 @@ export class EmailService {
             <div style="font-size: 18px; color: #D4A72C; font-weight: bold; font-family: monospace; margin-top: 4px;">${referenceId}</div>
           </div>
           <p style="color: #A7A9A8; font-size: 14px; line-height: 1.6;">
-            A lead systems engineer from our team will review your scope and follow up within 24 business hours.
+            We review the details and respond with the appropriate next step.
           </p>
           <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: #6F7475;">
             Nexarya — High-Performance Software Engineering Studio<br/>

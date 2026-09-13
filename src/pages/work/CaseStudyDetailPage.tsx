@@ -29,23 +29,23 @@ export default function CaseStudyDetailPage() {
   }
 
   return (
-    <div className="min-h-screen pt-40 pb-28 bg-[#F4EFE6] flex flex-col items-center justify-center text-center px-6 select-none">
+    <div className="min-h-screen pt-40 pb-28 bg-[#F8F5EE] flex flex-col items-center justify-center text-center px-6 select-none">
       <SEOHead
         title="Case File Not Found | NEXARYA"
         description="The requested engineering case file is not available."
       />
-      <span className="font-tech text-xs tracking-[0.2em] text-[#5C6975] uppercase font-semibold mb-3">
+      <span className="font-mono text-xs tracking-[0.2em] text-[#68717B] uppercase font-semibold mb-3">
         404 // CASE FILE NOT FOUND
       </span>
-      <h1 className="font-editorial text-4xl sm:text-5xl text-[#0E1720] mb-4">
+      <h1 className="font-editorial text-4xl sm:text-5xl text-[#17202B] mb-4">
         Specification Not Found
       </h1>
-      <p className="font-sans text-[#5C6975] max-w-md mb-8 font-light">
+      <p className="font-sans text-[#394352] max-w-md mb-8 font-light">
         The requested engineering documentation or case file could not be located.
       </p>
       <Link
         to="/work"
-        className="px-6 py-3.5 bg-[#0E1720] text-[#FFFFFF] hover:bg-[#1A2530] font-tech text-xs uppercase tracking-wider font-semibold transition-colors"
+        className="px-6 py-3.5 bg-[#0F1725] text-[#F7F5EF] hover:bg-[#141F30] font-mono text-xs uppercase tracking-wider font-semibold transition-colors"
       >
         ← Back to All Case Files
       </Link>
