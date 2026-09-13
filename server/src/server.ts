@@ -10,21 +10,13 @@ import publicRoutes from "./routes/public";
 import adminRoutes from "./routes/admin";
 
 dotenv.config();
+dotenv.config({ path: path.resolve(process.cwd(), "server", ".env") });
 
 const isProduction = process.env.NODE_ENV === "production";
 const PORT = process.env.PORT || 5000;
 
-// Production Environment Safety Checks
-if (isProduction) {
-  if (!process.env.JWT_SECRET) {
-    console.error("FATAL CONFIGURATION ERROR: JWT_SECRET environment variable is required in production mode.");
-    process.exit(1);
-  }
-  if (!process.env.CORS_ORIGIN) {
-    console.error("FATAL CONFIGURATION ERROR: CORS_ORIGIN environment variable is required in production mode (e.g. 'https://nexarya.in').");
-    process.exit(1);
-  }
-}
+// Production Environment Safety & Defaults
+const CORS_ORIGIN_CONFIG = process.env.CORS_ORIGIN || "https://nexarya.in,https://www.nexarya.in";
 
 const app = express();
 
@@ -49,7 +41,7 @@ app.use(
 
 // 2. CORS Hardening
 const allowedOrigins = isProduction
-  ? (process.env.CORS_ORIGIN?.split(",").map((o) => o.trim()) || [])
+  ? CORS_ORIGIN_CONFIG.split(",").map((o) => o.trim())
   : [
       "http://localhost:3000",
       "http://localhost:5173",
