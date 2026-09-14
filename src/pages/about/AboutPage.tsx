@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
 import Button from "@/components/ui/Button";
@@ -6,6 +6,7 @@ import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import BrandLogo from "@/components/navigation/BrandLogo";
 import LeadershipTeam from "@/components/team/LeadershipTeam";
 import { ArrowRight, StarIcon } from "@/components/ui/Icons";
+import { api, type Testimonial } from "@/lib/api";
 
 const PRINCIPLES = [
   {
@@ -30,7 +31,7 @@ const PRINCIPLES = [
   },
 ];
 
-const VERIFIED_FEEDBACK = [
+const DEFAULT_VERIFIED_FEEDBACK = [
   {
     quote: "Nexarya took our fragmented, manual concession approval processes and engineered a reliable, role-governed platform. Their architectural discipline and milestone delivery made a complex institutional rollout predictable and verifiable.",
     author: "Rajesh Sharma",
@@ -42,6 +43,33 @@ const VERIFIED_FEEDBACK = [
 
 export default function AboutPage() {
   const location = useLocation();
+  const [feedbackList, setFeedbackList] = useState(DEFAULT_VERIFIED_FEEDBACK);
+
+  useEffect(() => {
+    let isMounted = true;
+    api.getTestimonials()
+      .then((res) => {
+        if (!isMounted || !res.testimonials || res.testimonials.length === 0) return;
+        const mapped = res.testimonials.map((t: Testimonial) => {
+          const roleParts = [t.designation, t.company].filter(Boolean);
+          return {
+            quote: t.quote,
+            author: t.client_name,
+            role: roleParts.length > 0 ? roleParts.join(", ") : "Verified Partner",
+            project: t.project || "Custom Software Engineering",
+            rating: typeof t.rating === "number" && t.rating > 0 ? t.rating : 5,
+          };
+        });
+        setFeedbackList(mapped);
+      })
+      .catch(() => {
+        // Retain fallback defaults
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (location.hash) {
@@ -168,8 +196,8 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="max-w-3xl mb-10">
-              {VERIFIED_FEEDBACK.map((fb, idx) => (
+            <div className="max-w-3xl mb-10 space-y-6">
+              {feedbackList.map((fb, idx) => (
                 <div
                   key={idx}
                   className="p-8 sm:p-12 bg-[#FFFFFF] border border-[#DED7C9] shadow-[0_6px_24px_rgba(14,23,32,0.03)] flex flex-col justify-between space-y-6"
@@ -180,7 +208,7 @@ export default function AboutPage() {
                         <StarIcon key={i} size={14} fill="#C59A3D" />
                       ))}
                     </div>
-                    <p className="font-editorial text-xl sm:text-2xl text-[#17202B] leading-relaxed italic">
+                    <p className="font-editorial text-xl sm:text-2xl text-[#17202B] leading-relaxed italic whitespace-pre-line">
                       &ldquo;{fb.quote}&rdquo;
                     </p>
                   </div>

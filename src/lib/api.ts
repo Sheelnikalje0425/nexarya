@@ -33,6 +33,25 @@ export async function fetchApi<T>(endpoint: string, options?: RequestInit): Prom
   return data;
 }
 
+export interface Testimonial {
+  id: string;
+  reference_id?: string;
+  client_name: string;
+  designation?: string;
+  company: string;
+  project?: string;
+  rating?: number;
+  quote: string;
+  recommendation?: string | null;
+  photo?: string | null;
+  company_logo?: string | null;
+  consent_website?: number | boolean;
+  consent_social?: number | boolean;
+  featured?: number | boolean;
+  sort_order?: number;
+  published_at?: string | null;
+}
+
 // Public API methods
 export const api = {
   getServices: () => fetchApi<{ services: any[] }>("/services"),
@@ -43,7 +62,7 @@ export const api = {
   getPricing: () => fetchApi<{ plans: any[] }>("/pricing"),
   getArticles: () => fetchApi<{ articles: any[] }>("/articles"),
   getArticleBySlug: (slug: string) => fetchApi<{ article: any }>(`/articles/${slug}`),
-  getTestimonials: () => fetchApi<{ testimonials: any[] }>("/testimonials"),
+  getTestimonials: () => fetchApi<{ testimonials: Testimonial[] }>("/testimonials"),
   submitInquiry: (payload: {
     name: string;
     company: string;
