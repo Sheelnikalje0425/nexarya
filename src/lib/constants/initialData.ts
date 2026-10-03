@@ -373,4 +373,30 @@ If an automated workflow doesn't demonstrably reduce cycle time or error rates, 
     seo_title: "Pragmatic AI in Enterprise Systems | Nexarya Insights",
     seo_description: "How to engineer reliable, deterministic AI workflows for business platforms.",
   },
+  {
+    id: "art_03",
+    slug: "database-performance-relational-backends",
+    title: "Relational Foundations: Performance and Indexing in Production Systems",
+    excerpt: "Practical indexing strategies, query plan analysis, and schema partitioning techniques for high-throughput transactional backends.",
+    content: `## The Core of Application Performance
+
+In high-concurrency systems, the database is almost always the true bottleneck. Designing resilient schemas requires understanding index selection, query execution paths, and locking contention.
+
+### 1. Covering Indexes & SARGability
+Ensure high-frequency query filters utilize composite indexes effectively and avoid function wrappers on indexed columns in predicate clauses.
+
+### 2. Connection Pooling & Transaction Scope
+Keep transaction lifetimes minimal. Avoid embedding slow network calls or external API dispatches inside transactional database locks.
+
+### 3. Observable Query Telemetry
+Track slow query logs and p99 latency metrics continuously to identify missing indexes before they degrade production throughput.`,
+    cover_image: "/hero/hero-orbital-clean.png",
+    author: "Nexarya Engineering Team",
+    category: "Engineering",
+    tags: ["Engineering", "Database", "Backend", "Performance"],
+    status: "PUBLISHED",
+    published_at: "2026-09-15T00:00:00.000Z",
+    seo_title: "Relational Performance & Indexing | Nexarya Insights",
+    seo_description: "Techniques for optimizing relational database schemas and query execution in production platforms.",
+  },
 ];

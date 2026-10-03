@@ -20,27 +20,27 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "group inline-flex items-center justify-center font-mono transition-all duration-200 select-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#C59A3D]/40";
+    "group inline-flex items-center justify-center font-sans font-semibold transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A72C] focus-visible:ring-offset-2";
 
   const sizeStyles = {
-    sm: "text-[11px] px-3.5 py-1.5 gap-2 tracking-[0.08em]",
-    md: "text-xs px-5 py-2.5 gap-2.5 tracking-[0.09em]",
-    lg: "text-xs sm:text-sm px-6 py-3.5 gap-3 tracking-[0.1em]",
+    sm: "text-[13px] min-h-[38px] px-3.5 py-1.5 gap-2 tracking-normal",
+    md: "text-[15px] min-h-[44px] px-5 py-2.5 gap-2.5 tracking-normal",
+    lg: "text-base min-h-[48px] px-6 py-3 gap-3 tracking-normal",
   };
 
   const variantStyles = {
     primary:
-      "bg-[#C59A3D] hover:bg-[#E0BD68] text-[#08101B] font-semibold border border-[#C59A3D] shadow-sm",
+      "bg-[#D4A72C] hover:bg-[#E0BD68] text-[#141B26] font-semibold border border-[#D4A72C] shadow-xs",
     secondary:
-      "bg-transparent hover:bg-[#0F1725] text-[#F7F5EF] border border-[#243247] hover:border-[#34445B] shadow-2xs",
+      "bg-[#0A1117] hover:bg-[#141F30] text-[#F8F5EE] border border-[#0A1117] shadow-xs",
     gold:
-      "bg-[#C59A3D] hover:bg-[#E0BD68] text-[#08101B] font-semibold border border-[#C59A3D] shadow-sm",
+      "bg-[#D4A72C] hover:bg-[#E0BD68] text-[#141B26] font-semibold border border-[#D4A72C] shadow-xs",
     outline:
-      "bg-[#FFFFFF] hover:bg-[#F1EDE3] text-[#17202B] border border-[#DED7C9] hover:border-[#17202B] shadow-xs",
+      "bg-transparent hover:bg-[#141B26]/5 text-[#141B26] border border-[#141B26] shadow-xs",
     ghost:
-      "bg-transparent hover:bg-black/5 text-[#68717B] hover:text-[#17202B] border border-transparent",
+      "bg-transparent hover:bg-black/5 text-[#4A5363] hover:text-[#141B26] border border-transparent",
     dark:
-      "bg-[#0F1725] hover:bg-[#141F30] text-[#F7F5EF] border border-[#243247] hover:border-[#C59A3D]/50",
+      "bg-[#0A1117] hover:bg-[#141F30] text-[#F8F5EE] border border-[#243247] hover:border-[#D4A72C]/50 shadow-xs",
   };
 
   const combinedStyles = cn(
@@ -55,10 +55,10 @@ export default function Button({
       <span>{children}</span>
       {showArrow && (
         <ArrowRight
-          size={13}
+          size={14}
           className={cn(
             "transition-transform duration-200 group-hover:translate-x-1 shrink-0",
-            variant === "primary" || variant === "gold" ? "text-[#08101B]" : "text-[#C59A3D]"
+            variant === "primary" || variant === "gold" ? "text-[#141B26]" : ""
           )}
         />
       )}

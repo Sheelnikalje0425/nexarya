@@ -40,7 +40,7 @@ export default function BrandLogo({ size = "md", showTagline = true, theme = "da
         </div>
         {showTagline && (
           <span
-            className={`font-mono text-[8.5px] tracking-[0.24em] -mt-0.5 uppercase ${
+            className={`font-mono text-[13px] tracking-[0.16em] leading-tight uppercase font-medium ${
               isLight ? "text-[#68717B]" : "text-[#B9C0C9]"
             }`}
           >

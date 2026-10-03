@@ -71,11 +71,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col justify-between">
         <div className="space-y-6">
           <div className="flex items-center justify-between pb-2 border-b border-[#243247]">
-            <span className="font-mono text-[10px] tracking-[0.2em] text-[#C59A3D] uppercase font-semibold">
-              STUDIO NAVIGATION
-            </span>
-            <span className="font-mono text-[10px] text-[#7F8A99] uppercase">
-              SELECT TO EXPAND
+            <span className="font-sans text-[12px] tracking-wider text-[#D4A72C] uppercase font-semibold">
+              Menu
             </span>
           </div>
 
@@ -98,14 +95,14 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     aria-expanded={isExpanded}
                   >
                     <div className="flex items-baseline gap-3">
-                      <span className="font-mono text-[11px] text-[#C59A3D] font-semibold">
+                      <span className="font-sans text-[13px] text-[#D4A72C] font-semibold">
                         {item.number}
                       </span>
                       <span
-                        className={`text-2xl font-editorial transition-colors ${
+                        className={`text-xl font-editorial transition-colors ${
                           isActive
                             ? "text-[#E0BD68] font-semibold"
-                            : "text-[#F7F5EF] group-hover:text-[#FFFFFF]"
+                            : "text-[#F8F5EE] group-hover:text-[#FFFFFF]"
                         }`}
                       >
                         {item.label}
@@ -114,39 +111,39 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     <ChevronDown
                       size={18}
                       className={`text-[#7F8A99] transition-transform duration-200 ${
-                        isExpanded ? "rotate-180 text-[#C59A3D]" : "group-hover:text-[#F7F5EF]"
+                        isExpanded ? "rotate-180 text-[#D4A72C]" : "group-hover:text-[#F8F5EE]"
                       }`}
                     />
                   </button>
 
                   {/* Accordion Content */}
                   {isExpanded && (
-                    <div className="pt-2 pb-4 pl-6 space-y-2 animate-in fade-in-50 duration-150">
+                    <div className="pt-2 pb-4 pl-4 space-y-2 animate-in fade-in-50 duration-150">
                       {item.dropdown.primaryItems.map((sub) => (
                         <Link
                           key={sub.label}
                           to={sub.href}
                           onClick={onClose}
-                          className="min-h-[44px] flex items-center justify-between py-2 px-2 -mx-2 hover:bg-[#0F1725] transition-colors border-l-2 border-transparent hover:border-[#C59A3D]"
+                          className="min-h-[44px] flex items-center justify-between py-2 px-2 -mx-2 hover:bg-[#0F1725] transition-colors border-l-2 border-transparent hover:border-[#D4A72C]"
                         >
                           <div>
                             <div className="flex items-baseline gap-2">
                               {sub.number && (
-                                <span className="font-mono text-[10px] text-[#C59A3D] font-semibold">
+                                <span className="font-sans text-[12px] text-[#D4A72C] font-semibold">
                                   {sub.number}
                                 </span>
                               )}
-                              <span className="font-editorial text-base text-[#F7F5EF]">
+                              <span className="font-sans text-[15px] font-medium text-[#F8F5EE]">
                                 {sub.label}
                               </span>
                             </div>
                             {sub.description && (
-                              <p className="font-sans text-[11px] text-[#B9C0C9] line-clamp-1 pl-4">
+                              <p className="font-sans text-[12px] text-[#B9C0C9] line-clamp-1 pl-0">
                                 {sub.description}
                               </p>
                             )}
                           </div>
-                          <ArrowRight size={13} className="text-[#7F8A99] shrink-0" />
+                          <ArrowRight size={14} className="text-[#7F8A99] shrink-0" />
                         </Link>
                       ))}
 
@@ -155,10 +152,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                           <Link
                             to={item.dropdown.footerLink.href}
                             onClick={onClose}
-                            className="min-h-[44px] flex items-center justify-between p-2.5 bg-[#0F1725] border border-[#243247] text-xs font-mono text-[#C59A3D] hover:text-[#E0BD68] uppercase tracking-[0.12em] font-semibold"
+                            className="min-h-[44px] flex items-center justify-between p-2.5 bg-[#0F1725] border border-[#243247] text-[13px] font-sans text-[#D4A72C] hover:text-[#E0BD68] font-semibold"
                           >
                             <span>{item.dropdown.footerLink.label}</span>
-                            <ArrowRight size={13} />
+                            <ArrowRight size={14} />
                           </Link>
                         </div>
                       )}
@@ -175,14 +172,14 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <Link
             to="/contact"
             onClick={onClose}
-            className="w-full min-h-[48px] flex items-center justify-center gap-2 py-3 px-4 bg-[#C59A3D] text-[#08101B] font-mono text-xs font-bold tracking-[0.12em] uppercase transition-colors hover:bg-[#E0BD68]"
+            className="w-full min-h-[48px] flex items-center justify-center gap-2 py-3 px-4 bg-[#D4A72C] text-[#141B26] font-sans text-[15px] font-semibold transition-colors hover:bg-[#E0BD68]"
           >
             <span>Start a Project →</span>
           </Link>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between text-[10px] font-mono text-[#B9C0C9] pt-1 gap-1">
-            <span>NEXARYA // SOFTWARE ENGINEERING STUDIO</span>
-            <span>MUMBAI, INDIA</span>
+          <div className="flex flex-col sm:flex-row items-center justify-between text-[12px] font-sans text-[#B9C0C9] pt-1 gap-1">
+            <span>Nexarya · Software Engineering Studio</span>
+            <span>Mumbai, India</span>
           </div>
         </div>
       </div>

@@ -2,49 +2,40 @@ import React from "react";
 import SEOHead from "@/components/seo/SEOHead";
 import Hero from "@/components/hero/Hero";
 import SelectedWork from "@/components/work/SelectedWork";
-import EngineeringSection from "@/components/engineering/EngineeringSection";
-import InTheWorkMedia from "@/components/media/InTheWorkMedia";
 import Capabilities from "@/components/capabilities/Capabilities";
-import StudioAtmosphere from "@/components/studio/StudioAtmosphere";
-import LeadershipTeam from "@/components/team/LeadershipTeam";
+import EngineeringSection from "@/components/engineering/EngineeringSection";
 import TestimonialSpotlight from "@/components/testimonials/TestimonialSpotlight";
+import HomeInsights from "@/components/insights/HomeInsights";
 import StartSomething from "@/components/cta/StartSomething";
 
 export default function HomePage() {
   return (
     <>
       <SEOHead
-        title="NEXARYA — Software Engineering Studio & Digital Products"
-        description="We design and build web applications, internal systems and digital platforms around the way your business actually operates."
+        title="Nexarya — Software Engineering Studio & Digital Products"
+        description="We design and build custom web applications, internal systems, and digital platforms around the way your business actually operates."
       />
 
-      {/* 01. LOCKED: Hero (Approved Editorial Workbench Layout) */}
+      {/* 01. Hero */}
       <Hero />
 
-      {/* 02. LOCKED: Section 2: Selected Work (Editorial Engineering Case Files) */}
+      {/* 02. Selected Work (Real Work) */}
       <SelectedWork />
 
-      {/* 03. LOCKED: Section 3: Engineering (From business complexity to working software) */}
-      <EngineeringSection />
-
-      {/* Section: In The Work (Documentary Engineering Media) */}
-      <InTheWorkMedia />
-
-      {/* 04. LOCKED: Section 4: Capabilities (Systems designed around the work) */}
+      {/* 03. What We Build (Capabilities) */}
       <Capabilities />
 
-      {/* 05. Studio Atmosphere (Visual pause & engineering environment anchor) */}
-      <StudioAtmosphere />
+      {/* 04. How We Work (Engineering Process) */}
+      <EngineeringSection />
 
-      {/* 06. LOCKED: Section 5: People & Co-Founders (Built by people who understand the work) */}
-      <LeadershipTeam />
-
-      {/* 06. LOCKED: Section 6: Proof & Client Feedback (Built with clients, not just for them) */}
+      {/* 05. Client Proof (Dynamic Testimonial Spotlight) */}
       <TestimonialSpotlight />
 
-      {/* 07. SECTION 7: Start A Project (Let's build the right system for the work) */}
+      {/* 06. Insights Preview */}
+      <HomeInsights />
+
+      {/* 07. Final CTA */}
       <StartSomething />
     </>
   );
 }
-
